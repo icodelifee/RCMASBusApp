@@ -1,4 +1,4 @@
-package com.example.rcmasbusapp
+package com.rajagiribus.app
 
 import io.flutter.embedding.android.FlutterActivity
 
