@@ -32,6 +32,7 @@ dependencies:
   hooks_riverpod: ^0.12.4
   logger: ^0.9.4
   pedantic: ^1.9.2
+  pinput: ^1.0.0
 
 dev_dependencies:
   flutter_test:
