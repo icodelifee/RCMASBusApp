@@ -72,4 +72,7 @@ class AuthDataSourceImpl implements AuthDataSource {
         verificationId: verificationId, smsCode: smsCode);
     await _auth.signInWithCredential(phoneAuthCredential);
   }
+
+  @override
+  Stream<User> get authStateChanges => _auth.authStateChanges();
 }
