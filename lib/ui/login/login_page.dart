@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:logger/logger.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 import 'package:rcmasbusapp/app_theme.dart';
+import 'package:rcmasbusapp/ui/components/snackbar.dart';
 import 'package:rcmasbusapp/ui/login/login_page_viewmodel.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -127,9 +129,15 @@ class LoginPage extends ConsumerWidget {
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
       child: FlatButton(
         onPressed: () async {
-          await context
-              .read(loginViewModelProvider)
-              .signIn(_phone.text, context);
+          Get.focusScope.unfocus();
+          final login = context.read(loginViewModelProvider);
+          final isAdded = await login.checkUserEntry(_phone.text);
+          if (isAdded) {
+            await login.signIn(_phone.text, context);
+          } else {
+            showSnackbar('Your number has not been registered!',
+                'Please contact the administator.');
+          }
         },
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         child: SizedBox(

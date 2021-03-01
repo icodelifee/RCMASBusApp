@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rcmasbusapp/data/provider/auth_repository_provider.dart';
+import 'package:rcmasbusapp/data/provider/firestore_repository_provider.dart';
 import 'package:rcmasbusapp/data/repository/auth_repository.dart';
+import 'package:rcmasbusapp/data/repository/firestore_repository.dart';
 
-final loginViewModelProvider = ChangeNotifierProvider<LoginViewModel>(
-    (ref) => LoginViewModel(repository: ref.read(authRepositoryProvider)));
+final loginViewModelProvider = ChangeNotifierProvider<LoginViewModel>((ref) =>
+    LoginViewModel(
+        repository: ref.read(authRepositoryProvider),
+        fireStoreRepo: ref.read(fireStoreRepositoryProvider)));
 
 class LoginViewModel extends ChangeNotifier {
-  LoginViewModel({@required repository}) : _repository = repository;
+  LoginViewModel({@required repository, @required fireStoreRepo})
+      : _repository = repository,
+        _fireStore = fireStoreRepo;
 
   final AuthRepository _repository;
+  final FireStoreRepository _fireStore;
 
   String verificationId;
   String status;
@@ -32,6 +39,10 @@ class LoginViewModel extends ChangeNotifier {
 
   Future<void> submitOTP(String smsCode) {
     return _repository.submitOTP(smsCode, verificationId);
+  }
+
+  Future<bool> checkUserEntry(String phone) {
+    return _fireStore.checkUserEntry('91' + phone);
   }
 
   Future<void> signOut() {
