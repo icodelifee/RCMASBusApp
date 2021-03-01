@@ -1,4 +1,6 @@
-# rcmasbusapp
+# RCMAS Bus App
+
+### documentation soon!
 
 A new Flutter project.
 
