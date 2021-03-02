@@ -27,7 +27,6 @@ class FireStoreImpl implements FireStore {
             isEqualTo: _auth.currentUser.phoneNumber.replaceAll('+', ''))
         .get();
     final user = LoginUser.fromJson(qs.docs.first.data());
-    _logger.v(user);
-    return LoginUser();
+    return user;
   }
 }

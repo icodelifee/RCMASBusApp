@@ -193,7 +193,7 @@ class LoginPage extends ConsumerWidget {
         controller: _phone,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
-            fillColor: Color(0xFFE7E7E7),
+            fillColor: AppColors.textInputFillColor,
             hintText: 'Enter your phone number',
             hintStyle: TextStyle(fontWeight: FontWeight.w700),
             prefix: Padding(
