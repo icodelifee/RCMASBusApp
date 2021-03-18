@@ -5,13 +5,13 @@ import 'package:rcmasbusapp/app_theme.dart';
 import 'package:rcmasbusapp/data/model/login_user.dart';
 
 class RegistrationPage extends HookWidget {
-  RegistrationPage({@required user}) : _user = user;
-  final LoginUser _user;
+  RegistrationPage({required user}) : _user = user;
+  final LoginUser? _user;
   final List<String> semesters = ['I', 'II', 'III', 'IV', 'V', 'VI'];
   @override
   Widget build(BuildContext context) {
-    final email = useTextEditingController();
-    final course = useTextEditingController();
+    final TextEditingController? email = useTextEditingController();
+    final TextEditingController? course = useTextEditingController();
     return Scaffold(
       appBar: appBar(),
       body: Container(
@@ -21,16 +21,16 @@ class RegistrationPage extends HookWidget {
           children: [
             Gap(10),
             textFieldLabel('First name'),
-            disabledTextField('First name', _user.firstName),
+            disabledTextField('First name', _user!.firstName),
             Gap(15),
             textFieldLabel('Last name'),
-            disabledTextField('Last name', _user.lastName),
+            disabledTextField('Last name', _user!.lastName),
             Gap(15),
             textFieldLabel('Roll number'),
-            disabledTextField('Roll number', _user.rollNumber),
+            disabledTextField('Roll number', _user!.rollNumber),
             Gap(15),
             textFieldLabel('Phone'),
-            disabledTextField('Phone number', _user.phone),
+            disabledTextField('Phone number', _user!.phone),
             Gap(15),
             textFieldLabel('Email *'),
             TextField(
@@ -85,7 +85,7 @@ class RegistrationPage extends HookWidget {
     );
   }
 
-  TextField disabledTextField(String hint, String text) {
+  TextField disabledTextField(String hint, String? text) {
     return TextField(
       controller: TextEditingController(text: text ?? ''),
       decoration: InputDecoration(

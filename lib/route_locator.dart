@@ -16,20 +16,20 @@ class RouteLocator extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final fetchUser = context.read(fireStoreRepositoryProvider).getLoginUser;
-    final connection = useProvider(connectionProvider);
+    final connection = useProvider(connectionProvider!);
     final authChangeProvider = useProvider(authChangesProvider);
     return connection.when(
         data: (ConnectivityResult val) {
           if (val != ConnectivityResult.none) {
-            return authChangeProvider.data.when(
-                data: (User user) {
+            return authChangeProvider.data!.when(
+                data: (User? user) {
                   if (user == null) {
                     return LoginPage();
                   } else {
                     final userFuture = useMemoized(fetchUser);
                     final loginUser = useFuture(userFuture, initialData: null);
                     if (loginUser.hasData) {
-                      if (loginUser.data.regComplete ?? false) {
+                      if (loginUser.data!.regComplete ?? false) {
                         return HomePage();
                       } else {
                         return RegistrationPage(user: loginUser.data);
@@ -46,7 +46,7 @@ class RouteLocator extends HookWidget {
             return InternetErrorPage();
           }
         },
-        error: (Object error, StackTrace stackTrace) {
+        error: (Object error, StackTrace? stackTrace) {
           return InternetErrorPage();
         },
         loading: () => LoadingPage());

@@ -6,11 +6,11 @@ import 'auth_data_source.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class AuthDataSourceImpl implements AuthDataSource {
-  AuthDataSourceImpl({@required FirebaseAuth auth}) : _auth = auth;
+  AuthDataSourceImpl({required FirebaseAuth auth}) : _auth = auth;
 
   static final Logger _logger = Logger();
   final FirebaseAuth _auth;
-  BuildContext ctx;
+  late BuildContext ctx;
 
   final PhoneCodeAutoRetrievalTimeout _codeAutoRetrievalTimeout =
       (String verificationId) {
@@ -20,9 +20,9 @@ class AuthDataSourceImpl implements AuthDataSource {
   void _verificationFailed(FirebaseAuthException authException) {
     var status = authException.message;
     _logger.d(status);
-    if (authException.message.contains('not authorized')) {
+    if (authException.message!.contains('not authorized')) {
       status = 'Something has gone wrong, please try later';
-    } else if (authException.message.contains('Network')) {
+    } else if (authException.message!.contains('Network')) {
       status = 'Please check your internet connection and try again';
     } else {
       status = 'Something has gone wrong, please try later';
@@ -43,7 +43,7 @@ class AuthDataSourceImpl implements AuthDataSource {
         phoneNumber: '+91' + phone,
         verificationCompleted: _verificationComplete,
         verificationFailed: _verificationFailed,
-        codeSent: (String verificationId, [int forceResendingToken]) async {
+        codeSent: (String verificationId, [int? forceResendingToken]) async {
           _logger.d('Code Sent');
           context
               .read(loginViewModelProvider)
@@ -62,17 +62,17 @@ class AuthDataSourceImpl implements AuthDataSource {
   }
 
   @override
-  User getUser() {
+  User? getUser() {
     return _auth.currentUser;
   }
 
   @override
-  Future<void> submitOTP(String smsCode, String verificationId) async {
+  Future<void> submitOTP(String smsCode, String? verificationId) async {
     PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.credential(
-        verificationId: verificationId, smsCode: smsCode);
+        verificationId: verificationId!, smsCode: smsCode) as PhoneAuthCredential;
     await _auth.signInWithCredential(phoneAuthCredential);
   }
 
   @override
-  Stream<User> get authStateChanges => _auth.authStateChanges();
+  Stream<User?> get authStateChanges => _auth.authStateChanges();
 }

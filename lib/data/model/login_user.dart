@@ -1,10 +1,10 @@
 class LoginUser {
-  final String firstName;
-  final String lastName;
-  final String phone;
-  final bool regComplete;
-  final String rollNumber;
-  final String userType;
+  final String? firstName;
+  final String? lastName;
+  final String? phone;
+  final bool? regComplete;
+  final String? rollNumber;
+  final String? userType;
 
   LoginUser(
       {this.firstName,

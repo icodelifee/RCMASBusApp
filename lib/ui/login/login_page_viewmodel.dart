@@ -11,15 +11,15 @@ final loginViewModelProvider = ChangeNotifierProvider<LoginViewModel>((ref) =>
         fireStoreRepo: ref.read(fireStoreRepositoryProvider)));
 
 class LoginViewModel extends ChangeNotifier {
-  LoginViewModel({@required repository, @required fireStoreRepo})
+  LoginViewModel({required repository, required fireStoreRepo})
       : _repository = repository,
         _fireStore = fireStoreRepo;
 
   final AuthRepository _repository;
   final FireStoreRepository _fireStore;
 
-  String verificationId;
-  String status;
+  String? verificationId;
+  String? status;
 
   void updateVerificationId(String verId) {
     verificationId = verId;

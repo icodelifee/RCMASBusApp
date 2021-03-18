@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class InternetErrorPage extends StatelessWidget {
   const InternetErrorPage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

@@ -123,7 +123,7 @@ class LoginPage extends ConsumerWidget {
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
       child: TextButton(
         onPressed: () async {
-          Get.focusScope.unfocus();
+          Get.focusScope!.unfocus();
           final login = context.read(loginViewModelProvider);
           final isAdded = await login.checkUserEntry(_phone.text);
           if (isAdded) {

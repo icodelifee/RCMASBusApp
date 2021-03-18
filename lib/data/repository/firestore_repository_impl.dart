@@ -4,7 +4,7 @@ import 'package:rcmasbusapp/data/remote/firestore_data_source.dart';
 import 'package:rcmasbusapp/data/repository/firestore_repository.dart';
 
 class FireStoreRepositoryImpl implements FireStoreRepository {
-  FireStoreRepositoryImpl({@required FireStore fireStoreDataSource})
+  FireStoreRepositoryImpl({required FireStore fireStoreDataSource})
       : _fireStoreDataSource = fireStoreDataSource;
 
   final FireStore _fireStoreDataSource;

@@ -6,7 +6,7 @@ import 'package:rcmasbusapp/route_locator.dart';
 import 'package:rcmasbusapp/ui/login/login_page.dart';
 
 class App extends StatelessWidget {
-  const App({Key key}) : super(key: key);
+  const App({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(

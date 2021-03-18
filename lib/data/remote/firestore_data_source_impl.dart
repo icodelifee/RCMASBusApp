@@ -6,7 +6,7 @@ import 'package:rcmasbusapp/data/model/login_user.dart';
 import 'package:rcmasbusapp/data/remote/firestore_data_source.dart';
 
 class FireStoreImpl implements FireStore {
-  FireStoreImpl({@required auth}) : _auth = auth;
+  FireStoreImpl({required auth}) : _auth = auth;
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth;
   final Logger _logger = Logger();
@@ -24,9 +24,9 @@ class FireStoreImpl implements FireStore {
     final qs = await firestore
         .collection('login')
         .where('phone',
-            isEqualTo: _auth.currentUser.phoneNumber.replaceAll('+', ''))
+            isEqualTo: _auth.currentUser!.phoneNumber!.replaceAll('+', ''))
         .get();
-    final user = LoginUser.fromJson(qs.docs.first.data());
+    final user = LoginUser.fromJson(qs.docs.first.data()!);
     return user;
   }
 }
