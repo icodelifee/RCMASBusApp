@@ -27,7 +27,7 @@ class RouteLocator extends HookWidget {
                     return LoginPage();
                   } else {
                     final userFuture = useMemoized(fetchUser);
-                    final loginUser = useFuture(userFuture);
+                    final loginUser = useFuture(userFuture, initialData: null);
                     if (loginUser.hasData) {
                       if (loginUser.data.regComplete ?? false) {
                         return HomePage();

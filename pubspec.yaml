@@ -23,19 +23,19 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.0
-  cloud_firestore: "^0.16.0+1"
-  firebase_auth: ^0.20.1
-  firebase_core: ^0.7.0
-  flutter_hooks: ^0.15.0
-  get: ^3.25.4
-  google_fonts: ^1.1.2
-  hooks_riverpod: ^0.12.4
-  logger: ^0.9.4
-  pedantic: ^1.9.2
-  pinput: ^1.0.0
-  gap: ^1.2.0
-  connectivity: ^2.0.2
+  cupertino_icons: ^1.0.2
+  cloud_firestore: ^1.0.1
+  firebase_auth: ^1.0.1
+  firebase_core: ^1.0.1
+  flutter_hooks: ^0.16.0
+  get: ^4.0.0-nullsafety.2
+  google_fonts: ^2.0.0
+  hooks_riverpod: ^0.13.1
+  logger: ^1.0.0
+  pedantic: ^1.11.0
+  pinput: ^1.2.0
+  gap: ^2.0.0-nullsafety.1
+  connectivity: ^3.0.2
   
 dev_dependencies:
   flutter_test:

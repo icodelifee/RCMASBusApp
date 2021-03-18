@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:logger/logger.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 import 'package:rcmasbusapp/app_theme.dart';
 import 'package:rcmasbusapp/ui/components/snackbar.dart';
+import 'package:rcmasbusapp/ui/components/vertical_spacer.dart';
 import 'package:rcmasbusapp/ui/login/login_page_viewmodel.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -54,9 +54,9 @@ class LoginPage extends ConsumerWidget {
                           Expanded(
                             child: Column(
                               children: [
-                                verticalSpacer(18),
+                                VerticalSpacer(num: 18),
                                 topText('Login'),
-                                verticalSpacer(22),
+                                VerticalSpacer(num: 22),
                                 phoneNumberField(),
                                 generateOTPBtn(context),
                               ],
@@ -73,9 +73,9 @@ class LoginPage extends ConsumerWidget {
                           Expanded(
                             child: Column(
                               children: [
-                                verticalSpacer(18),
+                                VerticalSpacer(num: 18),
                                 topText('Enter OTP'),
-                                verticalSpacer(22),
+                                VerticalSpacer(num: 22),
                                 Padding(
                                   padding: const EdgeInsets.all(15.0),
                                   child: PinPut(
@@ -118,16 +118,10 @@ class LoginPage extends ConsumerWidget {
         height: Get.height, width: Get.width, fit: BoxFit.cover);
   }
 
-  SizedBox verticalSpacer(double num) {
-    return SizedBox(
-      height: Get.height / num,
-    );
-  }
-
   Padding generateOTPBtn(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-      child: FlatButton(
+      child: TextButton(
         onPressed: () async {
           Get.focusScope.unfocus();
           final login = context.read(loginViewModelProvider);
@@ -139,7 +133,11 @@ class LoginPage extends ConsumerWidget {
                 'Please contact the administator.');
           }
         },
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        style: ButtonStyle(
+          shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+          backgroundColor: MaterialStateProperty.all(Color(0xFF4CBD89)),
+        ),
         child: SizedBox(
           width: double.infinity,
           height: 50,
@@ -153,7 +151,6 @@ class LoginPage extends ConsumerWidget {
             ),
           ),
         ),
-        color: Color(0xFF4CBD89),
       ),
     );
   }
@@ -161,13 +158,19 @@ class LoginPage extends ConsumerWidget {
   Padding submitOTPBtn(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-      child: FlatButton(
+      child: ElevatedButton(
         onPressed: () async {
           await context
               .read(loginViewModelProvider)
               .submitOTP(_pinPutController.text);
         },
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        style: ButtonStyle(
+            shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            ),
+            backgroundColor: MaterialStateProperty.all(
+              Color(0xFF4CBD89),
+            )),
         child: SizedBox(
           width: double.infinity,
           height: 50,
@@ -181,7 +184,6 @@ class LoginPage extends ConsumerWidget {
             ),
           ),
         ),
-        color: Color(0xFF4CBD89),
       ),
     );
   }

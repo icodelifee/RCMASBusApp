@@ -100,10 +100,14 @@ class RegistrationPage extends HookWidget {
     );
   }
 
-  FlatButton nextButton() {
-    return FlatButton(
+  TextButton nextButton() {
+    return TextButton(
       onPressed: () {},
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      style: ButtonStyle(
+        shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+        backgroundColor: MaterialStateProperty.all(AppColors.buttonColor),
+      ),
       child: SizedBox(
         width: double.infinity,
         height: 50,
@@ -125,7 +129,6 @@ class RegistrationPage extends HookWidget {
           ],
         ),
       ),
-      color: AppColors.buttonColor,
     );
   }
 
