@@ -18,8 +18,11 @@ class LoginViewModel extends ChangeNotifier {
   final AuthRepository _repository;
   final FireStoreRepository _fireStore;
 
+  //mutable
   String? verificationId;
   String? status;
+  TextEditingController? phone;
+  TextEditingController? pinPutController;
 
   void updateVerificationId(String verId) {
     verificationId = verId;
@@ -31,14 +34,14 @@ class LoginViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> signIn(String phone, BuildContext context) {
+  Future<void> signIn(BuildContext context) {
     // passing in context for provider to update verfication id and status
     // wil switch to provider reference or keys later
-    return _repository.signIn(phone, context);
+    return _repository.signIn(phone!.text, context);
   }
 
-  Future<void> submitOTP(String smsCode) {
-    return _repository.submitOTP(smsCode, verificationId);
+  Future<void> submitOTP() {
+    return _repository.submitOTP(pinPutController!.text, verificationId);
   }
 
   Future<bool> checkUserEntry(String phone) {
