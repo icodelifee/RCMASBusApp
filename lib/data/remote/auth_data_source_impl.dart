@@ -68,8 +68,9 @@ class AuthDataSourceImpl implements AuthDataSource {
 
   @override
   Future<void> submitOTP(String smsCode, String? verificationId) async {
-    PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.credential(
-        verificationId: verificationId!, smsCode: smsCode) as PhoneAuthCredential;
+    final phoneAuthCredential = PhoneAuthProvider.credential(
+        verificationId: verificationId!,
+        smsCode: smsCode) as PhoneAuthCredential;
     await _auth.signInWithCredential(phoneAuthCredential);
   }
 
