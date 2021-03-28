@@ -11,6 +11,7 @@ import 'package:rcmasbusapp/ui/components/loading_page.dart';
 import 'package:rcmasbusapp/ui/login/login_page.dart';
 import 'package:rcmasbusapp/ui/home/home_page.dart';
 import 'package:rcmasbusapp/ui/registration/registration_page.dart';
+import 'package:rcmasbusapp/ui/registration/registration_payment_page.dart';
 
 class RouteLocator extends HookWidget {
   @override
@@ -30,7 +31,11 @@ class RouteLocator extends HookWidget {
                     final loginUser = useFuture(userFuture, initialData: null);
                     if (loginUser.hasData) {
                       if (loginUser.data!.regComplete ?? false) {
-                        return HomePage();
+                        if (loginUser.data!.payComplete ?? false) {
+                          return HomePage();
+                        } else {
+                          return RegistrationPaymentPage();
+                        }
                       } else {
                         return RegistrationPage(user: loginUser.data);
                       }
@@ -42,7 +47,7 @@ class RouteLocator extends HookWidget {
                 loading: () => LoadingPage(),
                 error: (_, __) => LoadingPage());
           } else {
-            // will add lottie animations
+            // TODO will add lottie animations
             return InternetErrorPage();
           }
         },
