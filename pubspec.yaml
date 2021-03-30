@@ -18,26 +18,26 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.2
   cloud_firestore: ^1.0.1
+  connectivity: ^3.0.2
+  cupertino_icons: ^1.0.2
   firebase_auth: ^1.0.1
   firebase_core: ^1.0.1
   flutter_hooks: ^0.16.0
+  gap: ^2.0.0-nullsafety.1
   get: ^4.0.0-nullsafety.2
   google_fonts: ^2.0.0
   hooks_riverpod: ^0.13.1
+  kiwi: ^3.0.0-nullsafety.1  
   logger: ^1.0.0
   pedantic: ^1.11.0
   pinput: ^1.2.0
-  gap: ^2.0.0-nullsafety.1
-  connectivity: ^3.0.2
-  kiwi: ^2.1.1
-  
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -69,7 +69,7 @@ flutter:
         - asset: assets/fonts/CircularStdBook.ttf
           weight: 400
         - asset: assets/fonts/CircularStdMedium.ttf
-          weight: 500        
+          weight: 500
         - asset: assets/fonts/CircularStdBold.ttf
           weight: 700
         - asset: assets/fonts/CircularStdBlack.ttf
