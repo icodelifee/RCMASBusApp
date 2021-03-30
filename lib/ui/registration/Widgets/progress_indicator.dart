@@ -10,7 +10,7 @@ class CustomIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
         child: CircularProgressIndicator(
-      color: AppColors.accentColor,
+      valueColor: AlwaysStoppedAnimation<Color>(AppColors.accentColor),
     ));
   }
 }
