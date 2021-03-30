@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rcmasbusapp/data/model/login_user.dart';
 import 'package:rcmasbusapp/ui/components/snackbar.dart';
+import 'package:rcmasbusapp/ui/home/home_page.dart';
 import 'package:rcmasbusapp/ui/registration/registration_page_viewmodel.dart';
-import 'package:rcmasbusapp/ui/registration/registration_payment_page.dart';
 
 import '../../../app_theme.dart';
 
@@ -21,9 +20,10 @@ class PaymentSubmitButton extends HookWidget {
   Widget build(BuildContext context) {
     final provider = useProvider(registrationPageViewModelProvider);
     return TextButton(
-      onPressed: () {
+      onPressed: () async {
         if (formKey.currentState!.validate()) {
-          
+          await provider.completePayment();
+          await Get.offAll(() => HomePage());
         } else {
           showSnackbar('Please fill all the fields',
               'All Fields must be filled to procced');
@@ -35,7 +35,9 @@ class PaymentSubmitButton extends HookWidget {
         height: 50,
         child: !provider.isLoading
             ? btnText()
-            : Center(child: CircularProgressIndicator(color: Colors.white)),
+            : Center(
+                child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white))),
       ),
     );
   }

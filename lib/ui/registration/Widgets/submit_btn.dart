@@ -42,7 +42,9 @@ class SubmitButton extends HookWidget {
         height: 50,
         child: !provider.isLoading
             ? btnText()
-            : Center(child: CircularProgressIndicator(color: Colors.white)),
+            : Center(
+                child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white))),
       ),
     );
   }

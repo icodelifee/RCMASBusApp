@@ -64,8 +64,7 @@ class RegistrationPageViewModel extends ChangeNotifier {
     isLoading = false;
   }
 
-  Future<void> completePayment() async{
-
-    // aw
+  Future<void> completePayment() async {
+    await _fireStore.savePayment(paycode!.text);
   }
 }
