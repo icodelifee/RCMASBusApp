@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rcmasbusapp/data/containers/user_container.dart';
 import 'package:rcmasbusapp/data/model/login_user.dart';
 import 'package:rcmasbusapp/data/provider/firestore_repository_provider.dart';
 import 'package:rcmasbusapp/data/repository/firestore_repository.dart';
+import 'package:uuid/uuid.dart';
 
 final registrationPageViewModelProvider = ChangeNotifierProvider((ref) =>
     RegistrationPageViewModel(
@@ -24,6 +26,8 @@ class RegistrationPageViewModel extends ChangeNotifier {
   TextEditingController? paycode;
   String? _routeDocId;
   String? _stopDocId;
+  Map<String, dynamic>? routeMap;
+  Map<String, dynamic>? stopMap;
   bool _isLoading = false;
 
   bool get isLoading => _isLoading;
@@ -46,7 +50,7 @@ class RegistrationPageViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<List<Map>> getStops() async {
+  Future<List<Map<String, dynamic>>> getStops() async {
     return _fireStore.getBusStops(routeDocId);
   }
 
@@ -62,6 +66,20 @@ class RegistrationPageViewModel extends ChangeNotifier {
     };
     await _fireStore.saveUserData(data);
     isLoading = false;
+  }
+
+  Future<void> generateBusPass() async {
+    final user = userContainer.resolve<LoginUser>();
+    final data = {
+      'route_id': routeMap!['route_id'],
+      'stop_id': stopMap!['stop_id'],
+      'pass_id': Uuid().v4(),
+      'roll_no': user.rollNumber,
+      'timestamp': DateTime.now().toLocal(),
+      'is_approved': false,
+      'payment_complete': false
+    };
+    await _fireStore.generateBusPass(data);
   }
 
   Future<void> completePayment() async {

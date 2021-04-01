@@ -24,12 +24,12 @@ class SubmitButton extends HookWidget {
   Widget build(BuildContext context) {
     final provider = useProvider(registrationPageViewModelProvider);
     return TextButton(
-      onPressed: () {
+      onPressed: () async {
         provider.isLoading = true;
         if (formKey.currentState!.validate()) {
-          provider
-              .saveUserData(_user)
-              .then((value) => Get.offAll(() => RegistrationPaymentPage()));
+          await provider.saveUserData(_user);
+          await provider.generateBusPass();
+          await Get.offAll(() => RegistrationPaymentPage());
         } else {
           provider.isLoading = false;
           showSnackbar('Please fill all the fields',
