@@ -77,26 +77,44 @@ class FireStoreImpl implements FireStore {
   @override
   Future<void> savePayment(String payCode) async {
     final user = userContainer.resolve<LoginUser>();
-    // final student = await getStudent(user.rollNumber!);
+    final student = await getStudent(user.rollNumber!);
     final loginDocRef = firestore.collection('login').doc(user.docId);
     final paymentId = Uuid().v4();
-    await firestore.collection('payments').add({
-      'payment_code': payCode,
-      'payment_date': DateTime.now().toLocal(),
-      'payment_id': paymentId,
-      'roll_no': user.rollNumber,
-    });
-    await loginDocRef.update({'pay_complete': true});
+
+    //get buspass
     final passSnapshot = await firestore
         .collection('buspass')
         .where('roll_no', isEqualTo: user.rollNumber)
         .where('is_payment_complete', isEqualTo: false)
         .get();
+
+    // get bus pass id to update
     final passId = passSnapshot.docs.first.id;
+    final busPassId = passSnapshot.docs.first.data()!['pass_id'];
+
+    // add payments
+    await firestore.collection('payments').add({
+      'payment_code': payCode,
+      'payment_date': DateTime.now().toLocal(),
+      'payment_id': paymentId,
+      'pass_id': busPassId,
+      'roll_no': user.rollNumber,
+    });
+
+    //update login db
+    await loginDocRef.update({'pay_complete': true});
+
+    //update bus pass
     await firestore
         .collection('buspass')
         .doc(passId)
-        .update({'is_payment_completed': true, 'payment_id': paymentId});
+        .update({'is_payment_complete': true, 'payment_id': paymentId});
+
+    // update student
+    await firestore
+        .collection('students')
+        .doc(student.docId)
+        .update({'bus_pass': busPassId});
   }
 
   @override
