@@ -5,8 +5,9 @@ abstract class FireStore {
   Future<bool> checkUserEntry(String phone);
   Future<LoginUser> getLoginUser();
   Future getBusRoutes();
-  Future<List<Map>> getBusStops(String? route);
+  Future<List<Map<String, dynamic>>> getBusStops(String? route);
   Future<void> saveUserData(Map<String, dynamic> data);
   Future<void> savePayment(String payCode);
   Future<Student> getStudent(String rollNo);
+  Future<void> generateBusPass(Map<String, dynamic> data);
 }

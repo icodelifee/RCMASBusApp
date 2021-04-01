@@ -4,6 +4,7 @@ import 'package:rcmasbusapp/data/containers/user_container.dart';
 import 'package:rcmasbusapp/data/model/login_user.dart';
 import 'package:rcmasbusapp/data/model/student.dart';
 import 'package:rcmasbusapp/data/remote/firestore_data_source.dart';
+import 'package:uuid/uuid.dart';
 
 class FireStoreImpl implements FireStore {
   FireStoreImpl({required auth}) : _auth = auth;
@@ -42,7 +43,7 @@ class FireStoreImpl implements FireStore {
   }
 
   @override
-  Future<List<Map>> getBusStops(String? route) async {
+  Future<List<Map<String, dynamic>>> getBusStops(String? route) async {
     if (route == null) return [];
     final qs = await firestore
         .collection('routes')
@@ -58,6 +59,7 @@ class FireStoreImpl implements FireStore {
 
   @override
   Future<void> saveUserData(Map<String, dynamic> data) async {
+    data.putIfAbsent('student_id', () => Uuid().v4());
     await firestore.collection('students').add(data);
     await firestore
         .collection('login')
@@ -75,13 +77,26 @@ class FireStoreImpl implements FireStore {
   @override
   Future<void> savePayment(String payCode) async {
     final user = userContainer.resolve<LoginUser>();
-    final student = await getStudent(user.rollNumber!);
+    // final student = await getStudent(user.rollNumber!);
     final loginDocRef = firestore.collection('login').doc(user.docId);
-    final studentDocRef = firestore.collection('students').doc(student.docId);
-
-    await studentDocRef.collection('payment').add(
-        {'payment_code': payCode, 'payment_date': DateTime.now().toLocal()});
+    final paymentId = Uuid().v4();
+    await firestore.collection('payments').add({
+      'payment_code': payCode,
+      'payment_date': DateTime.now().toLocal(),
+      'payment_id': paymentId,
+      'roll_no': user.rollNumber,
+    });
     await loginDocRef.update({'pay_complete': true});
+    final passSnapshot = await firestore
+        .collection('buspass')
+        .where('roll_no', isEqualTo: user.rollNumber)
+        .where('is_payment_complete', isEqualTo: false)
+        .get();
+    final passId = passSnapshot.docs.first.id;
+    await firestore
+        .collection('buspass')
+        .doc(passId)
+        .update({'is_payment_completed': true, 'payment_id': paymentId});
   }
 
   @override
@@ -92,5 +107,11 @@ class FireStoreImpl implements FireStore {
         .get();
     return Student.fromJson(
         snapshot.docs.first.data()!, snapshot.docs.first.id);
+  }
+
+  @override
+  Future<void> generateBusPass(Map<String, dynamic> data) async {
+    await firestore.collection('buspass').add(data);
+    return;
   }
 }
