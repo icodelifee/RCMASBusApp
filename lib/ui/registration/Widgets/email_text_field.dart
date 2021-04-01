@@ -13,7 +13,7 @@ class EmailTextField extends HookWidget {
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'Please enter email';
-        } else if (GetUtils.isEmail(value)) {
+        } else if (!GetUtils.isEmail(value)) {
           return 'Please enter valid email';
         }
         return null;
