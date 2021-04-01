@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
+final circularBorder = BorderRadius.circular(10);
+
 final border = OutlineInputBorder(
     borderRadius: BorderRadius.all(Radius.circular(10.0)),
     borderSide: BorderSide(
       color: Colors.transparent,
     ));
 
-var roundedRectangleBorder =
-    RoundedRectangleBorder(borderRadius: BorderRadius.circular(10));
+final roundedRectangleBorder =
+    RoundedRectangleBorder(borderRadius: circularBorder);
 
 class AppColors {
   static final Color accentColor = const Color(0xFF4CBD89);
