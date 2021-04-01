@@ -33,10 +33,11 @@ dependencies:
   get: ^4.0.0-nullsafety.2
   google_fonts: ^2.0.0
   hooks_riverpod: ^0.13.1
-  kiwi: ^3.0.0-nullsafety.1  
+  kiwi: ^3.0.0-nullsafety.1
   logger: ^1.0.0
   pedantic: ^1.11.0
   pinput: ^1.2.0
+  uuid: ^3.0.3
 
 dev_dependencies:
   flutter_test:
