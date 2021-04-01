@@ -6,10 +6,12 @@ class Student {
   final String? email;
   final String? course;
   final String? semester;
+  final String? studentId;
   final String? docId;
 
   Student({
     this.firstName,
+    this.studentId,
     this.lastName,
     this.phone,
     this.docId,
@@ -22,6 +24,7 @@ class Student {
       : firstName = json['first_name'],
         lastName = json['last_name'],
         docId = docid,
+        studentId = json['student_id'],
         phone = json['phone'],
         email = json['email'],
         course = json['couse'],
