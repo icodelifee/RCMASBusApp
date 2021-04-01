@@ -12,9 +12,10 @@ class StopSelector extends HookWidget {
     final provider = useProvider(registrationPageViewModelProvider);
     return Visibility(
         visible: !(provider.routeDocId == null),
-        child: FutureBuilder(
+        child: FutureBuilder<List<Map<String, dynamic>>>(
           future: provider.getStops(),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
+          builder: (BuildContext context,
+              AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
             if (snapshot.connectionState != ConnectionState.done) {
               return CustomIndicator();
             } else {
@@ -22,7 +23,7 @@ class StopSelector extends HookWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextFieldLabel(label: '*Bus Stop'),
-                  DropdownButtonFormField(
+                  DropdownButtonFormField<Map<String, dynamic>>(
                     validator: (value) {
                       if (value == null) {
                         return 'Please select a stop';
@@ -31,10 +32,11 @@ class StopSelector extends HookWidget {
                     },
                     hint: Text('Select stop'),
                     items: items(snapshot),
-                    onChanged: (String? val) {
-                      provider.stopDocId = val;
+                    onChanged: (Map<String, dynamic>? val) {
+                      provider.stopDocId = val!['doc'];
+                      provider.stopMap = val;
                     },
-                    value: provider.stopDocId,
+                    value: provider.stopMap,
                     decoration: InputDecoration(
                         border: border,
                         enabledBorder: border,
@@ -49,12 +51,14 @@ class StopSelector extends HookWidget {
         ));
   }
 
-  List<DropdownMenuItem<String>> items(AsyncSnapshot<dynamic> snapshot) {
-    return snapshot.data
-        .map<DropdownMenuItem<String>>((e) => DropdownMenuItem<String>(
-              value: e['doc'],
-              child: Text(e['stop_name']),
-            ))
+  List<DropdownMenuItem<Map<String, dynamic>>> items(
+      AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
+    return snapshot.data!
+        .map<DropdownMenuItem<Map<String, dynamic>>>(
+            (e) => DropdownMenuItem<Map<String, dynamic>>(
+                  value: e,
+                  child: Text(e['stop_name']),
+                ))
         .toList();
   }
 }

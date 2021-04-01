@@ -16,8 +16,8 @@ class RouteSelector extends HookWidget {
         error: (error, stack) => Center(child: Text('Some Error Occured')));
   }
 
-  DropdownButtonFormField<String> dropDown(
-      data, RegistrationPageViewModel provider) {
+  DropdownButtonFormField<Map<String, dynamic>> dropDown(
+      List<Map<String, dynamic>> data, RegistrationPageViewModel provider) {
     return DropdownButtonFormField(
       validator: (value) {
         if (value == null) {
@@ -27,13 +27,14 @@ class RouteSelector extends HookWidget {
       },
       hint: Text('Select route'),
       items: data
-          .map<DropdownMenuItem<String>>((e) => DropdownMenuItem<String>(
-                value: e['doc'],
+          .map<DropdownMenuItem<Map<String, dynamic>>>((e) => DropdownMenuItem(
+                value: e,
                 child: Text(e['route_name']),
               ))
           .toList(),
-      onChanged: (String? val) {
-        provider.routeDocId = val;
+      onChanged: (Map<String, dynamic>? val) {
+        provider.routeDocId = val!['doc'];
+        provider.routeMap = val;
         provider.stopDocId = null;
       },
       decoration: InputDecoration(
