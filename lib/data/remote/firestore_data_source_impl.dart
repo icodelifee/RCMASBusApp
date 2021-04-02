@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rcmasbusapp/data/containers/user_container.dart';
+import 'package:rcmasbusapp/data/model/bus_pass.dart';
 import 'package:rcmasbusapp/data/model/login_user.dart';
 import 'package:rcmasbusapp/data/model/student.dart';
 import 'package:rcmasbusapp/data/remote/firestore_data_source.dart';
@@ -131,5 +132,22 @@ class FireStoreImpl implements FireStore {
   Future<void> generateBusPass(Map<String, dynamic> data) async {
     await firestore.collection('buspass').add(data);
     return;
+  }
+
+  @override
+  Future<Stream<DocumentSnapshot>> getBusPassStream() async {
+    final busPass = await getBusPass();
+    return firestore.collection('buspass').doc(busPass.docId).snapshots();
+  }
+
+  @override
+  Future<BusPass> getBusPass() async {
+    final user = userContainer.resolve<LoginUser>();
+    final student = await getStudent(user.rollNumber!);
+    final buspass = await firestore
+        .collection('buspass')
+        .where('pass_id', isEqualTo: student.bus_pass)
+        .get();
+    return BusPass.fromJson(buspass.docs.first.data()!, buspass.docs.first.id);
   }
 }

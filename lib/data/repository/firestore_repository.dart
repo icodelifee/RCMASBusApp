@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:rcmasbusapp/data/model/bus_pass.dart';
 import 'package:rcmasbusapp/data/model/login_user.dart';
 
 abstract class FireStoreRepository {
@@ -8,4 +10,6 @@ abstract class FireStoreRepository {
   Future<void> saveUserData(Map<String, dynamic> data);
   Future<void> savePayment(String payCode);
   Future<void> generateBusPass(Map<String, dynamic> data);
+  Future<Stream<DocumentSnapshot>> getBusPassStream();
+  Future<BusPass> getBusPass();
 }

@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:rcmasbusapp/data/model/bus_pass.dart';
 import 'package:rcmasbusapp/data/model/login_user.dart';
 import 'package:rcmasbusapp/data/remote/firestore_data_source.dart';
 import 'package:rcmasbusapp/data/repository/firestore_repository.dart';
@@ -42,5 +44,15 @@ class FireStoreRepositoryImpl implements FireStoreRepository {
   @override
   Future<void> generateBusPass(Map<String, dynamic> data) {
     return _fireStoreDataSource.generateBusPass(data);
+  }
+
+  @override
+  Future<Stream<DocumentSnapshot>> getBusPassStream() {
+    return _fireStoreDataSource.getBusPassStream();
+  }
+
+  @override
+  Future<BusPass> getBusPass() {
+    return _fireStoreDataSource.getBusPass();
   }
 }
