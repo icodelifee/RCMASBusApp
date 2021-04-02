@@ -7,6 +7,7 @@ class Student {
   final String? course;
   final String? semester;
   final String? studentId;
+  final String? bus_pass;
   final String? docId;
 
   Student({
@@ -16,6 +17,7 @@ class Student {
     this.phone,
     this.docId,
     this.course,
+    this.bus_pass,
     this.semester,
     this.email,
     this.rollNumber,
@@ -29,5 +31,6 @@ class Student {
         email = json['email'],
         course = json['couse'],
         semester = json['semester'],
+        bus_pass = json['bus_pass'],
         rollNumber = json['roll_no'];
 }
