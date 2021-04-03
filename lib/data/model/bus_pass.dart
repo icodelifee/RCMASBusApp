@@ -21,6 +21,7 @@ class BusPass {
     this.paymentId,
     this.docId,
     this.rollNo,
+    this.busId,
     this.isPaymentComplete,
   });
 
@@ -29,6 +30,7 @@ class BusPass {
   String? paymentId;
   String? passId;
   String? docId;
+  String? busId;
   Timestamp? timestamp;
   String? rollNo;
   bool? isApproved;
@@ -43,6 +45,7 @@ class BusPass {
         docId: docid,
         paymentId: json['payment_id'] as String,
         rollNo: json['roll_no'] as String,
+        busId: json['bus_id'] as String,
         isPaymentComplete: json['is_payment_complete'] as bool,
       );
 
@@ -51,6 +54,7 @@ class BusPass {
         'stop_id': stopId,
         'pass_id': passId,
         'timestamp': timestamp,
+        'bus_id': busId,
         'is_approved': isApproved,
         'payment_id': paymentId,
         'roll_no': rollNo,
