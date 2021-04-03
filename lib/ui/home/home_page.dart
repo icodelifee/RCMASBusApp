@@ -48,7 +48,7 @@ class HomePage extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.only(left: 10, right: 10),
                   decoration: boxDecoration,
-                  height: Get.height * 0.65,
+                  height: Get.height * 0.62,
                   width: Get.width,
                   child: SingleChildScrollView(
                     child: Column(
