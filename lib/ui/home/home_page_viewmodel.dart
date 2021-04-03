@@ -14,6 +14,9 @@ final busPassProvider = FutureProvider<BusPass>(
 final yourBusProvider = FutureProvider<YourBus>(
     (ref) async => await ref.watch(fireStoreRepositoryProvider).yourBusData());
 
+final informationProvider = FutureProvider((ref) async =>
+    await ref.watch(fireStoreRepositoryProvider).getInformation());
+
 class HomePageViewModel extends ChangeNotifier {
   HomePageViewModel({required this.repo});
   final FireStoreRepository repo;
