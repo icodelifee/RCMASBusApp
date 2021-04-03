@@ -151,7 +151,8 @@ class FireStoreImpl implements FireStore {
         .collection('buspass')
         .where('pass_id', isEqualTo: student.bus_pass)
         .get();
-    return BusPass.fromJson(buspass.docs.first.data()!, buspass.docs.first.id);
+    return BusPass.fromJson(buspass.docs.first.data()!, buspass.docs.first.id,
+        student: student);
   }
 
   @override

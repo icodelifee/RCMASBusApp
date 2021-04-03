@@ -5,6 +5,7 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:rcmasbusapp/data/model/student.dart';
 
 BusPass busPassFromJson(String str, String docId) =>
     BusPass.fromJson(json.decode(str), docId);
@@ -16,6 +17,7 @@ class BusPass {
     this.routeId,
     this.stopId,
     this.passId,
+    this.student,
     this.timestamp,
     this.isApproved,
     this.paymentId,
@@ -35,8 +37,10 @@ class BusPass {
   String? rollNo;
   bool? isApproved;
   bool? isPaymentComplete;
-
-  factory BusPass.fromJson(Map<String, dynamic> json, String docid) => BusPass(
+  Student? student;
+  factory BusPass.fromJson(Map<String, dynamic> json, String docid,
+          {Student? student}) =>
+      BusPass(
         routeId: json['route_id'] as String,
         stopId: json['stop_id'] as String,
         passId: json['pass_id'] as String,
@@ -46,6 +50,7 @@ class BusPass {
         paymentId: json['payment_id'] as String,
         rollNo: json['roll_no'] as String,
         busId: json['bus_id'] as String,
+        student: student,
         isPaymentComplete: json['is_payment_complete'] as bool,
       );
 
