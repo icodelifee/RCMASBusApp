@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rcmasbusapp/data/containers/user_container.dart';
+import 'package:rcmasbusapp/data/model/bus.dart';
 import 'package:rcmasbusapp/data/model/bus_pass.dart';
 import 'package:rcmasbusapp/data/model/login_user.dart';
+import 'package:rcmasbusapp/data/model/route.dart';
 import 'package:rcmasbusapp/data/model/student.dart';
+import 'package:rcmasbusapp/data/model/your_bus.dart';
 import 'package:rcmasbusapp/data/remote/firestore_data_source.dart';
 import 'package:uuid/uuid.dart';
 
@@ -149,5 +152,33 @@ class FireStoreImpl implements FireStore {
         .where('pass_id', isEqualTo: student.bus_pass)
         .get();
     return BusPass.fromJson(buspass.docs.first.data()!, buspass.docs.first.id);
+  }
+
+  @override
+  Future<YourBus> yourBusData() async {
+    final busPass = await getBusPass();
+    final bus = await getBus(busPass.busId!);
+    final route = await getRoutes(busPass.routeId!);
+    return YourBus(bus: bus, route: route, busPass: busPass);
+  }
+
+  @override
+  Future<Bus> getBus(String id) async {
+    final snapshot = await firestore
+        .collection('buses')
+        .where('bus_id', isEqualTo: id)
+        .get();
+    return Bus.fromJson(snapshot.docs.first.data()!, snapshot.docs.first.id);
+  }
+
+  @override
+  Future<Route> getRoutes(String id) async {
+    final routesRef = firestore.collection('routes');
+    final snapshot = await routesRef.where('route_id', isEqualTo: id).get();
+    final routeId = snapshot.docs.first.id;
+    final stopSnapshot = await routesRef.doc(routeId).collection('stops').get();
+    final route =
+        Route.fromJson(snapshot.docs.first.data()!, stopSnapshot.docs, routeId);
+    return route;
   }
 }
