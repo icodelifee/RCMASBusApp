@@ -73,4 +73,9 @@ class FireStoreRepositoryImpl implements FireStoreRepository {
   Future<YourBus> yourBusData() {
     return _fireStoreDataSource.yourBusData();
   }
+
+  @override
+  Future<Map<String, dynamic>> getInformation() {
+    return _fireStoreDataSource.getInformation();
+  }
 }

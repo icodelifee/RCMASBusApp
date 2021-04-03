@@ -20,4 +20,5 @@ abstract class FireStore {
   Future<YourBus> yourBusData();
   Future<Bus> getBus(String id);
   Future<Route> getRoutes(String id);
+  Future<Map<String, dynamic>> getInformation();
 }

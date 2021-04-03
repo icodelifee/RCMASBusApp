@@ -181,4 +181,11 @@ class FireStoreImpl implements FireStore {
         Route.fromJson(snapshot.docs.first.data()!, stopSnapshot.docs, routeId);
     return route;
   }
+
+  @override
+  Future<Map<String, dynamic>> getInformation() async {
+    final snapshot =
+        await firestore.collection('homepage').doc('information').get();
+    return snapshot.data()!;
+  }
 }
