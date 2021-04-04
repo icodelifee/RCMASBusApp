@@ -3,7 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rcmasbusapp/data/containers/user_container.dart';
 import 'package:rcmasbusapp/data/model/bus.dart';
 import 'package:rcmasbusapp/data/model/bus_pass.dart';
+import 'package:rcmasbusapp/data/model/driver.dart';
 import 'package:rcmasbusapp/data/model/login_user.dart';
+import 'package:rcmasbusapp/data/model/payment.dart';
+import 'package:rcmasbusapp/data/model/renewal.dart';
 import 'package:rcmasbusapp/data/model/route.dart';
 import 'package:rcmasbusapp/data/model/student.dart';
 import 'package:rcmasbusapp/data/model/your_bus.dart';
@@ -149,7 +152,7 @@ class FireStoreImpl implements FireStore {
     final student = await getStudent(user.rollNumber!);
     final buspass = await firestore
         .collection('buspass')
-        .where('pass_id', isEqualTo: student.bus_pass)
+        .where('pass_id', isEqualTo: student.busPass)
         .get();
     return BusPass.fromJson(buspass.docs.first.data()!, buspass.docs.first.id,
         student: student);
@@ -188,5 +191,56 @@ class FireStoreImpl implements FireStore {
     final snapshot =
         await firestore.collection('homepage').doc('information').get();
     return snapshot.data()!;
+  }
+
+  @override
+  Future<Driver> getDriver(String id) async {
+    final snapshot = await firestore
+        .collection('drivers')
+        .where('driver_id', isEqualTo: id)
+        .get();
+    return Driver.fromJson(snapshot.docs.first.data()!, snapshot.docs.first.id);
+  }
+
+  @override
+  Future<List<Payment>> getStudentPayments(String id) async {
+    final snapshot = await firestore
+        .collection('payments')
+        .where('roll_no', isEqualTo: id)
+        .get();
+
+    return snapshot.docs.map((e) => Payment.fromJson(e.data()!)).toList();
+  }
+
+  @override
+  Future<void> saveRenewal(Map<String, dynamic> data) async {
+    final paymentId = Uuid().v4();
+    // add payment
+    await firestore.collection('payments').add({
+      'payment_code': data['payment_code'],
+      'payment_date': DateTime.now().toLocal(),
+      'payment_id': paymentId,
+      'pass_id': data['pass_id'],
+      'roll_no': data['roll_no'],
+    });
+
+    await firestore.collection('renewals').add({
+      'renewal_id': Uuid().v4(),
+      'is_approved': false,
+      'renewal_date': DateTime.now().toLocal(),
+      'payment_id': paymentId,
+      'pass_id': data['pass_id'],
+      'roll_no': data['roll_no'],
+    });
+  }
+
+  @override
+  Future<Renewal> getRenewal(String rollNo, String passId) async {
+    final snapshot = await firestore
+        .collection('renewals')
+        .where('pass_id', isEqualTo: passId)
+        .get();
+    return Renewal.fromJson(
+        snapshot.docs.first.data()!, snapshot.docs.first.id);
   }
 }

@@ -1,7 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rcmasbusapp/data/model/bus.dart';
 import 'package:rcmasbusapp/data/model/bus_pass.dart';
+import 'package:rcmasbusapp/data/model/driver.dart';
 import 'package:rcmasbusapp/data/model/login_user.dart';
+import 'package:rcmasbusapp/data/model/payment.dart';
+import 'package:rcmasbusapp/data/model/renewal.dart';
+import 'package:rcmasbusapp/data/model/student.dart';
 import 'package:rcmasbusapp/data/model/your_bus.dart';
 import 'package:rcmasbusapp/data/model/route.dart';
 import 'package:rcmasbusapp/data/remote/firestore_data_source.dart';
@@ -77,5 +81,30 @@ class FireStoreRepositoryImpl implements FireStoreRepository {
   @override
   Future<Map<String, dynamic>> getInformation() {
     return _fireStoreDataSource.getInformation();
+  }
+
+  @override
+  Future<Student> getStudent(String rollNo) {
+    return _fireStoreDataSource.getStudent(rollNo);
+  }
+
+  @override
+  Future<Driver> getDriver(String id) {
+    return _fireStoreDataSource.getDriver(id);
+  }
+
+  @override
+  Future<List<Payment>> getStudentPayments(String id) {
+    return _fireStoreDataSource.getStudentPayments(id);
+  }
+
+  @override
+  Future<void> saveRenewal(Map<String, dynamic> data) {
+    return _fireStoreDataSource.saveRenewal(data);
+  }
+
+  @override
+  Future<Renewal> getRenewal(String rollNo, String passId) {
+    return _fireStoreDataSource.getRenewal(rollNo, passId);
   }
 }
