@@ -22,6 +22,7 @@ class BusPass {
     this.isApproved,
     this.paymentId,
     this.docId,
+    this.renewalDate,
     this.rollNo,
     this.busId,
     this.isPaymentComplete,
@@ -38,21 +39,23 @@ class BusPass {
   bool? isApproved;
   bool? isPaymentComplete;
   Student? student;
+  Timestamp? renewalDate;
+
   factory BusPass.fromJson(Map<String, dynamic> json, String docid,
           {Student? student}) =>
       BusPass(
-        routeId: json['route_id'] as String,
-        stopId: json['stop_id'] as String,
-        passId: json['pass_id'] as String,
-        timestamp: json['timestamp'] as Timestamp,
-        isApproved: json['is_approved'] as bool,
-        docId: docid,
-        paymentId: json['payment_id'] as String,
-        rollNo: json['roll_no'] as String,
-        busId: json['bus_id'] as String,
-        student: student,
-        isPaymentComplete: json['is_payment_complete'] as bool,
-      );
+          routeId: json['route_id'] as String,
+          stopId: json['stop_id'] as String,
+          passId: json['pass_id'] as String,
+          timestamp: json['timestamp'] as Timestamp,
+          isApproved: json['is_approved'] as bool,
+          docId: docid,
+          paymentId: json['payment_id'] as String,
+          rollNo: json['roll_no'] as String,
+          busId: json['bus_id'] as String,
+          student: student,
+          isPaymentComplete: json['is_payment_complete'] as bool,
+          renewalDate: json['renewal_date']);
 
   Map<String, dynamic> toJson() => {
         'route_id': routeId,
