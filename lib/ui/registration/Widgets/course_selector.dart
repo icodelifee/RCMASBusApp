@@ -7,11 +7,17 @@ import 'package:rcmasbusapp/ui/registration/registration_page_viewmodel.dart';
 class CourseSelector extends HookWidget {
   final List<String> courses = [
     'BCA',
-    'BCOM Model II',
+    'BCOM Model I Computer Application',
+    'BCOM Model I Finance and Taxation',
+    'BCOM Model II Computer Application',
+    'BCOM Model II Finance and Taxation',
+    'BCOM Model II Marketing',
+    'BCOM Model II Logistics Management',
     'BA Animation',
-    'MA Animation',
+    'MA Graphics Design',
     'BBA',
-    'MCom'
+    'MCom Finance and Application',
+    'BA English'
   ];
   @override
   Widget build(BuildContext context) {
