@@ -50,11 +50,11 @@ class BusPass {
           timestamp: json['timestamp'] as Timestamp,
           isApproved: json['is_approved'] as bool,
           docId: docid,
-          paymentId: json['payment_id'] as String,
+          paymentId: json['payment_id'],
           rollNo: json['roll_no'] as String,
-          busId: json['bus_id'] as String,
+          busId: json['bus_id'],
           student: student,
-          isPaymentComplete: json['is_payment_complete'] as bool,
+          isPaymentComplete: json['payment_complete'] as bool,
           renewalDate: json['renewal_date']);
 
   Map<String, dynamic> toJson() => {
@@ -66,6 +66,6 @@ class BusPass {
         'is_approved': isApproved,
         'payment_id': paymentId,
         'roll_no': rollNo,
-        'is_payment_complete': isPaymentComplete,
+        'payment_complete': isPaymentComplete,
       };
 }
