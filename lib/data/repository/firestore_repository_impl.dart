@@ -5,6 +5,7 @@ import 'package:rcmasbusapp/data/model/driver.dart';
 import 'package:rcmasbusapp/data/model/login_user.dart';
 import 'package:rcmasbusapp/data/model/payment.dart';
 import 'package:rcmasbusapp/data/model/renewal.dart';
+import 'package:rcmasbusapp/data/model/stop.dart';
 import 'package:rcmasbusapp/data/model/student.dart';
 import 'package:rcmasbusapp/data/model/your_bus.dart';
 import 'package:rcmasbusapp/data/model/route.dart';
@@ -141,5 +142,21 @@ class FireStoreRepositoryImpl implements FireStoreRepository {
   @override
   Future<void> editRoute(Map<String, dynamic> route, String docId) {
     return _fireStoreDataSource.editRoute(route, docId);
+  }
+
+  @override
+  Future<List<Stop>> getAllStops() {
+    return _fireStoreDataSource.getAllStops();
+  }
+
+  @override
+  Future<void> addStop(Map<String, dynamic> stop, String routeDocId) {
+    return _fireStoreDataSource.addStop(stop, routeDocId);
+  }
+
+  @override
+  Future<void> editStop(
+      Map<String, dynamic> stop, String routeDocId, String stopDocId) {
+    return _fireStoreDataSource.editStop(stop, routeDocId, stopDocId);
   }
 }

@@ -6,6 +6,7 @@ import 'package:rcmasbusapp/data/model/login_user.dart';
 import 'package:rcmasbusapp/data/model/payment.dart';
 import 'package:rcmasbusapp/data/model/renewal.dart';
 import 'package:rcmasbusapp/data/model/route.dart';
+import 'package:rcmasbusapp/data/model/stop.dart';
 import 'package:rcmasbusapp/data/model/student.dart';
 import 'package:rcmasbusapp/data/model/your_bus.dart';
 
@@ -35,4 +36,8 @@ abstract class FireStore {
   Future<void> addRoute(Map<String, dynamic> route);
   Future<void> editRoute(Map<String, dynamic> route, String docId);
   Future<List<BusPass>> getAllBusPass();
+  Future<List<Stop>> getAllStops();
+  Future<void> addStop(Map<String, dynamic> stop, String routeDocId);
+  Future<void> editStop(
+      Map<String, dynamic> stop, String routeDocId, String stopDocId);
 }

@@ -10,6 +10,7 @@ import 'package:rcmasbusapp/data/model/login_user.dart';
 import 'package:rcmasbusapp/data/model/payment.dart';
 import 'package:rcmasbusapp/data/model/renewal.dart';
 import 'package:rcmasbusapp/data/model/route.dart';
+import 'package:rcmasbusapp/data/model/stop.dart';
 import 'package:rcmasbusapp/data/model/student.dart';
 import 'package:rcmasbusapp/data/model/your_bus.dart';
 import 'package:rcmasbusapp/data/remote/firestore_data_source.dart';
@@ -360,6 +361,35 @@ class FireStoreImpl implements FireStore {
   @override
   Future<void> editRoute(Map<String, dynamic> route, String docId) async {
     await firestore.collection('routes').doc(docId).update(route);
+    return;
+  }
+
+  @override
+  Future<List<Stop>> getAllStops() async {
+    return [];
+    // Unimplemented method
+    // final snapshot = await firestore.collection('s')
+  }
+
+  @override
+  Future<void> addStop(Map<String, dynamic> stop, String routeId) async {
+    await firestore
+        .collection('routes')
+        .doc(routeId)
+        .collection('stops')
+        .add(stop);
+    return;
+  }
+
+  @override
+  Future<void> editStop(
+      Map<String, dynamic> stop, String routeId, String stopId) async {
+    await firestore
+        .collection('routes')
+        .doc(routeId)
+        .collection('stops')
+        .doc(stopId)
+        .update(stop);
     return;
   }
 }
