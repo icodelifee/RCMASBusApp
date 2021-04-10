@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rcmasbusapp/data/provider/auth_changes_provider.dart';
 import 'package:rcmasbusapp/data/provider/connection_provider.dart';
 import 'package:rcmasbusapp/data/provider/firestore_repository_provider.dart';
+import 'package:rcmasbusapp/ui/admin/home/home_page.dart';
 import 'package:rcmasbusapp/ui/components/internet_error_page.dart';
 import 'package:rcmasbusapp/ui/components/loading_page.dart';
 import 'package:rcmasbusapp/ui/login/login_page.dart';
@@ -30,14 +31,20 @@ class RouteLocator extends HookWidget {
                     final userFuture = useMemoized(fetchUser);
                     final loginUser = useFuture(userFuture, initialData: null);
                     if (loginUser.hasData) {
-                      if (loginUser.data!.regComplete ?? false) {
-                        if (loginUser.data!.payComplete ?? false) {
-                          return HomePage();
-                        } else {
-                          return RegistrationPaymentPage();
-                        }
+                      if (loginUser.data!.userType == 'A') {
+                        return AdminHomePage();
+                      } else if (loginUser.data!.userType == 'D') {
+                        return AdminHomePage();
                       } else {
-                        return RegistrationPage(user: loginUser.data);
+                        if (loginUser.data!.regComplete ?? false) {
+                          if (loginUser.data!.payComplete ?? false) {
+                            return HomePage();
+                          } else {
+                            return RegistrationPaymentPage();
+                          }
+                        } else {
+                          return RegistrationPage(user: loginUser.data);
+                        }
                       }
                     } else {
                       return LoadingPage();
