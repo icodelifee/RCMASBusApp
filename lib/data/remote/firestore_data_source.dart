@@ -28,4 +28,11 @@ abstract class FireStore {
   Future<List<Payment>> getStudentPayments(String id);
   Future<void> saveRenewal(Map<String, dynamic> data);
   Future<Renewal> getRenewal(String rollNo, String passId);
+  Future<List<Student>> getStudents(int? year, String? name);
+  Future<void> addStudent(Map<String, dynamic> data);
+  Future<void> editStudent(Map<String, dynamic> data, String docId);
+  Future<List<LoginUser>> getUnregisteredStudents();
+  Future<void> addRoute(Map<String, dynamic> route);
+  Future<void> editRoute(Map<String, dynamic> route, String docId);
+  Future<List<BusPass>> getAllBusPass();
 }

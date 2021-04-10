@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fuzzywuzzy/applicable.dart';
+import 'package:fuzzywuzzy/fuzzywuzzy.dart';
 import 'package:rcmasbusapp/data/containers/user_container.dart';
 import 'package:rcmasbusapp/data/model/bus.dart';
 import 'package:rcmasbusapp/data/model/bus_pass.dart';
@@ -92,7 +94,7 @@ class FireStoreImpl implements FireStore {
     final passSnapshot = await firestore
         .collection('buspass')
         .where('roll_no', isEqualTo: user.rollNumber)
-        .where('is_payment_complete', isEqualTo: false)
+        .where('payment_complete', isEqualTo: false)
         .get();
 
     // get bus pass id to update
@@ -161,6 +163,9 @@ class FireStoreImpl implements FireStore {
   @override
   Future<YourBus> yourBusData() async {
     final busPass = await getBusPass();
+    if (busPass.busId == null) {
+      throw Exception();
+    }
     final bus = await getBus(busPass.busId!);
     final route = await getRoutes(busPass.routeId!);
     return YourBus(bus: bus, route: route, busPass: busPass);
@@ -240,7 +245,121 @@ class FireStoreImpl implements FireStore {
         .collection('renewals')
         .where('pass_id', isEqualTo: passId)
         .get();
-    return Renewal.fromJson(
-        snapshot.docs.first.data()!, snapshot.docs.first.id);
+    if (snapshot.docs.isNotEmpty) {
+      return Renewal.fromJson(
+          snapshot.docs.first.data()!, snapshot.docs.first.id);
+    } else {
+      return Renewal();
+    }
+  }
+
+  @override
+  Future<List<Student>> getStudents(int? year, String? name) async {
+    final filteredStudents = <Student>[];
+    final snapshot = await firestore.collection('students').get();
+    final students =
+        snapshot.docs.map((e) => Student.fromJson(e.data()!, e.id)).toList();
+
+    if (year == 0 && name != '') {
+      // when no year and only search textut
+      final list = extractAll(
+          query: name!,
+          choices: students,
+          cutoff: 40,
+          getter: (Student student) => student.firstName!);
+      return list.map((e) => e.choice).toList();
+    } else if (year != 0 && name == '') {
+      // when only year and no text
+      await Future.forEach(students, (Student student) async {
+        final busPassId = student.busPass;
+        final busPassSnapshot = await firestore
+            .collection('buspass')
+            .where('pass_id', isEqualTo: busPassId)
+            .get();
+        final pass = BusPass.fromJson(
+            busPassSnapshot.docs.first.data()!, busPassSnapshot.docs.first.id);
+        print(pass.timestamp!.toDate().year == year);
+        if (pass.timestamp!.toDate().year == year) {
+          filteredStudents.add(student);
+        }
+      });
+      return filteredStudents;
+    } else if (year == 0 && name == '') {
+      return students;
+    } else {
+      // when both parameters have value
+      await Future.forEach(students, (Student student) async {
+        final busPassId = student.busPass;
+        final busPassSnapshot = await firestore
+            .collection('buspass')
+            .where('pass_id', isEqualTo: busPassId)
+            .get();
+        final pass = BusPass.fromJson(
+            busPassSnapshot.docs.first.data()!, busPassSnapshot.docs.first.id);
+        print(pass.timestamp!.toDate().year == year);
+        if (pass.timestamp!.toDate().year == year) {
+          filteredStudents.add(student);
+        }
+        final list = extractAll(
+            query: name!,
+            choices: filteredStudents,
+            cutoff: 10,
+            getter: (Student student) => student.firstName!);
+        return list.map((e) => e.choice).toList();
+      });
+      return filteredStudents;
+    }
+  }
+
+  @override
+  Future<void> addStudent(Map<String, dynamic> data) async {
+    await firestore.collection('login').add({
+      'pay_complete': false,
+      'reg_complete': false,
+      'user_type': 'S',
+      'first_name': data['first_name'],
+      'last_name': data['last_name'],
+      'phone': '91' + data['phone'],
+      'roll_no': data['roll_no']
+    });
+    return;
+  }
+
+  @override
+  Future<void> editStudent(Map<String, dynamic> data, String docId) async {
+    await firestore.collection('students').doc(docId).update(data);
+    return;
+  }
+
+  @override
+  Future<List<LoginUser>> getUnregisteredStudents() async {
+    final snapshot = await firestore
+        .collection('login')
+        .where('reg_complete', isEqualTo: false)
+        .where('user_type', isEqualTo: 'S')
+        .get();
+    return snapshot.docs
+        .map((e) => LoginUser.fromJson(e.data()!, e.id))
+        .toList();
+  }
+
+  @override
+  Future<void> addRoute(Map<String, dynamic> route) async {
+    await firestore.collection('routes').add(route);
+    return;
+  }
+
+  @override
+  Future<List<BusPass>> getAllBusPass() async {
+    final snapshot = await firestore.collection('buspass').get();
+    final passes =
+        snapshot.docs.map((e) => BusPass.fromJson(e.data()!, e.id)).toList();
+    return passes;
+  }
+
+  @override
+  Future<void> editRoute(Map<String, dynamic> route, String docId) async {
+    await firestore.collection('routes').doc(docId).update(route);
+    return;
   }
 }

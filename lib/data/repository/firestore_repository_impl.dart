@@ -107,4 +107,39 @@ class FireStoreRepositoryImpl implements FireStoreRepository {
   Future<Renewal> getRenewal(String rollNo, String passId) {
     return _fireStoreDataSource.getRenewal(rollNo, passId);
   }
+
+  @override
+  Future<List<Student>> getStudents(int? year, String? name) {
+    return _fireStoreDataSource.getStudents(year, name);
+  }
+
+  @override
+  Future<void> addStudent(Map<String, dynamic> data) {
+    return _fireStoreDataSource.addStudent(data);
+  }
+
+  @override
+  Future<void> editStudent(Map<String, dynamic> data, String docId) {
+    return _fireStoreDataSource.editStudent(data, docId);
+  }
+
+  @override
+  Future<List<LoginUser>> getUnregisteredStudents() {
+    return _fireStoreDataSource.getUnregisteredStudents();
+  }
+
+  @override
+  Future<void> addRoute(Map<String, dynamic> route) {
+    return _fireStoreDataSource.addRoute(route);
+  }
+
+  @override
+  Future<List<BusPass>> getAllBusPass() {
+    return _fireStoreDataSource.getAllBusPass();
+  }
+
+  @override
+  Future<void> editRoute(Map<String, dynamic> route, String docId) {
+    return _fireStoreDataSource.editRoute(route, docId);
+  }
 }
