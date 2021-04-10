@@ -19,7 +19,7 @@ class YourBusCard extends HookWidget {
   Widget build(BuildContext context) {
     final bpProvider = useProvider(yourBusProvider);
     return Positioned(
-      top: 80,
+      top: 100,
       child: Container(
           // height: 150,
           width: Get.size.width,
@@ -30,39 +30,41 @@ class YourBusCard extends HookWidget {
                   borderRadius: BorderRadius.circular(10)),
               elevation: 0,
               child: bpProvider.when(
-                  error: (err, trace) => Center(
-                        child: Text(err.toString()),
-                      ),
+                  error: (err, trace) => SizedBox(),
                   loading: () => CustomIndicator(),
                   data: (val) {
-                    final stop = val.route!.stops!.firstWhere(
-                        (element) => element.stopId == val.busPass!.stopId);
-                    return Container(
-                      padding: EdgeInsets.all(25),
-                      width: Get.size.width,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              busNumber(val),
-                              Gap(10),
-                              busStop(stop),
-                              Gap(4),
-                              busTime(stop),
-                            ],
-                          ),
-                          Image.asset(
-                            'assets/bus.png',
-                            height: 70,
-                            width: 70,
-                          )
-                        ],
-                      ),
-                    );
+                    if (val.bus!.busNo != null) {
+                      final stop = val.route!.stops!.firstWhere(
+                          (element) => element.stopId == val.busPass!.stopId);
+                      return Container(
+                        padding: EdgeInsets.all(25),
+                        width: Get.size.width,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                busNumber(val),
+                                Gap(10),
+                                busStop(stop),
+                                Gap(4),
+                                busTime(stop),
+                              ],
+                            ),
+                            Image.asset(
+                              'assets/bus.png',
+                              height: 70,
+                              width: 70,
+                            )
+                          ],
+                        ),
+                      );
+                    } else {
+                      return SizedBox();
+                    }
                   }))),
     );
   }

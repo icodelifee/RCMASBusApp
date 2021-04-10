@@ -50,7 +50,7 @@ class HomePage extends StatelessWidget {
               Align(
                 alignment: FractionalOffset.bottomCenter,
                 child: Container(
-                  padding: EdgeInsets.only(left: 10, right: 10),
+                  // margin: EdgeInsets.only(left: 10, right: 10),
                   decoration: boxDecoration,
                   height: Get.height * 0.62,
                   width: Get.width,
@@ -69,7 +69,7 @@ class HomePage extends StatelessWidget {
                           mainAxisSpacing: 6,
                           crossAxisSpacing: 0,
                           padding: EdgeInsets.only(
-                              top: 10, bottom: 40, left: 8, right: 8),
+                              top: 10, bottom: 40, left: 15, right: 15),
                           children: [
                             BusPassTile(),
                             YourProfileTile(),

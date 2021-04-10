@@ -30,7 +30,7 @@ class PayBusFeePage extends HookWidget {
         backgroundColor: Colors.transparent,
       ),
       body: renewal.hasData
-          ? !renewal.data!.isApproved!
+          ? renewal.data?.docId != null
               ? Center(
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
