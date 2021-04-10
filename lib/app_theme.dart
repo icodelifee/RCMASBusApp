@@ -11,6 +11,12 @@ final border = OutlineInputBorder(
 final roundedRectangleBorder =
     RoundedRectangleBorder(borderRadius: circularBorder);
 
+final buttonStyle = ButtonStyle(
+  shape: MaterialStateProperty.all(
+      RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+  backgroundColor: MaterialStateProperty.all(AppColors.buttonColor),
+);
+
 final cardShadow = BoxDecoration(
   boxShadow: [
     BoxShadow(
