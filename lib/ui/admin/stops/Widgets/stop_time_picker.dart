@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rcmasbusapp/app_theme.dart';
 import 'package:rcmasbusapp/ui/admin/stops/stops_viewmodel.dart';
@@ -13,7 +12,8 @@ class StopArrivalTimePicker extends HookWidget {
       // enabled: false,
       onTap: () async {
         final t = await showTimePicker(
-            context: context, initialTime: TimeOfDay.now());
+            context: provider.scaffoldKey.currentContext!,
+            initialTime: TimeOfDay.now());
         final now = DateTime.now();
 
         // if the picker didnt select time handle null

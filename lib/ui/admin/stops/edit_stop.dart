@@ -16,12 +16,12 @@ import 'package:rcmasbusapp/ui/registration/Widgets/text_field_label.dart';
 class EditStop extends HookWidget {
   EditStop({required this.stop, required this.routeId});
   final stopEditKey = GlobalKey<FormState>();
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final Map<String, dynamic> stop;
   final String routeId;
   @override
   Widget build(BuildContext context) {
     final provider = useProvider(stopsProvider);
+    
     provider.time = (stop['arrival_time'] as Timestamp).toDate();
     final time = DateFormat.jm().format(provider.time!);
     provider.stopLoc =
@@ -30,7 +30,7 @@ class EditStop extends HookWidget {
     provider.timeCtrl = useTextEditingController(text: time.toString());
 
     return Scaffold(
-        key: _scaffoldKey,
+        key: provider.scaffoldKey,
         appBar: AdminAppBar(
           title: 'Edit stop',
         ),

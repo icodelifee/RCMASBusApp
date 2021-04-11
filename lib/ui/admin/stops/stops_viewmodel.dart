@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rcmasbusapp/data/provider/firestore_repository_provider.dart';
 import 'package:rcmasbusapp/data/repository/firestore_repository.dart';
@@ -12,11 +13,17 @@ class StopsViewModel extends ChangeNotifier {
   StopsViewModel({required this.repo});
   final FireStoreRepository repo;
 
+  // keys
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  //controllers
   TextEditingController? stopName;
   TextEditingController? stopLoc;
   TextEditingController? timeCtrl;
-  DateTime? time;
 
+  // mutables
+  DateTime? time;
+  
   Future<List<Map<String, dynamic>>> getStops(String route) async {
     return repo.getBusStops(route);
   }
