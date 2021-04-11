@@ -29,6 +29,7 @@ dependencies:
   firebase_auth: ^1.0.1
   firebase_core: ^1.0.1
   flutter_hooks: ^0.16.0
+  flutter_slidable: ^0.5.7
   fuzzywuzzy: ^0.1.5
   gap: ^2.0.0-nullsafety.1
   get: ^4.0.0-nullsafety.2
