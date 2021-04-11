@@ -12,7 +12,7 @@ class DataText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: TextStyle(color: Color(0xFF787878), fontSize: 13),
+      style: TextStyle(color: Color(0xFF787878), fontSize: 15),
     );
   }
 }
