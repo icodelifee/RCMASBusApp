@@ -16,7 +16,13 @@ class RouteListPage extends HookWidget {
         appBar: AdminAppBar(
           title: 'Routes List',
         ),
-        floatingActionButton: fab(),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => Get.to(() => AddRoute()),
+          child: Icon(
+            Icons.add_location_alt_rounded,
+            color: Colors.white,
+          ),
+        ),
         body: Container(
             padding: EdgeInsets.all(10),
             child: routes.when(
@@ -26,15 +32,5 @@ class RouteListPage extends HookWidget {
                 loading: () => CustomIndicator(),
                 error: (error, stack) =>
                     Center(child: Text('Some Error Occured')))));
-  }
-
-  FloatingActionButton fab() {
-    return FloatingActionButton(
-      onPressed: () => Get.to(() => AddRoute()),
-      child: Icon(
-        Icons.add_location_alt_rounded,
-        color: Colors.white,
-      ),
-    );
   }
 }

@@ -30,4 +30,8 @@ class RouteViewModel extends ChangeNotifier {
     data['route_location'] = routeLoc!.text;
     await repo.editRoute(data, route['doc']);
   }
+
+  Future<void> deleteRoute(String routeId) async {
+    return repo.deleteRoute(routeId);
+  }
 }
