@@ -152,13 +152,16 @@ class FireStoreImpl implements FireStore {
   @override
   Future<BusPass> getBusPass() async {
     final user = userContainer.resolve<LoginUser>();
-    final student = await getStudent(user.rollNumber!);
-    final buspass = await firestore
-        .collection('buspass')
-        .where('pass_id', isEqualTo: student.busPass)
-        .get();
-    return BusPass.fromJson(buspass.docs.first.data()!, buspass.docs.first.id,
-        student: student);
+    if (user.rollNumber != null) {
+      final student = await getStudent(user.rollNumber!);
+      final buspass = await firestore
+          .collection('buspass')
+          .where('pass_id', isEqualTo: student.busPass)
+          .get();
+      return BusPass.fromJson(buspass.docs.first.data()!, buspass.docs.first.id,
+          student: student);
+    }
+    return BusPass();
   }
 
   @override
