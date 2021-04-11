@@ -9,6 +9,7 @@ import 'package:rcmasbusapp/ui/admin/route/Widgets/route_name_textfield.dart';
 import 'package:rcmasbusapp/ui/admin/route/route_viewmodel.dart';
 import 'package:rcmasbusapp/ui/components/snackbar.dart';
 import 'package:rcmasbusapp/ui/registration/Widgets/text_field_label.dart';
+import 'package:rcmasbusapp/ui/registration/registration_page_viewmodel.dart';
 
 class AddRoute extends HookWidget {
   final routeAddKey = GlobalKey<FormState>();
@@ -22,7 +23,7 @@ class AddRoute extends HookWidget {
         appBar: AdminAppBar(
           title: 'Add Route',
         ),
-        floatingActionButton: fab(provider),
+        floatingActionButton: fab(provider, context),
         body: Container(
             height: Get.height,
             padding: EdgeInsets.all(20),
@@ -40,12 +41,13 @@ class AddRoute extends HookWidget {
                     ])))));
   }
 
-  FloatingActionButton fab(RouteViewModel provider) {
+  FloatingActionButton fab(RouteViewModel provider, BuildContext context) {
     return FloatingActionButton(
       onPressed: () async {
         if (routeAddKey.currentState!.validate()) {
           await provider.addRoute();
           Get.back();
+          await context.refresh(routesProvider);
         } else {
           showSnackbar('Please fill all the fields',
               'All Fields must be filled to procced');
