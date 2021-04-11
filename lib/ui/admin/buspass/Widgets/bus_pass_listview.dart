@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:rcmasbusapp/app_theme.dart';
 import 'package:rcmasbusapp/ui/admin/buspass/Widgets/data_text.dart';
 import 'package:rcmasbusapp/ui/admin/buspass/Widgets/header_text.dart';
 import 'package:rcmasbusapp/ui/admin/buspass/buspass_viewmodel.dart';
@@ -23,41 +24,43 @@ class BusPassListView extends HookWidget {
         itemCount: buspasses.length,
         itemBuilder: (BuildContext context, int index) {
           return Card(
+              elevation: 3,
+              shape: roundedRectangleBorder,
               child: Container(
-            padding: EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                HeaderText(
-                  text: 'Bus Pass Id',
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    HeaderText(
+                      text: 'Bus Pass Id',
+                    ),
+                    DataText(text: buspasses[index].passId!),
+                    Gap(8),
+                    HeaderText(
+                      text: 'Roll Number',
+                    ),
+                    DataText(text: buspasses[index].rollNo!),
+                    Gap(8),
+                    HeaderText(
+                      text: 'Pass Creation Date',
+                    ),
+                    DataText(text: getTime(buspasses[index].timestamp!)),
+                    Gap(8),
+                    HeaderText(text: 'Pass Status'),
+                    DataText(
+                      text: buspasses[index].isApproved!
+                          ? 'Approved'
+                          : 'Not Approved',
+                    ),
+                    Gap(8),
+                    HeaderText(text: 'Pass Payment Status'),
+                    DataText(
+                        text: buspasses[index].isPaymentComplete!
+                            ? 'Payed'
+                            : 'Not Payed')
+                  ],
                 ),
-                DataText(text: buspasses[index].passId!),
-                Gap(8),
-                HeaderText(
-                  text: 'Roll Number',
-                ),
-                DataText(text: buspasses[index].rollNo!),
-                Gap(8),
-                HeaderText(
-                  text: 'Pass Creation Date',
-                ),
-                DataText(text: getTime(buspasses[index].timestamp!)),
-                Gap(8),
-                HeaderText(text: 'Pass Status'),
-                DataText(
-                  text: buspasses[index].isApproved!
-                      ? 'Approved'
-                      : 'Not Approved',
-                ),
-                Gap(8),
-                HeaderText(text: 'Pass Payment Status'),
-                DataText(
-                    text: buspasses[index].isPaymentComplete!
-                        ? 'Payed'
-                        : 'Not Payed')
-              ],
-            ),
-          ));
+              ));
         },
       );
     } else {
