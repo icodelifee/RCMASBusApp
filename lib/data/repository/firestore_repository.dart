@@ -40,4 +40,6 @@ abstract class FireStoreRepository {
   Future<void> addStop(Map<String, dynamic> stop, String routeDocId);
   Future<void> editStop(
       Map<String, dynamic> stop, String routeDocId, String stopDocId);
+  Future<void> deleteStop(String stopId, String routeId);
+  Future<void> deleteRoute(String routeId);
 }

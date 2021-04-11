@@ -392,4 +392,21 @@ class FireStoreImpl implements FireStore {
         .update(stop);
     return;
   }
+
+  @override
+  Future<void> deleteStop(String stopId, String routeId) async {
+    await firestore
+        .collection('routes')
+        .doc(routeId)
+        .collection('stops')
+        .doc(stopId)
+        .delete();
+    return;
+  }
+
+  @override
+  Future<void> deleteRoute(String routeId) async {
+    await firestore.collection('routes').doc(routeId).delete();
+    return;
+  }
 }

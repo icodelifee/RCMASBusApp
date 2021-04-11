@@ -159,4 +159,14 @@ class FireStoreRepositoryImpl implements FireStoreRepository {
       Map<String, dynamic> stop, String routeDocId, String stopDocId) {
     return _fireStoreDataSource.editStop(stop, routeDocId, stopDocId);
   }
+
+  @override
+  Future<void> deleteStop(String stopId, String routeId) {
+    return _fireStoreDataSource.deleteStop(stopId, routeId);
+  }
+
+  @override
+  Future<void> deleteRoute(String routeId) {
+    return _fireStoreDataSource.deleteRoute(routeId);
+  }
 }

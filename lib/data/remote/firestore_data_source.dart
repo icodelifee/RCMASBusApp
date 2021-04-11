@@ -13,7 +13,6 @@ import 'package:rcmasbusapp/data/model/your_bus.dart';
 abstract class FireStore {
   Future<bool> checkUserEntry(String phone);
   Future<LoginUser> getLoginUser();
-  Future getBusRoutes();
   Future<List<Map<String, dynamic>>> getBusStops(String? route);
   Future<void> saveUserData(Map<String, dynamic> data);
   Future<void> savePayment(String payCode);
@@ -23,7 +22,6 @@ abstract class FireStore {
   Future<Stream<DocumentSnapshot>> getBusPassStream();
   Future<YourBus> yourBusData();
   Future<Bus> getBus(String id);
-  Future<Route> getRoutes(String id);
   Future<Map<String, dynamic>> getInformation();
   Future<Driver> getDriver(String id);
   Future<List<Payment>> getStudentPayments(String id);
@@ -33,11 +31,19 @@ abstract class FireStore {
   Future<void> addStudent(Map<String, dynamic> data);
   Future<void> editStudent(Map<String, dynamic> data, String docId);
   Future<List<LoginUser>> getUnregisteredStudents();
+
+  // route
+  Future<Route> getRoutes(String id);
+  Future getBusRoutes();
   Future<void> addRoute(Map<String, dynamic> route);
   Future<void> editRoute(Map<String, dynamic> route, String docId);
   Future<List<BusPass>> getAllBusPass();
+  Future<void> deleteRoute(String routeId);
+
+  // stop
   Future<List<Stop>> getAllStops();
   Future<void> addStop(Map<String, dynamic> stop, String routeDocId);
   Future<void> editStop(
       Map<String, dynamic> stop, String routeDocId, String stopDocId);
+  Future<void> deleteStop(String stopId, String routeId);
 }
