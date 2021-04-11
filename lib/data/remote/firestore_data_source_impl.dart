@@ -118,7 +118,7 @@ class FireStoreImpl implements FireStore {
     await firestore
         .collection('buspass')
         .doc(passId)
-        .update({'is_payment_complete': true, 'payment_id': paymentId});
+        .update({'payment_complete': true, 'payment_id': paymentId});
 
     // update student
     await firestore
