@@ -22,7 +22,7 @@ class EditRoute extends HookWidget {
     provider.routeName = useTextEditingController(text: route['route_name']);
     return Scaffold(
         appBar: AdminAppBar(
-          title: 'Add Route',
+          title: 'Edit Route',
         ),
         floatingActionButton: fab(provider, context),
         body: Container(
