@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get/get.dart';
-import 'package:rcmasbusapp/ui/admin/route/edit_route.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rcmasbusapp/ui/admin/stops/edit_stop.dart';
+import 'package:rcmasbusapp/ui/admin/stops/stops_viewmodel.dart';
 
-class StopsListView extends StatelessWidget {
-  const StopsListView({Key? key, required this.stops, required this.routeId})
-      : super(key: key);
+class StopsListView extends HookWidget {
+  const StopsListView({Key? key, required this.routeId}) : super(key: key);
 
-  final AsyncSnapshot<List> stops;
   final String routeId;
 
   @override
   Widget build(BuildContext context) {
+    final stopProvider = useProvider(stopsProvider);
+    final stops = useFuture(stopProvider.getStops(routeId), initialData: []);
     if (stops.connectionState == ConnectionState.waiting) {
       if (stops.data!.isNotEmpty) {
         return ListView.builder(
@@ -23,12 +25,22 @@ class StopsListView extends StatelessWidget {
                 contentPadding: EdgeInsets.all(20),
                 title: Text(stops.data![index]['stop_name']),
                 subtitle: Text(stops.data![index]['stop_location']),
-                trailing: IconButton(
-                  onPressed: () => Get.to(() => EditStop(
-                        stop: stops.data![index],
-                        routeId: routeId,
-                      )),
-                  icon: Icon(Icons.edit),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      onPressed: () =>
+                          deleteStop(stops.data![index], stopProvider),
+                      icon: Icon(Icons.delete),
+                    ),
+                    IconButton(
+                      onPressed: () => Get.to(() => EditStop(
+                            stop: stops.data![index],
+                            routeId: routeId,
+                          )),
+                      icon: Icon(Icons.edit),
+                    ),
+                  ],
                 ),
               ),
             );
@@ -40,5 +52,24 @@ class StopsListView extends StatelessWidget {
     } else {
       return Center(child: Text('Some Error Occured'));
     }
+  }
+
+  void deleteStop(
+      Map<String, dynamic> stop, StopsViewModel stopProvider) async {
+    await Get.defaultDialog(
+        confirm: TextButton(
+            onPressed: () async {
+              await stopProvider.deleteStop(stop['doc'], routeId);
+              Get.context!.refresh(stopsProvider);
+              Get.back();
+            },
+            child: Text('Yes')),
+        cancel: TextButton(
+            onPressed: () {
+              Get.back();
+            },
+            child: Text('No')),
+        title: 'Are you sure you want to delete',
+        middleText: '');
   }
 }

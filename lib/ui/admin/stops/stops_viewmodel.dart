@@ -23,7 +23,7 @@ class StopsViewModel extends ChangeNotifier {
 
   // mutables
   DateTime? time;
-  
+
   Future<List<Map<String, dynamic>>> getStops(String route) async {
     return repo.getBusStops(route);
   }
@@ -35,6 +35,10 @@ class StopsViewModel extends ChangeNotifier {
       'arrival_time': time,
       'stop_id': Uuid().v4()
     }, routeId);
+  }
+
+  Future<void> deleteStop(String stopDocId, String routeDocId) async {
+    await repo.deleteStop(stopDocId, routeDocId);
   }
 
   Future<void> editStop(Map<String, dynamic> stop, String routeId) async {

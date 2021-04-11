@@ -21,7 +21,7 @@ class EditStop extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final provider = useProvider(stopsProvider);
-    
+
     provider.time = (stop['arrival_time'] as Timestamp).toDate();
     final time = DateFormat.jm().format(provider.time!);
     provider.stopLoc =
