@@ -72,7 +72,7 @@ class StudentsListViewModel extends ChangeNotifier {
     final data = <String, dynamic>{};
     data['first_name'] = firstName!.text;
     data['last_name'] = lastName!.text;
-    data['phone'] ='91'+ phone!.text;
+    data['phone'] = '91' + phone!.text;
     data['roll_no'] = rollNo!.text;
     data['email'] = email!.text;
     await repo.editStudent(data, student.docId!);
