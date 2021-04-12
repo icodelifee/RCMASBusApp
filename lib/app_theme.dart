@@ -35,4 +35,5 @@ class AppColors {
   static final Color accentColor = const Color(0xFF4CBD89);
   static final Color buttonColor = const Color(0xFF4CBD89);
   static final Color textInputFillColor = Color(0xFFE7E7E7);
+  static final Color secondaryColor = const Color(0xFFFF8F60);
 }
