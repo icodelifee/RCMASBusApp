@@ -412,4 +412,16 @@ class FireStoreImpl implements FireStore {
     await firestore.collection('routes').doc(routeId).delete();
     return;
   }
+
+  @override
+  Future<void> approveBusPass(Map<String, dynamic> pass, String docId) async {
+    await firestore.collection('buspass').doc(docId).update(pass);
+    return;
+  }
+
+  @override
+  Future<List<Bus>> getAllBus() async {
+    final snapshot = await firestore.collection('buses').get();
+    return snapshot.docs.map((e) => Bus.fromJson(e.data()!, e.id)).toList();
+  }
 }

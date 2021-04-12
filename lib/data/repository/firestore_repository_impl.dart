@@ -169,4 +169,14 @@ class FireStoreRepositoryImpl implements FireStoreRepository {
   Future<void> deleteRoute(String routeId) {
     return _fireStoreDataSource.deleteRoute(routeId);
   }
+
+  @override
+  Future<void> approveBusPass(Map<String, dynamic> pass, String docId) {
+    return _fireStoreDataSource.approveBusPass(pass, docId);
+  }
+
+  @override
+  Future<List<Bus>> getAllBus() {
+    return _fireStoreDataSource.getAllBus();
+  }
 }
