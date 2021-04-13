@@ -179,4 +179,9 @@ class FireStoreRepositoryImpl implements FireStoreRepository {
   Future<List<Bus>> getAllBus() {
     return _fireStoreDataSource.getAllBus();
   }
+
+  @override
+  Future<List<Driver>> getAllDrivers() {
+    return _fireStoreDataSource.getAllDrivers();
+  }
 }

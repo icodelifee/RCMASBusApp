@@ -16,18 +16,17 @@ abstract class FireStore {
   Future<List<Map<String, dynamic>>> getBusStops(String? route);
   Future<void> saveUserData(Map<String, dynamic> data);
   Future<void> savePayment(String payCode);
-  Future<Student> getStudent(String rollNo);
-  Future<void> generateBusPass(Map<String, dynamic> data);
-  Future<BusPass> getBusPass();
+
   Future<Stream<DocumentSnapshot>> getBusPassStream();
-  Future<YourBus> yourBusData();
-  Future<Bus> getBus(String id);
   Future<Map<String, dynamic>> getInformation();
   Future<Driver> getDriver(String id);
   Future<List<Payment>> getStudentPayments(String id);
   Future<void> saveRenewal(Map<String, dynamic> data);
   Future<Renewal> getRenewal(String rollNo, String passId);
+
+  // student
   Future<List<Student>> getStudents(int? year, String? name);
+  Future<Student> getStudent(String rollNo);
   Future<void> addStudent(Map<String, dynamic> data);
   Future<void> editStudent(Map<String, dynamic> data, String docId);
   Future<List<LoginUser>> getUnregisteredStudents();
@@ -47,6 +46,16 @@ abstract class FireStore {
       Map<String, dynamic> stop, String routeDocId, String stopDocId);
   Future<void> deleteStop(String stopId, String routeId);
 
+  // bus pass
   Future<void> approveBusPass(Map<String, dynamic> pass, String docId);
+  Future<void> generateBusPass(Map<String, dynamic> data);
+  Future<BusPass> getBusPass();
+
+  // bus
   Future<List<Bus>> getAllBus();
+  Future<YourBus> yourBusData();
+  Future<Bus> getBus(String id);
+
+  // drivers
+  Future<List<Driver>> getAllDrivers();
 }

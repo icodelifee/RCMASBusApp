@@ -424,4 +424,10 @@ class FireStoreImpl implements FireStore {
     final snapshot = await firestore.collection('buses').get();
     return snapshot.docs.map((e) => Bus.fromJson(e.data()!, e.id)).toList();
   }
+
+  @override
+  Future<List<Driver>> getAllDrivers() async {
+    final snapshot = await firestore.collection('drivers').get();
+    return snapshot.docs.map((e) => Driver.fromJson(e.data()!, e.id)).toList();
+  }
 }

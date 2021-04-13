@@ -44,4 +44,5 @@ abstract class FireStoreRepository {
   Future<void> deleteRoute(String routeId);
   Future<void> approveBusPass(Map<String, dynamic> pass, String docId);
   Future<List<Bus>> getAllBus();
+  Future<List<Driver>> getAllDrivers();
 }
