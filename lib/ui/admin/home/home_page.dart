@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-import 'package:rcmasbusapp/app_theme.dart';
 import 'package:rcmasbusapp/ui/admin/buspass/buspass_page.dart';
+import 'package:rcmasbusapp/ui/admin/drivers/drivers_page.dart';
 import 'package:rcmasbusapp/ui/admin/home/Widgets/homepage_listtile.dart';
 import 'package:rcmasbusapp/ui/admin/route/route_page.dart';
 import 'package:rcmasbusapp/ui/admin/students_list/students_list_page.dart';
@@ -22,14 +20,10 @@ class AdminHomePage extends StatelessWidget {
           padding: EdgeInsets.all(8),
           child: ListView(
             children: [
-              HomePageListTile(
-                  title1: 'Students',
-                  title2: 'List',
-                  route: StudentsListPage()),
-              HomePageListTile(
-                  title1: 'Routes', title2: 'List', route: RouteListPage()),
-              HomePageListTile(
-                  title1: 'Bus Pass', title2: 'List', route: BusPassPage()),
+              HomePageListTile(title: 'Students', route: StudentsListPage()),
+              HomePageListTile(title: 'Routes', route: RouteListPage()),
+              HomePageListTile(title: 'Bus Pass', route: BusPassPage()),
+              HomePageListTile(title: 'Drivers', route: DriversPage())
             ],
           )),
     );
