@@ -20,10 +20,26 @@ class AdminHomePage extends StatelessWidget {
           padding: EdgeInsets.all(8),
           child: ListView(
             children: [
-              HomePageListTile(title: 'Students', route: StudentsListPage()),
-              HomePageListTile(title: 'Routes', route: RouteListPage()),
-              HomePageListTile(title: 'Bus Pass', route: BusPassPage()),
-              HomePageListTile(title: 'Drivers', route: DriversPage())
+              HomePageListTile(
+                title: 'Students',
+                route: StudentsListPage(),
+                image: 'assets/student.png',
+              ),
+              HomePageListTile(
+                title: 'Routes',
+                route: RouteListPage(),
+                image: 'assets/route.png',
+              ),
+              HomePageListTile(
+                title: 'Bus Pass',
+                route: BusPassPage(),
+                image: 'assets/bus-ticket.png',
+              ),
+              HomePageListTile(
+                title: 'Drivers',
+                route: DriversPage(),
+                image: 'assets/driver.png',
+              )
             ],
           )),
     );
