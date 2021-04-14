@@ -1,6 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:rcmasbusapp/app_theme.dart';
 import 'package:rcmasbusapp/data/model/driver.dart';
+import 'package:rcmasbusapp/ui/admin/drivers/add_driver.dart';
+import 'package:rcmasbusapp/ui/admin/drivers/view_driver.dart';
+import 'package:rcmasbusapp/ui/components/avatar_icon.dart';
 
 class DriversListView extends StatelessWidget {
   const DriversListView({Key? key, required this.drivers}) : super(key: key);
@@ -13,11 +19,13 @@ class DriversListView extends StatelessWidget {
         return Card(
             shape: roundedRectangleBorder,
             child: ListTile(
+              onTap: () {
+                Get.bottomSheet(ViewDriver(driver: drivers[index]));
+              },
               contentPadding: EdgeInsets.all(20),
-              leading: CircleAvatar(
-                radius: 26,
-                child: Text(drivers[index].firstName!.substring(0, 1) +
-                    drivers[index].lastName!.substring(0, 1)),
+              leading: AvatarIcon(
+                firstName: drivers[index].firstName!,
+                lastName: drivers[index].lastName!,
               ),
               title: Text(
                   '${drivers[index].firstName!} ${drivers[index].lastName!}'),
@@ -25,7 +33,12 @@ class DriversListView extends StatelessWidget {
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  IconButton(icon: Icon(Icons.edit), onPressed: () {})
+                  IconButton(
+                      icon: Icon(Icons.edit),
+                      onPressed: () => Get.to(() => AddDriver(
+                            edit: true,
+                            driver: drivers[index],
+                          )))
                 ],
               ),
             ));
