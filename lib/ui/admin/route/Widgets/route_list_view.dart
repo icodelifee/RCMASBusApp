@@ -23,6 +23,11 @@ class RoutesListView extends HookWidget {
             onTap: () =>
                 Get.to(() => StopsPage(routeDocId: data[index]['doc'])),
             contentPadding: EdgeInsets.all(20),
+            minLeadingWidth: 5,
+            leading: Image.asset(
+              'assets/route.png',
+              height: 40,
+            ),
             title: Text(data[index]['route_name']),
             subtitle: Text(data[index]['route_location']),
             trailing: Row(

@@ -23,6 +23,11 @@ class StopsListView extends HookWidget {
             return Card(
               child: ListTile(
                 contentPadding: EdgeInsets.all(20),
+                leading: Image.asset(
+                  'assets/bus-stop.png',
+                  height: 35,
+                ),
+                minLeadingWidth: 30,
                 title: Text(stops.data![index]['stop_name']),
                 subtitle: Text(stops.data![index]['stop_location']),
                 trailing: Row(
