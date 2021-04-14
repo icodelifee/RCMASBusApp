@@ -6,10 +6,12 @@ import 'package:rcmasbusapp/app_theme.dart';
 class HomePageListTile extends StatelessWidget {
   const HomePageListTile({
     required this.title,
+    required this.image,
     required this.route,
     Key? key,
   }) : super(key: key);
 
+  final String image;
   final String title;
   final Widget route;
   @override
@@ -17,10 +19,10 @@ class HomePageListTile extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 4, horizontal: 3),
       child: Card(
-        elevation: 0,
+        elevation: 1.8,
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-            side: BorderSide(color: AppColors.accentColor, width: 1.4)),
+          borderRadius: BorderRadius.circular(10),
+        ),
         child: InkWell(
           onTap: () => Get.to(() => route),
           borderRadius: circularBorder,
@@ -30,17 +32,18 @@ class HomePageListTile extends StatelessWidget {
             height: 80.0,
             width: 150.0,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                Image.asset(image),
+                Gap(20),
                 Text(
                   title,
                   style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 23,
                       fontWeight: FontWeight.w700,
                       color: Colors.black),
                 ),
-                Gap(6),
               ],
             ),
           ),
