@@ -9,6 +9,7 @@ import 'package:rcmasbusapp/ui/admin/admin_common/appbar.dart';
 import 'package:rcmasbusapp/ui/admin/students_list/add_student.dart';
 import 'package:rcmasbusapp/ui/admin/students_list/students_list_viewmodel.dart';
 import 'package:rcmasbusapp/ui/admin/students_list/unregistered_students.dart';
+import 'package:rcmasbusapp/ui/components/avatar_icon.dart';
 import 'package:rcmasbusapp/ui/registration/Widgets/progress_indicator.dart';
 
 import 'edit_student.dart';
@@ -117,6 +118,11 @@ class StudentsListPage extends HookWidget {
                               child: Container(
                                   padding: EdgeInsets.all(20),
                                   child: ListTile(
+                                    leading: AvatarIcon(
+                                        firstName:
+                                            snapshot.data![index].firstName!,
+                                        lastName:
+                                            snapshot.data![index].lastName!),
                                     title: Text(
                                       '${snapshot.data![index].firstName!} ${snapshot.data![index].lastName!}',
                                       style: TextStyle(
