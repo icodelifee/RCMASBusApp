@@ -55,6 +55,8 @@ abstract class FireStore {
   Future<List<Bus>> getAllBus();
   Future<YourBus> yourBusData();
   Future<Bus> getBus(String id);
+  Future<void> addBus(Map<String, dynamic> bus);
+  Future<void> editBus(Map<String, dynamic> bus, String docId);
 
   // drivers
   Future<List<Driver>> getAllDrivers();

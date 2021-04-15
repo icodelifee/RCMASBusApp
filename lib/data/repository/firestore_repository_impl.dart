@@ -194,4 +194,14 @@ class FireStoreRepositoryImpl implements FireStoreRepository {
   Future<void> editDriver(Map<String, dynamic> driver, String docId) {
     return _fireStoreDataSource.editDriver(driver, docId);
   }
+
+  @override
+  Future<void> addBus(Map<String, dynamic> bus) {
+    return _fireStoreDataSource.addBus(bus);
+  }
+
+  @override
+  Future<void> editBus(Map<String, dynamic> bus, String docId) {
+    return _fireStoreDataSource.editBus(bus, docId);
+  }
 }

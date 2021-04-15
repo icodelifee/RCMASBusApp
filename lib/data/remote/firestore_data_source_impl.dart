@@ -442,4 +442,14 @@ class FireStoreImpl implements FireStore {
     await firestore.collection('drivers').doc(docId).update(driver);
     return;
   }
+
+  @override
+  Future<void> addBus(Map<String, dynamic> bus) {
+    return firestore.collection('buses').add(bus);
+  }
+
+  @override
+  Future<void> editBus(Map<String, dynamic> bus, String docId) {
+    return firestore.collection('buses').doc(docId).update(bus);
+  }
 }
