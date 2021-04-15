@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rcmasbusapp/ui/admin/buses/buses_page.dart';
 import 'package:rcmasbusapp/ui/admin/buspass/buspass_page.dart';
 import 'package:rcmasbusapp/ui/admin/drivers/drivers_page.dart';
 import 'package:rcmasbusapp/ui/admin/home/Widgets/homepage_listtile.dart';
@@ -39,6 +40,11 @@ class AdminHomePage extends StatelessWidget {
                 title: 'Drivers',
                 route: DriversPage(),
                 image: 'assets/driver.png',
+              ),
+              HomePageListTile(
+                title: 'Buses',
+                route: BusesPage(),
+                image: 'assets/bus.png',
               )
             ],
           )),
