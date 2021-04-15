@@ -46,7 +46,7 @@ class DriversViewModel extends ChangeNotifier {
       'last_name': lastName!.text,
       'driver_id': Uuid().v4(),
       'license_no': licenseNumber!.text,
-      'phone': '91' + phoneNumber!.text,
+      'phone': phoneNumber!.text,
       'license_expiry_date': licenseExpiryDate
     };
     await repo.editDriver(data, driver.docId!);
