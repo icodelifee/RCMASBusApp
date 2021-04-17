@@ -15,14 +15,21 @@ abstract class FireStore {
   Future<LoginUser> getLoginUser();
   Future<List<Map<String, dynamic>>> getBusStops(String? route);
   Future<void> saveUserData(Map<String, dynamic> data);
-  Future<void> savePayment(String payCode);
 
   Future<Stream<DocumentSnapshot>> getBusPassStream();
   Future<Map<String, dynamic>> getInformation();
   Future<Driver> getDriver(String id);
+
+  // payments
   Future<List<Payment>> getStudentPayments(String id);
+  Future<void> savePayment(String payCode);
+  Future<Payment> getStudentPayment(String pay_id);
+
+  // renewals
   Future<void> saveRenewal(Map<String, dynamic> data);
   Future<Renewal> getRenewal(String rollNo, String passId);
+  Future<List<Renewal>> getAllRenewals();
+  Future<void> approveRenewal(Map<String, dynamic> data);
 
   // student
   Future<List<Student>> getStudents(int? year, String? name);
@@ -49,6 +56,7 @@ abstract class FireStore {
   // bus pass
   Future<void> approveBusPass(Map<String, dynamic> pass, String docId);
   Future<void> generateBusPass(Map<String, dynamic> data);
+  Future<BusPass> getStudentBusPass(String passId);
   Future<BusPass> getBusPass();
 
   // bus

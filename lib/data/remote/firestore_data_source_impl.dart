@@ -1,6 +1,7 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fuzzywuzzy/applicable.dart';
 import 'package:fuzzywuzzy/fuzzywuzzy.dart';
 import 'package:rcmasbusapp/data/containers/user_container.dart';
 import 'package:rcmasbusapp/data/model/bus.dart';
@@ -218,7 +219,7 @@ class FireStoreImpl implements FireStore {
         .where('roll_no', isEqualTo: id)
         .get();
 
-    return snapshot.docs.map((e) => Payment.fromJson(e.data()!)).toList();
+    return snapshot.docs.map((e) => Payment.fromJson(e.data()!, e.id)).toList();
   }
 
   @override
@@ -451,5 +452,57 @@ class FireStoreImpl implements FireStore {
   @override
   Future<void> editBus(Map<String, dynamic> bus, String docId) {
     return firestore.collection('buses').doc(docId).update(bus);
+  }
+
+  @override
+  Future<List<Renewal>> getAllRenewals() async {
+    final snapshot = await firestore.collection('renewals').get();
+    final renewals =
+        await Stream.fromIterable(snapshot.docs).asyncMap((e) async {
+      final renewal = Renewal.fromJson(e.data()!, e.id);
+      renewal.pass = await getStudentBusPass(renewal.passId!);
+      renewal.payment = await getStudentPayment(renewal.paymentId!);
+      renewal.student = await getStudent(renewal.rollNo!);
+      return renewal;
+    }).toList();
+    return renewals;
+  }
+
+  @override
+  Future<BusPass> getStudentBusPass(String passId) async {
+    final snapshot = await firestore
+        .collection('buspass')
+        .where('pass_id', isEqualTo: passId)
+        .get();
+    return BusPass.fromJson(
+        snapshot.docs.first.data()!, snapshot.docs.first.id);
+  }
+
+  @override
+  Future<Payment> getStudentPayment(String pay_id) async {
+    final snapshot = await firestore
+        .collection('payments')
+        .where('payment_id', isEqualTo: pay_id)
+        .get();
+    return Payment.fromJson(
+        snapshot.docs.first.data()!, snapshot.docs.first.id);
+  }
+
+  @override
+  Future<void> approveRenewal(Map<String, dynamic> data) async {
+    // renewal -> is_approved true ✅
+    // buspass -> update payment_id ✅
+    // buspass -> update renewal date from admin ✅
+    await firestore
+        .collection('renewals')
+        .doc(data['docId'])
+        .update({'is_approved': true});
+
+    await firestore.collection('buspass').doc(data['pass_id']).update({
+      'renewal_date': data['renewal_date'],
+      'payment_id': data['payment_id']
+    });
+
+    return;
   }
 }

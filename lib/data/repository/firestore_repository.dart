@@ -49,4 +49,6 @@ abstract class FireStoreRepository {
   Future<void> editDriver(Map<String, dynamic> driver, String docId);
   Future<void> addBus(Map<String, dynamic> bus);
   Future<void> editBus(Map<String, dynamic> bus, String docId);
+  Future<List<Renewal>> getAllRenewals();
+  Future<void> approveRenewal(Map<String, dynamic> data);
 }
