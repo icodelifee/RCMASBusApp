@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:gap/gap.dart';
-import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
-import 'package:rcmasbusapp/data/model/stop.dart';
-import 'package:rcmasbusapp/data/model/your_bus.dart';
 import 'package:rcmasbusapp/ui/bus_pass/Widgets/pass_status.dart';
 import 'package:rcmasbusapp/ui/bus_pass/Widgets/primary_details.dart';
 import 'package:rcmasbusapp/ui/bus_pass/Widgets/route_stop_details.dart';
