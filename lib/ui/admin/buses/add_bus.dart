@@ -12,6 +12,7 @@ import 'package:rcmasbusapp/ui/admin/buses/Widgets/insurance_textfield.dart';
 import 'package:rcmasbusapp/ui/admin/buses/Widgets/license_number_textfield.dart';
 import 'package:rcmasbusapp/ui/admin/buses/Widgets/permit_textfield.dart';
 import 'package:rcmasbusapp/ui/admin/buses/Widgets/pollution_textfield.dart';
+import 'package:rcmasbusapp/ui/admin/buses/Widgets/allotment_textfield.dart';
 import 'package:rcmasbusapp/ui/admin/buses/Widgets/tax_textfield.dart';
 import 'package:rcmasbusapp/ui/admin/buses/buses_viewmodel.dart';
 import 'package:rcmasbusapp/ui/components/snackbar.dart';
@@ -68,6 +69,8 @@ class AddBus extends HookWidget {
                 TextFieldLabel(label: 'Driver *'),
                 Gap(7),
                 DriverSelector(),
+                Gap(20),
+                AllotmentTextField(),
                 Gap(20),
                 TextFieldLabel(label: 'Insurance Expiry Date *'),
                 Gap(7),

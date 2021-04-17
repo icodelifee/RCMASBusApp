@@ -26,6 +26,8 @@ class BusesViewModel extends ChangeNotifier {
   TextEditingController? fitness;
   TextEditingController? tax;
   TextEditingController? permit;
+  TextEditingController? totalSeats;
+  TextEditingController? allotedSeats;
 
   // mutables
 
@@ -47,6 +49,8 @@ class BusesViewModel extends ChangeNotifier {
       'fitness': fitnessDate,
       'tax': taxDate,
       'permit': permitDate,
+      'total_seats': int.parse(totalSeats!.text),
+      'allotted_seats': int.parse(allotedSeats!.text),
       'driver_id': driver!.driverId
     };
     await repo.addBus(data);
@@ -56,6 +60,8 @@ class BusesViewModel extends ChangeNotifier {
     final data = {
       'bus_no': busNumber!.text,
       'bus_license_no': licenseNumber!.text,
+      'total_seats': int.parse(totalSeats!.text),
+      'allotted_seats': int.parse(allotedSeats!.text),
       'pollution': pollutionDate,
       'insurance': insuranceDate,
       'fitness': fitnessDate,
