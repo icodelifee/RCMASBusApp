@@ -11,6 +11,8 @@ class Bus {
       this.insurance,
       this.permit,
       this.pollution,
+      this.allottedSeats,
+      this.totalSeats,
       this.tax});
 
   String? busId;
@@ -18,6 +20,8 @@ class Bus {
   String? busLicenseNo;
   String? busNo;
   String? docId;
+  int? allottedSeats;
+  int? totalSeats;
   DateTime? fitness;
   DateTime? insurance;
   DateTime? permit;
@@ -29,6 +33,8 @@ class Bus {
       driverId: json['driver_id'],
       busLicenseNo: json['bus_license_no'],
       busNo: json['bus_no'],
+      allottedSeats: json['allotted_seats'],
+      totalSeats: json['total_seats'],
       fitness: (json['fitness'] as Timestamp).toDate(),
       insurance: (json['insurance'] as Timestamp).toDate(),
       permit: (json['permit'] as Timestamp).toDate(),
