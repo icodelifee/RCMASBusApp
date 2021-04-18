@@ -15,6 +15,14 @@ class RouteViewModel extends ChangeNotifier {
   TextEditingController? routeName;
   TextEditingController? routeLoc;
   TextEditingController? routeFee;
+  bool _saving = false;
+
+  bool get saving => _saving;
+
+  set saving(bool saving) {
+    _saving = saving;
+    notifyListeners();
+  }
 
   Future<void> addRoute() async {
     await repo.addRoute({
