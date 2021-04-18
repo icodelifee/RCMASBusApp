@@ -51,4 +51,6 @@ abstract class FireStoreRepository {
   Future<void> editBus(Map<String, dynamic> bus, String docId);
   Future<List<Renewal>> getAllRenewals();
   Future<void> approveRenewal(Map<String, dynamic> data);
+  Future<List<Student>> getAllBusStudents(String busId);
+  Future<YourBus> getStudentYourBusData(String passId);
 }

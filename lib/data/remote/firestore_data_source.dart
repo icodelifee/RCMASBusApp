@@ -57,6 +57,7 @@ abstract class FireStore {
   Future<void> approveBusPass(Map<String, dynamic> pass, String docId);
   Future<void> generateBusPass(Map<String, dynamic> data);
   Future<BusPass> getStudentBusPass(String passId);
+  Future<YourBus> getStudentYourBusData(String passId);
   Future<BusPass> getBusPass();
 
   // bus
@@ -65,6 +66,7 @@ abstract class FireStore {
   Future<Bus> getBus(String id);
   Future<void> addBus(Map<String, dynamic> bus);
   Future<void> editBus(Map<String, dynamic> bus, String docId);
+  Future<List<Student>> getAllBusStudents(String busId);
 
   // drivers
   Future<List<Driver>> getAllDrivers();

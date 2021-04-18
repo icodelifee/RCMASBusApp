@@ -214,4 +214,14 @@ class FireStoreRepositoryImpl implements FireStoreRepository {
   Future<void> approveRenewal(Map<String, dynamic> data) {
     return _fireStoreDataSource.approveRenewal(data);
   }
+
+  @override
+  Future<List<Student>> getAllBusStudents(String busId) {
+    return _fireStoreDataSource.getAllBusStudents(busId);
+  }
+
+  @override
+  Future<YourBus> getStudentYourBusData(String passId) {
+    return _fireStoreDataSource.getStudentYourBusData(passId);
+  }
 }

@@ -177,6 +177,21 @@ class FireStoreImpl implements FireStore {
   }
 
   @override
+  Future<YourBus> getStudentYourBusData(String passId) async {
+    if (passId == '') return YourBus();
+    final busPass = await getStudentBusPass(passId);
+    final route = await getRoutes(busPass.routeId!);
+    if (busPass.busId == null) return YourBus(busPass: busPass, route: route);
+
+    try {
+      final bus = await getBus(busPass.busId!);
+      return YourBus(bus: bus, route: route, busPass: busPass);
+    } catch (e) {
+      return YourBus(busPass: busPass, route: route);
+    }
+  }
+
+  @override
   Future<Bus> getBus(String id) async {
     final snapshot = await firestore
         .collection('buses')
@@ -504,5 +519,25 @@ class FireStoreImpl implements FireStore {
     });
 
     return;
+  }
+
+  @override
+  Future<List<Student>> getAllBusStudents(String busId) async {
+    final snapshot = await firestore
+        .collection('buspass')
+        .where('bus_id', isEqualTo: busId)
+        .where('is_approved', isEqualTo: true)
+        .get();
+    if (snapshot.docs.isNotEmpty) {
+      final students = <Student>[];
+      final passes = snapshot.docs;
+      for (final pass in passes) {
+        final student = await getStudent(pass['roll_no']);
+        students.add(student);
+      }
+      return students;
+    } else {
+      return [];
+    }
   }
 }
