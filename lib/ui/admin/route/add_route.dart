@@ -11,6 +11,8 @@ import 'package:rcmasbusapp/ui/components/snackbar.dart';
 import 'package:rcmasbusapp/ui/registration/Widgets/text_field_label.dart';
 import 'package:rcmasbusapp/ui/registration/registration_page_viewmodel.dart';
 
+import 'Widgets/route_fee_textfield.dart';
+
 class AddRoute extends HookWidget {
   final routeAddKey = GlobalKey<FormState>();
 
@@ -19,6 +21,7 @@ class AddRoute extends HookWidget {
     final provider = useProvider(routeProvider);
     provider.routeLoc = useTextEditingController();
     provider.routeName = useTextEditingController();
+    provider.routeFee = useTextEditingController();
     return Scaffold(
         appBar: AdminAppBar(
           title: 'Add Route',
@@ -37,7 +40,10 @@ class AddRoute extends HookWidget {
                       RouteNameTextField(),
                       Gap(30),
                       TextFieldLabel(label: 'Route Location *'),
-                      RouteLocationTextField()
+                      RouteLocationTextField(),
+                      Gap(30),
+                      TextFieldLabel(label: 'Route Fee *'),
+                      RouteFeeTextField()
                     ])))));
   }
 

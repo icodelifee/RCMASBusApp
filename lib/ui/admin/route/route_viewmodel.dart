@@ -14,12 +14,14 @@ class RouteViewModel extends ChangeNotifier {
 
   TextEditingController? routeName;
   TextEditingController? routeLoc;
+  TextEditingController? routeFee;
 
   Future<void> addRoute() async {
     await repo.addRoute({
       'route_name': routeName!.text,
       'route_location': routeLoc!.text,
-      'route_id': Uuid().v4()
+      'route_id': Uuid().v4(),
+      'route_fee': routeFee!.text
     });
   }
 
@@ -28,6 +30,7 @@ class RouteViewModel extends ChangeNotifier {
     data['route_id'] = route['route_id'];
     data['route_name'] = routeName!.text;
     data['route_location'] = routeLoc!.text;
+    data['route_fee'] = routeFee!.text;
     await repo.editRoute(data, route['doc']);
   }
 

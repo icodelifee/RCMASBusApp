@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rcmasbusapp/ui/admin/admin_common/appbar.dart';
+import 'package:rcmasbusapp/ui/admin/route/Widgets/route_fee_textfield.dart';
 import 'package:rcmasbusapp/ui/admin/route/Widgets/route_location_textfield.dart';
 import 'package:rcmasbusapp/ui/admin/route/Widgets/route_name_textfield.dart';
 import 'package:rcmasbusapp/ui/admin/route/route_viewmodel.dart';
@@ -20,6 +21,7 @@ class EditRoute extends HookWidget {
     final provider = useProvider(routeProvider);
     provider.routeLoc = useTextEditingController(text: route['route_location']);
     provider.routeName = useTextEditingController(text: route['route_name']);
+    provider.routeFee = useTextEditingController(text: route['route_fee']);
     return Scaffold(
         appBar: AdminAppBar(
           title: 'Edit Route',
@@ -39,6 +41,9 @@ class EditRoute extends HookWidget {
                       Gap(30),
                       TextFieldLabel(label: 'Route Location *'),
                       RouteLocationTextField(),
+                      Gap(30),
+                      TextFieldLabel(label: 'Route Fee *'),
+                      RouteFeeTextField()
                     ])))));
   }
 
