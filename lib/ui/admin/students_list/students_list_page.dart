@@ -6,13 +6,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rcmasbusapp/app_theme.dart';
 import 'package:rcmasbusapp/data/model/student.dart';
 import 'package:rcmasbusapp/ui/admin/admin_common/appbar.dart';
+import 'package:rcmasbusapp/ui/admin/students_list/Widgets/student_details_card.dart';
 import 'package:rcmasbusapp/ui/admin/students_list/add_student.dart';
 import 'package:rcmasbusapp/ui/admin/students_list/students_list_viewmodel.dart';
 import 'package:rcmasbusapp/ui/admin/students_list/unregistered_students.dart';
-import 'package:rcmasbusapp/ui/components/avatar_icon.dart';
+import 'package:rcmasbusapp/ui/components/no_data.dart';
 import 'package:rcmasbusapp/ui/registration/Widgets/progress_indicator.dart';
 
-import 'edit_student.dart';
 
 class StudentsListPage extends HookWidget {
   @override
@@ -114,38 +114,13 @@ class StudentsListPage extends HookWidget {
                           itemCount: snapshot.data!.length,
                           padding: EdgeInsets.only(top: 10),
                           itemBuilder: (BuildContext context, int index) {
-                            return Card(
-                              child: Container(
-                                  padding: EdgeInsets.all(20),
-                                  child: ListTile(
-                                    leading: AvatarIcon(
-                                        firstName:
-                                            snapshot.data![index].firstName!,
-                                        lastName:
-                                            snapshot.data![index].lastName!),
-                                    title: Text(
-                                      '${snapshot.data![index].firstName!} ${snapshot.data![index].lastName!}',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20),
-                                    ),
-                                    subtitle: Text(
-                                        '${snapshot.data![index].rollNumber} | ${snapshot.data![index].course}'),
-                                    trailing: IconButton(
-                                      onPressed: () => Get.to(() => EditStudent(
-                                          student: snapshot.data![index])),
-                                      icon: Icon(Icons.edit),
-                                    ),
-                                  )),
+                            return StudentDetailsCard(
+                              student: snapshot.data![index],
+                              noEdit: false,
                             );
                           });
                     } else {
-                      return Container(
-                        margin: EdgeInsets.only(top: 100),
-                        child: Center(
-                          child: Text('No Students Found'),
-                        ),
-                      );
+                      return NoData();
                     }
                   } else {
                     return Padding(
