@@ -13,6 +13,10 @@ final busesProvider = FutureProvider.autoDispose(
 final busViewProvider = ChangeNotifierProvider.autoDispose(
     (ref) => BusesViewModel(repo: ref.watch(fireStoreRepositoryProvider)));
 
+final busStudentsProvider = FutureProvider.family.autoDispose(
+    (ref, String id) =>
+        ref.watch(fireStoreRepositoryProvider).getAllBusStudents(id));
+
 class BusesViewModel extends ChangeNotifier {
   BusesViewModel({required this.repo});
   final FireStoreRepository repo;

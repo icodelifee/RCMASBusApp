@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:rcmasbusapp/app_theme.dart';
 import 'package:rcmasbusapp/data/model/bus.dart';
 import 'package:rcmasbusapp/ui/admin/buses/add_bus.dart';
+import 'package:rcmasbusapp/ui/admin/buses/bus_student_list.dart';
 import 'package:rcmasbusapp/ui/admin/buses/view_bus.dart';
 
 class BusesListView extends StatelessWidget {
@@ -28,6 +29,11 @@ class BusesListView extends StatelessWidget {
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  IconButton(
+                      icon: Icon(Icons.group),
+                      onPressed: () => Get.to(() => BusStudentsList(
+                            id: buses[index].busId!,
+                          ))),
                   IconButton(
                       icon: Icon(Icons.edit),
                       onPressed: () => Get.to(() => AddBus(
