@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rcmasbusapp/data/model/bus_pass.dart';
 import 'package:rcmasbusapp/data/model/login_user.dart';
 import 'package:rcmasbusapp/data/model/student.dart';
 import 'package:rcmasbusapp/data/provider/firestore_repository_provider.dart';
@@ -12,6 +13,13 @@ final studentListFuture = FutureProviderFamily(
     (ref, Map<String, dynamic> data) async => await ref
         .watch(fireStoreRepositoryProvider)
         .getStudents(data['year'] as int?, data['text'] as String?));
+
+final studentBusPassProvider = FutureProvider.family.autoDispose(
+    (ref, String? passId) async => passId != ''
+        ? await ref
+            .watch(fireStoreRepositoryProvider)
+            .getStudentYourBusData(passId!)
+        : null);
 
 class StudentsListViewModel extends ChangeNotifier {
   StudentsListViewModel({required this.repo});
