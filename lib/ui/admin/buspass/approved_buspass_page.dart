@@ -6,7 +6,6 @@ import 'package:rcmasbusapp/app_theme.dart';
 import 'package:rcmasbusapp/ui/admin/buspass/Widgets/card_data.dart';
 import 'package:rcmasbusapp/ui/admin/buspass/buspass_viewmodel.dart';
 import 'package:rcmasbusapp/ui/components/no_data.dart';
-import 'package:rcmasbusapp/ui/registration/Widgets/progress_indicator.dart';
 
 class ApprovedBusPassPage extends HookWidget {
   @override
