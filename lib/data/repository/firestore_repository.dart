@@ -55,4 +55,5 @@ abstract class FireStoreRepository {
   Future<List<Student>> getAllBusStudents(String busId);
   Future<YourBus> getStudentYourBusData(String passId);
   Future<List<BusPass>> getAllNotRenewedPass();
+  Future<Payment> getStudentPayment(String pay_id);
 }

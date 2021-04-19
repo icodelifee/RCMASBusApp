@@ -230,4 +230,9 @@ class FireStoreRepositoryImpl implements FireStoreRepository {
   Future<List<BusPass>> getAllNotRenewedPass() {
     return _fireStoreDataSource.getAllNotRenewedPass();
   }
+
+  @override
+  Future<Payment> getStudentPayment(String pay_id) {
+    return _fireStoreDataSource.getStudentPayment(pay_id);
+  }
 }
