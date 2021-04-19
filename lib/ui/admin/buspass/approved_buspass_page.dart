@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rcmasbusapp/app_theme.dart';
 import 'package:rcmasbusapp/ui/admin/buspass/Widgets/card_data.dart';
 import 'package:rcmasbusapp/ui/admin/buspass/buspass_viewmodel.dart';
+import 'package:rcmasbusapp/ui/components/no_data.dart';
 import 'package:rcmasbusapp/ui/registration/Widgets/progress_indicator.dart';
 
 class ApprovedBusPassPage extends HookWidget {
@@ -35,9 +36,7 @@ class ApprovedBusPassPage extends HookWidget {
                 foregroundColor: Colors.black,
                 color: AppColors.secondaryColor,
                 iconWidget: Icon(Icons.approval),
-                onTap: () {
-                  
-                },
+                onTap: () {},
               ),
             ],
             child: CardData(buspass: buspasses[index]),
@@ -45,7 +44,7 @@ class ApprovedBusPassPage extends HookWidget {
         },
       );
     } else {
-      return CustomIndicator();
+      return NoData();
     }
   }
 }
