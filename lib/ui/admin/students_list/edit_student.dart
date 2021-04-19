@@ -5,6 +5,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rcmasbusapp/app_theme.dart';
 import 'package:rcmasbusapp/data/model/student.dart';
 import 'package:rcmasbusapp/ui/admin/admin_common/appbar.dart';
+import 'package:rcmasbusapp/ui/admin/students_list/Widgets/course_selector.dart';
+import 'package:rcmasbusapp/ui/admin/students_list/Widgets/semester_selector.dart';
 import 'package:rcmasbusapp/ui/admin/students_list/Widgets/submit_edit_btn.dart';
 import 'package:rcmasbusapp/ui/admin/students_list/students_list_viewmodel.dart';
 import 'package:rcmasbusapp/ui/registration/Widgets/text_field_label.dart';
@@ -25,6 +27,8 @@ class EditStudent extends HookWidget {
       provider.phone!.text = student.phone!.replaceRange(0, 2, '');
       provider.rollNo!.text = student.rollNumber!;
       provider.email!.text = student.email!;
+      provider.course = student.course;
+      provider.semester = student.semester;
     });
     return Scaffold(
       appBar: AdminAppBar(
@@ -54,6 +58,12 @@ class EditStudent extends HookWidget {
                   label: 'Email',
                 ),
                 EmailTextField(),
+                Gap(15),
+                TextFieldLabel(label: 'Course *'),
+                StudentCourseSelector(),
+                Gap(15),
+                TextFieldLabel(label: 'Semester *'),
+                StudentSemesterSelector(),
                 Gap(50),
                 SubmitEditStudentBtn(student: student)
               ],

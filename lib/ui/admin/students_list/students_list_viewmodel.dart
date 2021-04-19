@@ -34,7 +34,10 @@ class StudentsListViewModel extends ChangeNotifier {
   TextEditingController? phone;
   TextEditingController? rollNo;
   TextEditingController? email;
+
   // mutables
+  String? course;
+  String? semester;
   String? _searchText;
   int? _searchYear;
   bool? _isLoading = false;
@@ -83,6 +86,8 @@ class StudentsListViewModel extends ChangeNotifier {
     data['phone'] = '91' + phone!.text;
     data['roll_no'] = rollNo!.text;
     data['email'] = email!.text;
+    data['semester'] = semester;
+    data['course'] = course;
     await repo.editStudent(data, student.docId!);
     isLoading = false;
   }
