@@ -17,6 +17,14 @@ final buttonStyle = ButtonStyle(
   backgroundColor: MaterialStateProperty.all(AppColors.buttonColor),
 );
 
+InputDecoration inputDecoration(String hint) => InputDecoration(
+    border: border,
+    focusedBorder: border,
+    enabledBorder: border,
+    filled: true,
+    fillColor: AppColors.textInputFillColor,
+    hintText: hint);
+
 final cardShadow = BoxDecoration(
   boxShadow: [
     BoxShadow(
