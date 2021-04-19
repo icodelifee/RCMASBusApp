@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rcmasbusapp/data/model/bus.dart';
 import 'package:rcmasbusapp/data/model/bus_pass.dart';
+import 'package:rcmasbusapp/data/model/route.dart';
 import 'package:rcmasbusapp/data/provider/firestore_repository_provider.dart';
 import 'package:rcmasbusapp/data/repository/firestore_repository.dart';
 
@@ -24,6 +25,6 @@ class BusPassViewModel extends ChangeNotifier {
     pass['is_approved'] = true;
     pass['renewal_date'] = time;
     pass['bus_id'] = bus.busId;
-    await repo.approveBusPass(pass, docId);
+    await repo.approveBusPass(pass, docId, bus.docId!);
   }
 }
