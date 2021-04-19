@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
+import 'package:rcmasbusapp/app_theme.dart';
 import 'package:rcmasbusapp/data/model/renewal.dart';
 import 'package:rcmasbusapp/ui/admin/admin_common/appbar.dart';
+import 'package:rcmasbusapp/ui/admin/students_list/view_student.dart';
 import 'package:rcmasbusapp/utils/date_formatter.dart';
 
 class ViewRenewal extends HookWidget {
@@ -41,7 +44,15 @@ class ViewRenewal extends HookWidget {
             ...dataText(
                 '${renewal.student!.firstName!} ${renewal.student!.lastName!}'),
             ...headingText('Phone Number'),
-            ...dataText(renewal.student!.phone!)
+            ...dataText(renewal.student!.phone!),
+            TextButton(
+                style: buttonStyle,
+                onPressed: () =>
+                    Get.to(() => ViewStudent(student: renewal.student!)),
+                child: Text(
+                  'View More Details',
+                  style: TextStyle(color: Colors.white),
+                ))
           ],
         ),
       ),
