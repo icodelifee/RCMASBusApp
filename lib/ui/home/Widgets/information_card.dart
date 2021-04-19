@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rcmasbusapp/app_theme.dart';
-import 'package:rcmasbusapp/ui/home/home_page_viewmodel.dart';
+import 'package:rcmasbusapp/data/provider/homepage_info_provider.dart';
 import 'package:rcmasbusapp/ui/registration/Widgets/progress_indicator.dart';
 
 class InformationCard extends HookWidget {
