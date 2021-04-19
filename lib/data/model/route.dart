@@ -7,11 +7,13 @@ class Route {
       this.routeLocation,
       this.routeName,
       this.stops,
+      this.routeFee,
       this.docId});
 
   String? routeId;
   String? routeLocation;
   String? routeName;
+  String? routeFee;
   String? docId;
   List<Stop>? stops;
   factory Route.fromJson(Map<String, dynamic> json,
@@ -20,6 +22,7 @@ class Route {
           routeId: json['route_id'],
           routeLocation: json['route_location'],
           routeName: json['route_name'],
+          routeFee: json['route_fee'],
           stops: stops
               .map((QueryDocumentSnapshot e) => Stop.fromJson(e.data()!, e.id))
               .toList(),
