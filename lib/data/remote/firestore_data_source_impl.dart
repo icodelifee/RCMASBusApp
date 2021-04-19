@@ -558,4 +558,27 @@ class FireStoreImpl implements FireStore {
         .map((element) => BusPass.fromJson(element.data()!, element.id))
         .toList();
   }
+
+  @override
+  Future<void> toggleInformation(bool val) async {
+    await firestore
+        .collection('homepage')
+        .doc('information')
+        .update({'enabled': val});
+    return;
+  }
+
+  @override
+  Future<void> updateInformation(String data) async {
+    await firestore
+        .collection('homepage')
+        .doc('information')
+        .update({'data': data});
+    return;
+  }
+
+  @override
+  Stream<DocumentSnapshot> getInformationStream() {
+    return firestore.collection('homepage').doc('information').snapshots();
+  }
 }

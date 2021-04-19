@@ -73,4 +73,8 @@ abstract class FireStore {
   Future<List<Driver>> getAllDrivers();
   Future<void> addDriver(Map<String, dynamic> driver);
   Future<void> editDriver(Map<String, dynamic> driver, String docId);
+
+  Future<void> updateInformation(String data);
+  Future<void> toggleInformation(bool val);
+  Stream<DocumentSnapshot> getInformationStream();
 }

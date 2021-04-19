@@ -56,4 +56,7 @@ abstract class FireStoreRepository {
   Future<YourBus> getStudentYourBusData(String passId);
   Future<List<BusPass>> getAllNotRenewedPass();
   Future<Payment> getStudentPayment(String pay_id);
+  Future<void> updateInformation(String data);
+  Future<void> toggleInformation(bool val);
+  Stream<DocumentSnapshot> getInformationStream();
 }

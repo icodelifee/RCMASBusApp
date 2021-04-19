@@ -235,4 +235,19 @@ class FireStoreRepositoryImpl implements FireStoreRepository {
   Future<Payment> getStudentPayment(String pay_id) {
     return _fireStoreDataSource.getStudentPayment(pay_id);
   }
+
+  @override
+  Future<void> toggleInformation(bool val) {
+    return _fireStoreDataSource.toggleInformation(val);
+  }
+
+  @override
+  Future<void> updateInformation(String data) {
+    return _fireStoreDataSource.updateInformation(data);
+  }
+
+  @override
+  Stream<DocumentSnapshot> getInformationStream() {
+    return _fireStoreDataSource.getInformationStream();
+  }
 }
