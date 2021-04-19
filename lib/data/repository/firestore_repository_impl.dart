@@ -171,8 +171,9 @@ class FireStoreRepositoryImpl implements FireStoreRepository {
   }
 
   @override
-  Future<void> approveBusPass(Map<String, dynamic> pass, String docId) {
-    return _fireStoreDataSource.approveBusPass(pass, docId);
+  Future<void> approveBusPass(
+      Map<String, dynamic> pass, String docId, String busId) {
+    return _fireStoreDataSource.approveBusPass(pass, docId, busId);
   }
 
   @override
@@ -223,5 +224,10 @@ class FireStoreRepositoryImpl implements FireStoreRepository {
   @override
   Future<YourBus> getStudentYourBusData(String passId) {
     return _fireStoreDataSource.getStudentYourBusData(passId);
+  }
+
+  @override
+  Future<List<BusPass>> getAllNotRenewedPass() {
+    return _fireStoreDataSource.getAllNotRenewedPass();
   }
 }

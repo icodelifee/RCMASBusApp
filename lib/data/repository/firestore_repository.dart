@@ -42,7 +42,8 @@ abstract class FireStoreRepository {
       Map<String, dynamic> stop, String routeDocId, String stopDocId);
   Future<void> deleteStop(String stopId, String routeId);
   Future<void> deleteRoute(String routeId);
-  Future<void> approveBusPass(Map<String, dynamic> pass, String docId);
+  Future<void> approveBusPass(
+      Map<String, dynamic> pass, String docId, String busId);
   Future<List<Bus>> getAllBus();
   Future<List<Driver>> getAllDrivers();
   Future<void> addDriver(Map<String, dynamic> driver);
@@ -53,4 +54,5 @@ abstract class FireStoreRepository {
   Future<void> approveRenewal(Map<String, dynamic> data);
   Future<List<Student>> getAllBusStudents(String busId);
   Future<YourBus> getStudentYourBusData(String passId);
+  Future<List<BusPass>> getAllNotRenewedPass();
 }

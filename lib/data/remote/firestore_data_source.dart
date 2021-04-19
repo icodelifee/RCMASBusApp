@@ -30,7 +30,7 @@ abstract class FireStore {
   Future<Renewal> getRenewal(String rollNo, String passId);
   Future<List<Renewal>> getAllRenewals();
   Future<void> approveRenewal(Map<String, dynamic> data);
-
+  Future<List<BusPass>> getAllNotRenewedPass();
   // student
   Future<List<Student>> getStudents(int? year, String? name);
   Future<Student> getStudent(String rollNo);
@@ -54,7 +54,8 @@ abstract class FireStore {
   Future<void> deleteStop(String stopId, String routeId);
 
   // bus pass
-  Future<void> approveBusPass(Map<String, dynamic> pass, String docId);
+  Future<void> approveBusPass(
+      Map<String, dynamic> pass, String docId, String busId);
   Future<void> generateBusPass(Map<String, dynamic> data);
   Future<BusPass> getStudentBusPass(String passId);
   Future<YourBus> getStudentYourBusData(String passId);

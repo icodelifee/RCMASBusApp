@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fuzzywuzzy/fuzzywuzzy.dart';
 import 'package:rcmasbusapp/data/containers/user_container.dart';
@@ -430,8 +431,13 @@ class FireStoreImpl implements FireStore {
   }
 
   @override
-  Future<void> approveBusPass(Map<String, dynamic> pass, String docId) async {
+  Future<void> approveBusPass(
+      Map<String, dynamic> pass, String docId, String busId) async {
     await firestore.collection('buspass').doc(docId).update(pass);
+    await firestore
+        .collection('buses')
+        .doc(busId)
+        .update({'allotted_seats': FieldValue.increment(1)});
     return;
   }
 
@@ -539,5 +545,17 @@ class FireStoreImpl implements FireStore {
     } else {
       return [];
     }
+  }
+
+  @override
+  Future<List<BusPass>> getAllNotRenewedPass() async {
+    final time = DateTime.now();
+    final snapshot = await firestore
+        .collection('buspass')
+        .where('renewal_date', isLessThan: time)
+        .get();
+    return snapshot.docs
+        .map((element) => BusPass.fromJson(element.data()!, element.id))
+        .toList();
   }
 }
