@@ -13,6 +13,8 @@ class App extends StatelessWidget {
       theme: ThemeData(
           primaryColor: AppColors.accentColor,
           accentColor: AppColors.accentColor,
+          backgroundColor: Color(0xFFF3F2F0),
+          scaffoldBackgroundColor: Color(0xFFF3F2F0),
           visualDensity: VisualDensity.adaptivePlatformDensity,
           fontFamily: 'Circular Std',
           textSelectionTheme: TextSelectionThemeData(
