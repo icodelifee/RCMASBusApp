@@ -10,6 +10,7 @@ import 'package:rcmasbusapp/app_theme.dart';
 import 'package:rcmasbusapp/data/containers/user_container.dart';
 import 'package:rcmasbusapp/data/model/bus_pass.dart';
 import 'package:rcmasbusapp/ui/home/home_page_viewmodel.dart';
+import 'package:rcmasbusapp/ui/login/login_page.dart';
 import 'package:rcmasbusapp/ui/login/login_page_viewmodel.dart';
 
 class UnderReviewWidget extends HookWidget {
@@ -58,6 +59,7 @@ class UnderReviewWidget extends HookWidget {
                                         .read(loginViewModelProvider)
                                         .signOut();
                                     userContainer.clear();
+                                    Get.offAll(LoginPage());
                                   },
                                   child: SizedBox(
                                     height: 30,
