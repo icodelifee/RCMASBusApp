@@ -2,18 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:rcmasbusapp/app_theme.dart';
-import 'package:rcmasbusapp/ui/login/Widgets/bg_image.dart';
 import 'package:rcmasbusapp/ui/login/Widgets/generate_otp_card.dart';
 import 'package:rcmasbusapp/ui/login/Widgets/submit_otp_card.dart';
 import 'package:rcmasbusapp/ui/login/login_page_viewmodel.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class LoginPage extends HookWidget {
-  final _transitionBuilder =
-      (Widget child, Animation<double> animation) => ScaleTransition(
-            scale: animation,
-            child: child,
-          );
+  final _transitionBuilder = (Widget c, Animation<double> a) => ScaleTransition(
+        scale: a,
+        child: c,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +19,12 @@ class LoginPage extends HookWidget {
     provider.phone = useTextEditingController();
     provider.pinPutController = useTextEditingController();
     return Scaffold(
-      backgroundColor: Color(0xFFF3F3F1),
+      appBar: PreferredSize(
+          preferredSize: Size.fromHeight(0.0), // here the desired height
+          child: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+          )),
       body: Stack(
         children: [
           Image.asset('assets/illust.png'),

@@ -29,7 +29,7 @@ class SubmitOTPCard extends HookWidget {
               topLeft: Radius.circular(20), topRight: Radius.circular(20))),
       color: const Color(0xFFF7F7F7),
       child: Container(
-        height: Get.height * 0.62,
+        height: Get.height * 0.58,
         child: Column(
           children: [
             VerticalSpacer(num: 18),
