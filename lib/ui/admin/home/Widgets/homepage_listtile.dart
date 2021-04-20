@@ -19,7 +19,7 @@ class HomePageListTile extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 4, horizontal: 3),
       child: Card(
-        elevation: 1.8,
+        elevation: 0.1,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
