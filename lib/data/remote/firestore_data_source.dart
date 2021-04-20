@@ -13,7 +13,7 @@ import 'package:rcmasbusapp/data/model/your_bus.dart';
 abstract class FireStore {
   Future<bool> checkUserEntry(String phone);
   Future<LoginUser> getLoginUser();
-  Future<List<Map<String, dynamic>>> getBusStops(String? route);
+  Future<List<Stop>> getBusStops(String? route);
   Future<void> saveUserData(Map<String, dynamic> data);
 
   Future<Stream<DocumentSnapshot>> getBusPassStream();

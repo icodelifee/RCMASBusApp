@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rcmasbusapp/data/model/stop.dart';
 import 'package:rcmasbusapp/data/provider/firestore_repository_provider.dart';
 import 'package:rcmasbusapp/data/repository/firestore_repository.dart';
 import 'package:uuid/uuid.dart';
@@ -24,7 +25,7 @@ class StopsViewModel extends ChangeNotifier {
   // mutables
   DateTime? time;
 
-  Future<List<Map<String, dynamic>>> getStops(String route) async {
+  Future<List<Stop>> getStops(String route) async {
     return repo.getBusStops(route);
   }
 

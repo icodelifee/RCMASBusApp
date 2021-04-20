@@ -6,11 +6,12 @@ import 'package:rcmasbusapp/ui/components/vertical_spacer.dart';
 import 'package:rcmasbusapp/ui/login/Widgets/route_selector.dart';
 import 'package:rcmasbusapp/ui/registration/Widgets/notes_box.dart';
 import 'package:rcmasbusapp/ui/registration/Widgets/registration_appbar.dart';
+import 'package:rcmasbusapp/ui/registration/Widgets/route_fee.dart';
 import 'package:rcmasbusapp/ui/registration/Widgets/stop_selector.dart';
 import 'package:rcmasbusapp/ui/registration/Widgets/submit_btn.dart';
 import 'package:rcmasbusapp/ui/registration/Widgets/text_field_label.dart';
 
-class RegistrationBusRoute extends HookWidget {
+class RegistrationBusRoute extends StatelessWidget {
   RegistrationBusRoute({required LoginUser user}) : _user = user;
   final LoginUser _user;
   final formKey = GlobalKey<FormState>();
@@ -35,6 +36,8 @@ class RegistrationBusRoute extends HookWidget {
               RouteSelector(),
               Gap(15),
               StopSelector(),
+              Gap(20),
+              RouteFeeText(),
               Spacer(),
               SubmitButton(formKey: formKey, user: _user)
             ],

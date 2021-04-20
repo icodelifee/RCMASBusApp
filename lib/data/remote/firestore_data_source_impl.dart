@@ -55,7 +55,7 @@ class FireStoreImpl implements FireStore {
   }
 
   @override
-  Future<List<Map<String, dynamic>>> getBusStops(String? route) async {
+  Future<List<Stop>> getBusStops(String? route) async {
     if (route == null) return [];
     final qs = await firestore
         .collection('routes')
@@ -64,8 +64,7 @@ class FireStoreImpl implements FireStore {
         .get();
     return qs.docs.map((e) {
       final data = e.data();
-      data!.putIfAbsent('doc', () => e.id);
-      return data;
+      return Stop.fromJson(data!, e.id);
     }).toList();
   }
 

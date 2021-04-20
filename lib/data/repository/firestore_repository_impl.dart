@@ -35,7 +35,7 @@ class FireStoreRepositoryImpl implements FireStoreRepository {
   }
 
   @override
-  Future<List<Map<String, dynamic>>> getBusStops(String? route) {
+  Future<List<Stop>> getBusStops(String? route) {
     return _fireStoreDataSource.getBusStops(route);
   }
 

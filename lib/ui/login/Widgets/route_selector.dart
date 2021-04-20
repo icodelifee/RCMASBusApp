@@ -33,9 +33,11 @@ class RouteSelector extends HookWidget {
               ))
           .toList(),
       onChanged: (Map<String, dynamic>? val) {
+        provider.stopDocId = null;
+        provider.routeDocId = null;
+        provider.stopMap = null;
         provider.routeDocId = val!['doc'];
         provider.routeMap = val;
-        provider.stopDocId = null;
       },
       decoration: InputDecoration(
           border: border,
