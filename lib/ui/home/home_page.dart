@@ -55,7 +55,6 @@ class HomePage extends StatelessWidget {
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Gap(30),
                         InformationCard(),
                         GridView.count(
                           childAspectRatio: cardWidth / cardHeight,
@@ -66,7 +65,7 @@ class HomePage extends StatelessWidget {
                           mainAxisSpacing: 6,
                           crossAxisSpacing: 0,
                           padding: EdgeInsets.only(
-                              top: 10, bottom: 40, left: 15, right: 15),
+                              top: 25, bottom: 40, left: 15, right: 15),
                           children: [
                             BusPassTile(),
                             YourProfileTile(),
