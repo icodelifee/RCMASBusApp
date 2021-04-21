@@ -13,10 +13,10 @@ class YourProfileTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 80.0,
-      decoration: Get.theme!.brightness == Brightness.dark ? null : cardShadow,
+      // decoration: Get.theme!.brightness == Brightness.dark ? null : cardShadow,
       margin: EdgeInsets.all(3.0),
       child: Card(
-        elevation: 0,
+        elevation: 0.2,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: InkWell(
           borderRadius: BorderRadius.circular(10),

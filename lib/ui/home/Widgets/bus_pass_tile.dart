@@ -13,11 +13,11 @@ class BusPassTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 80.0,
-      decoration: Get.theme!.brightness == Brightness.dark ? null : cardShadow,
+      //decoration: Get.theme!.brightness == Brightness.dark ? null : cardShadow,
       margin: EdgeInsets.all(3.0),
       child: Card(
         shape: roundedRectangleBorder,
-        elevation: 0,
+        elevation: 0.2,
         child: InkWell(
           borderRadius: BorderRadius.circular(10),
           onTap: () => Get.to(() => BusPassPage()),

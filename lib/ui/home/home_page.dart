@@ -45,9 +45,7 @@ class HomePage extends HookWidget {
                 alignment: FractionalOffset.bottomCenter,
                 child: Container(
                   decoration: BoxDecoration(
-                      color: Get.isDarkMode
-                          ? Color(0xFF212121)
-                          : Get.theme!.scaffoldBackgroundColor,
+                      color: Color(0xFFF3F2F0),
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(25),
                           topRight: Radius.circular(25))),

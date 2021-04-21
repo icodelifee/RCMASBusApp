@@ -19,11 +19,11 @@ class InformationCard extends HookWidget {
               visible: info['enabled'],
               child: Container(
                 margin: EdgeInsets.only(top: 40, left: 15, right: 15),
-                decoration: Get.isDarkMode ? null : cardShadow,
+                // decoration: Get.isDarkMode ? null : cardShadow,
                 child: Card(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
-                  elevation: 0,
+                  elevation: 0.2,
                   child: Container(
                     padding: EdgeInsets.all(20),
                     width: Get.size.width,

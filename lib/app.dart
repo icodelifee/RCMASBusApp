@@ -10,22 +10,21 @@ class App extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'RCMAS Bus App',
-      themeMode: ThemeMode.light,
-      darkTheme: ThemeData(
-          brightness: Brightness.dark,
-          primaryColor: AppColors.accentColor,
-          accentColor: AppColors.accentColor,
-          backgroundColor: Color(0xFF121212),
-          scaffoldBackgroundColor: Color(0xFF121212),
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-          fontFamily: 'Circular Std',
-          textSelectionTheme: TextSelectionThemeData(
-            cursorColor: AppColors.buttonColor,
-          ),
-          buttonTheme: ButtonThemeData(
-            buttonColor: AppColors.buttonColor,
-          ),
-          buttonColor: AppColors.buttonColor),
+      // darkTheme: ThemeData(
+      //     brightness: Brightness.dark,
+      //     primaryColor: AppColors.accentColor,
+      //     accentColor: AppColors.accentColor,
+      //     backgroundColor: Color(0xFF121212),
+      //     scaffoldBackgroundColor: Color(0xFF121212),
+      //     visualDensity: VisualDensity.adaptivePlatformDensity,
+      //     fontFamily: 'Circular Std',
+      //     textSelectionTheme: TextSelectionThemeData(
+      //       cursorColor: AppColors.buttonColor,
+      //     ),
+      //     buttonTheme: ButtonThemeData(
+      //       buttonColor: AppColors.buttonColor,
+      //     ),
+      //     buttonColor: AppColors.buttonColor),
       theme: ThemeData(
           brightness: Brightness.light,
           primaryColor: AppColors.accentColor,

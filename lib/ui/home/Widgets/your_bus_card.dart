@@ -28,7 +28,7 @@ class YourBusCard extends HookWidget {
           child: Card(
               // color: Get.isDarkMode ? Color(0xFF303030) : Colors.white,
               shape: roundedRectangleBorder,
-              elevation: 0,
+              elevation: 0.2,
               child: bpProvider.when(
                   error: (err, trace) => SizedBox(),
                   loading: () => Container(
