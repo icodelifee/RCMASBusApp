@@ -16,7 +16,7 @@ class GenerateOTPButton extends HookWidget {
           state.value = true;
           Get.focusScope!.unfocus();
           final login = context.read(loginViewModelProvider);
-          final isAdded = await login.checkUserEntry(login.phone!.text);
+          final isAdded = await login.checkUserEntry();
           if (isAdded) {
             await login.signIn(context);
           } else {

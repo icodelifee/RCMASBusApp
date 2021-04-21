@@ -44,8 +44,8 @@ class LoginViewModel extends ChangeNotifier {
     return _repository.submitOTP(pinPutController!.text, verificationId);
   }
 
-  Future<bool> checkUserEntry(String phone) {
-    return _fireStore.checkUserEntry('91' + phone);
+  Future<bool> checkUserEntry() {
+    return _fireStore.checkUserEntry('91' + phone!.text);
   }
 
   Future<void> signOut() {
