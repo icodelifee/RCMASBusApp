@@ -24,7 +24,6 @@ class YourPaymentsPage extends HookWidget {
         body: provider.when(
             data: (data) {
               return Container(
-                // padding: EdgeInsets.all(20),
                 margin: EdgeInsets.only(top: 10),
                 child: ListView.builder(
                   itemCount: data.length,
@@ -33,12 +32,11 @@ class YourPaymentsPage extends HookWidget {
                       margin: EdgeInsets.symmetric(vertical: 2, horizontal: 10),
                       // decoration: cardShadow,
                       child: Card(
-                        elevation: 4,
+                        elevation: 0.2,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10)),
                         child: Container(
                           padding: EdgeInsets.all(20),
-                          // height: 100,
                           width: Get.width,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
