@@ -18,141 +18,147 @@ class HomepageInformation extends HookWidget {
   Widget build(BuildContext context) {
     final provider = useProvider(informationStreamProvider);
     final info = useTextEditingController();
-    return Card(
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 4, horizontal: 3),
+      child: Card(
+        elevation: 0.1,
         shape: roundedRectangleBorder,
-        child: InkWell(
-          borderRadius: circularBorder,
-          onTap: () {
-            Get.generalDialog(
-                pageBuilder: (_, __, ___) {
-                  return Align(
-                    alignment: Alignment.center,
-                    child: Container(
-                        // height: 300,
-                        margin:
-                            EdgeInsets.only(bottom: 50, left: 12, right: 12),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.all(20),
-                          child: Material(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  'Update Information',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Gap(20),
-                                TextField(
-                                  minLines: 10,
-                                  maxLines: 18,
-                                  controller: info,
-                                  decoration: inputDecoration('Information'),
-                                ),
-                                Gap(15),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    TextButton(
-                                        style: buttonStyle,
-                                        onPressed: () => Get.back(),
-                                        child: SizedBox(
-                                          height: 36,
-                                          width: Get.width / 2.8,
-                                          child: Center(
-                                            child: Text(
-                                              'CANCEL',
-                                              style: TextStyle(
-                                                  color: Colors.white),
-                                            ),
-                                          ),
-                                        )),
-                                    TextButton(
-                                        style: buttonStyle,
-                                        onPressed: () async {
-                                          Get.back();
-                                          await context
-                                              .read(fireStoreRepositoryProvider)
-                                              .updateInformation(info.text);
-                                        },
-                                        child: SizedBox(
-                                          height: 36,
-                                          width: Get.width / 2.8,
-                                          child: Center(
-                                            child: Text(
-                                              'UPDATE',
-                                              style: TextStyle(
-                                                  color: Colors.white),
-                                            ),
-                                          ),
-                                        ))
-                                  ],
-                                )
-                              ],
-                            ),
+        child: Container(
+          padding: EdgeInsets.all(20),
+          child: InkWell(
+            borderRadius: circularBorder,
+            onTap: () => _showDialog(info),
+            child: provider.when(
+                data: (data) {
+                  print(data['data']);
+                  info.text = data['data'] ?? '';
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Homepage Information',
+                            style: TextStyle(
+                                fontSize: 17, fontWeight: FontWeight.w600),
                           ),
-                        )),
+                          CupertinoSwitch(
+                              value: data['enabled'] ?? '',
+                              onChanged: (val) async {
+                                await context
+                                    .read(fireStoreRepositoryProvider)
+                                    .toggleInformation(val);
+                                await context.refresh(informationProvider);
+                              })
+                        ],
+                      ),
+                      Divider(
+                        thickness: 0.8,
+                      ),
+                      Text(
+                        data['data'],
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      )
+                    ],
                   );
                 },
-                transitionBuilder: (context, a1, a2, widget) {
-                  return Transform.scale(
-                      scale: a1.value,
-                      child: Opacity(
-                        opacity: a1.value,
-                        child: widget,
-                      ));
-                },
-                transitionDuration: Duration(milliseconds: 200),
-                barrierColor: Colors.black.withOpacity(0.5),
-                barrierLabel: 'Barrier',
-                barrierDismissible: true);
-          },
-          child: Container(
-              padding: EdgeInsets.all(20),
-              child: provider.when(
-                  data: (data) {
-                    info.text = data['data'] ?? '';
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Homepage Information',
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.w600),
-                            ),
-                            CupertinoSwitch(
-                                value: data['enabled'] ?? '',
-                                onChanged: (val) async {
-                                  await context
-                                      .read(fireStoreRepositoryProvider)
-                                      .toggleInformation(val);
-                                  await context.refresh(informationProvider);
-                                })
-                          ],
-                        ),
-                        Divider(
-                          thickness: 0.8,
-                        ),
-                        Text(
-                          data['data'],
-                          style: TextStyle(
-                            fontSize: 16,
-                          ),
-                        )
-                      ],
-                    );
-                  },
-                  loading: () => CustomIndicator(),
-                  error: (error, stack) => SizedBox())),
-        ));
+                loading: () => CustomIndicator(),
+                error: (error, stack) => SizedBox()),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showDialog(
+    TextEditingController info,
+  ) {
+    Get.generalDialog(
+        pageBuilder: (_, __, ___) {
+          return Align(
+            alignment: Alignment.center,
+            child: Container(
+              margin: EdgeInsets.only(bottom: 50, left: 12, right: 12),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Material(
+                borderRadius: BorderRadius.circular(15),
+                child: Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        'Update Information',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      Gap(20),
+                      TextField(
+                        minLines: 10,
+                        maxLines: 18,
+                        controller: info,
+                        decoration: inputDecoration('Information'),
+                      ),
+                      Gap(15),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TextButton(
+                              style: buttonStyle,
+                              onPressed: () => Get.back(),
+                              child: SizedBox(
+                                height: 36,
+                                width: Get.width / 2.8,
+                                child: Center(
+                                  child: Text(
+                                    'CANCEL',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              )),
+                          TextButton(
+                              style: buttonStyle,
+                              onPressed: () async {
+                                Get.back();
+                                await Get.context!
+                                    .read(fireStoreRepositoryProvider)
+                                    .updateInformation(info.text);
+                              },
+                              child: SizedBox(
+                                height: 36,
+                                width: Get.width / 2.8,
+                                child: Center(
+                                  child: Text(
+                                    'UPDATE',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              ))
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+        transitionBuilder: (context, a1, a2, widget) {
+          return Transform.scale(
+              scale: a1.value,
+              child: Opacity(
+                opacity: a1.value,
+                child: widget,
+              ));
+        },
+        transitionDuration: Duration(milliseconds: 200),
+        barrierColor: Colors.black.withOpacity(0.5),
+        barrierLabel: 'Barrier',
+        barrierDismissible: true);
   }
 }
