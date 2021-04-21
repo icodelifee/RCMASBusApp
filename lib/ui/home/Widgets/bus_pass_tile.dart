@@ -32,20 +32,26 @@ class BusPassTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 // mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    'Bus',
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF44B679)),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Bus',
+                        style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF44B679)),
+                      ),
+                      Gap(4),
+                      Text('Pass',
+                          style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                          )),
+                    ],
                   ),
-                  Gap(4),
-                  Text('Pass',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      )),
-                  Gap(7),
+                  Gap(35),
                   Image.asset(
                     'assets/bus-pass.png',
                     height: 50,

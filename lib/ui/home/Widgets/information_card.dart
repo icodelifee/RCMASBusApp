@@ -13,21 +13,21 @@ class InformationCard extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final infoProvider = useProvider(informationProvider);
+    final infoProvider = useProvider(informationStreamProvider);
     return infoProvider.when(
         data: (info) => Visibility(
               visible: info['enabled'],
               child: Container(
-                padding: EdgeInsets.only(left: 15, right: 15),
+                margin: EdgeInsets.only(top: 40, left: 15, right: 15),
                 decoration: cardShadow,
                 child: Card(
+                  color: Colors.white,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
                   elevation: 0,
                   child: Container(
                     padding: EdgeInsets.all(20),
                     width: Get.size.width,
-                    // height: 120,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

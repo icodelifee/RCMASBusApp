@@ -19,6 +19,8 @@ class BusDetailsTile extends StatelessWidget {
         elevation: 0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Material(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           child: InkWell(
             borderRadius: circularBorder,
             onTap: () => Get.to(() => BusDetailsPage()),
@@ -26,7 +28,6 @@ class BusDetailsTile extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                // mainAxisSize: MainAxisSize.min,
                 children: [
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -35,13 +36,13 @@ class BusDetailsTile extends StatelessWidget {
                       Text(
                         'Bus',
                         style: TextStyle(
-                            fontSize: 19,
+                            fontSize: 17,
                             fontWeight: FontWeight.bold,
                             color: Color(0xFF44B679)),
                       ),
                       Text('Details',
                           style: TextStyle(
-                            fontSize: 19,
+                            fontSize: 17,
                             fontWeight: FontWeight.bold,
                           )),
                     ],

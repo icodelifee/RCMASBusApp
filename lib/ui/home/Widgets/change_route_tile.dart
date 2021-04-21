@@ -36,13 +36,13 @@ class ChangeRouteTile extends StatelessWidget {
                     Text(
                       'Change',
                       style: TextStyle(
-                          fontSize: 19,
+                          fontSize: 17,
                           fontWeight: FontWeight.bold,
                           color: Color(0xFF44B679)),
                     ),
                     Text('Route',
                         style: TextStyle(
-                          fontSize: 19,
+                          fontSize: 17,
                           fontWeight: FontWeight.bold,
                         )),
                   ],

@@ -36,13 +36,13 @@ class YourPaymentsTile extends StatelessWidget {
                     Text(
                       'Your',
                       style: TextStyle(
-                          fontSize: 19,
+                          fontSize: 17,
                           fontWeight: FontWeight.bold,
                           color: Color(0xFF44B679)),
                     ),
                     Text('Payments',
                         style: TextStyle(
-                          fontSize: 19,
+                          fontSize: 17,
                           fontWeight: FontWeight.bold,
                         )),
                   ],

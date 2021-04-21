@@ -37,13 +37,13 @@ class PayBusFeeTile extends StatelessWidget {
                     Text(
                       'Pay',
                       style: TextStyle(
-                          fontSize: 19,
+                          fontSize: 17,
                           fontWeight: FontWeight.bold,
                           color: Color(0xFF44B679)),
                     ),
                     Text('Bus Fee',
                         style: TextStyle(
-                          fontSize: 19,
+                          fontSize: 17,
                           fontWeight: FontWeight.bold,
                         )),
                   ],
