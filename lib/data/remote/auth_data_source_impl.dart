@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
+import 'package:rcmasbusapp/ui/components/snackbar.dart';
 import 'package:rcmasbusapp/ui/login/login_page_viewmodel.dart';
 import 'auth_data_source.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -30,18 +32,19 @@ class AuthDataSourceImpl implements AuthDataSource {
     ctx.read(loginViewModelProvider).updateStatus(status);
   }
 
-  final PhoneVerificationCompleted _verificationComplete =
-      (PhoneAuthCredential creds) async {
+  void _verificationComplete(
+      PhoneAuthCredential creds, BuildContext context) async {
     await FirebaseAuth.instance.signInWithCredential(creds);
+    context.read(loginViewModelProvider).verificationId = null;
     _logger.d('Logged In');
-  };
+  }
 
   @override
   Future<void> signIn(String phone, BuildContext context) async {
     ctx = context;
     return FirebaseAuth.instance.verifyPhoneNumber(
         phoneNumber: '+91' + phone,
-        verificationCompleted: _verificationComplete,
+        verificationCompleted: (cred) => _verificationComplete(cred, context),
         verificationFailed: _verificationFailed,
         codeSent: (String verificationId, [int? forceResendingToken]) async {
           _logger.d('Code Sent');
@@ -68,10 +71,18 @@ class AuthDataSourceImpl implements AuthDataSource {
 
   @override
   Future<void> submitOTP(String smsCode, String? verificationId) async {
-    final phoneAuthCredential = PhoneAuthProvider.credential(
-        verificationId: verificationId!,
-        smsCode: smsCode) as PhoneAuthCredential;
-    await _auth.signInWithCredential(phoneAuthCredential);
+    try {
+      final phoneAuthCredential = PhoneAuthProvider.credential(
+          verificationId: verificationId!,
+          smsCode: smsCode) as PhoneAuthCredential;
+      await _auth.signInWithCredential(phoneAuthCredential);
+    } on PlatformException catch (e, _) {
+      _logger.e(e);
+      showSnackbar('Some Error Occured!', e.message!);
+    } on FirebaseAuthException catch (e, _) {
+      _logger.e(e);
+      showSnackbar('Some Error Occured!', e.message!);
+    }
   }
 
   @override

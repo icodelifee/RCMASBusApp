@@ -10,7 +10,6 @@ class SubmitOTPBtn extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () async {
           await context.read(loginViewModelProvider).submitOTP();
-          context.read(loginViewModelProvider).verificationId = null;
         },
         style: ButtonStyle(
             shape: MaterialStateProperty.all(
