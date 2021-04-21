@@ -21,24 +21,25 @@ class YourBusCard extends HookWidget {
     return Positioned(
       top: 100,
       child: Container(
-          // height: 150,
           width: Get.size.width,
           padding: EdgeInsets.only(left: 14, right: 14),
           decoration: cardShadow,
           child: Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
+              shape: roundedRectangleBorder,
               elevation: 0,
               child: bpProvider.when(
                   error: (err, trace) => SizedBox(),
-                  loading: () => CustomIndicator(),
+                  loading: () => Container(
+                        height: 180,
+                        padding: const EdgeInsets.symmetric(vertical: 20),
+                        child: CustomIndicator(),
+                      ),
                   data: (val) {
                     if (val.bus!.busNo != null) {
                       final stop = val.route!.stops!.firstWhere(
                           (element) => element.stopId == val.busPass!.stopId);
                       return Container(
                         padding: EdgeInsets.all(25),
-                        width: Get.size.width,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
