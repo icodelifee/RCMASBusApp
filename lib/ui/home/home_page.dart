@@ -45,42 +45,37 @@ class HomePage extends HookWidget {
                 alignment: FractionalOffset.bottomCenter,
                 child: Container(
                   decoration: BoxDecoration(
-                      color: Color(0xFFF3F2F0),
+                      color: Color(0xFFF2F2F0),
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(25),
                           topRight: Radius.circular(25))),
-                  height: Get.height * 0.62,
+                  height: Get.height * 0.6,
                   width: Get.width,
-                  child: Material(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(25),
-                        topRight: Radius.circular(25)),
-                    child: ListView(
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true,
-                      children: [
-                        InformationCard(),
-                        GridView.count(
-                          childAspectRatio: cardWidth / cardHeight,
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 6,
-                          crossAxisSpacing: 0,
-                          padding: EdgeInsets.only(
-                              top: 25, bottom: 40, left: 15, right: 15),
-                          children: [
-                            BusPassTile(),
-                            YourProfileTile(),
-                            BusDetailsTile(),
-                            PayBusFeeTile(),
-                            YourPaymentsTile(),
-                            ChangeRouteTile()
-                          ],
-                        )
-                      ],
-                    ),
+                  child: ListView(
+                    padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    children: [
+                      InformationCard(),
+                      GridView.count(
+                        childAspectRatio: cardWidth / cardHeight,
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 6,
+                        crossAxisSpacing: 0,
+                        padding: EdgeInsets.only(
+                            top: 25, bottom: 40, left: 15, right: 15),
+                        children: [
+                          BusPassTile(),
+                          YourProfileTile(),
+                          BusDetailsTile(),
+                          PayBusFeeTile(),
+                          YourPaymentsTile(),
+                          ChangeRouteTile()
+                        ],
+                      )
+                    ],
                   ),
                 ),
               ),

@@ -19,7 +19,7 @@ class YourBusCard extends HookWidget {
   Widget build(BuildContext context) {
     final bpProvider = useProvider(yourBusProvider);
     return Positioned(
-      top: 100,
+      top: (Get.height - Get.height * 0.6) / 3,
       child: Container(
           width: Get.size.width,
           padding: EdgeInsets.only(left: 14, right: 14),
