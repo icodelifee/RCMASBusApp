@@ -39,7 +39,9 @@ class ViewBusPass extends HookWidget {
               ...heading('Payment Status'),
               ...data(pass.isPaymentComplete! ? 'Payed' : 'Not Payed'),
               ...heading('Renewal Date'),
-              ...data(pass.renewalDate!.toDate().getDate()),
+              ...data(pass.renewalDate != null
+                  ? pass.renewalDate!.toDate().getDate()
+                  : 'Not Assigned'),
               Gap(20),
               ...heading('Payment Details'),
               Divider(
