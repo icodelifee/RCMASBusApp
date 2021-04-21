@@ -13,11 +13,11 @@ class ChangeRouteTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 80.0,
-      decoration: cardShadow,
+      decoration: Get.theme!.brightness == Brightness.dark ? null : cardShadow,
       margin: EdgeInsets.all(3.0),
       child: Card(
         elevation: 0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        shape: roundedRectangleBorder,
         child: InkWell(
           borderRadius: BorderRadius.circular(10),
           onTap: () => Get.to(() => PayBusFeePage()),

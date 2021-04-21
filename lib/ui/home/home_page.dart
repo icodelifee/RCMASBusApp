@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:rcmasbusapp/ui/home/Widgets/change_route_tile.dart';
@@ -15,16 +16,11 @@ import 'Widgets/bus_fee_tile.dart';
 import 'Widgets/your_bus_card.dart';
 import 'Widgets/your_profile.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final cardWidth = MediaQuery.of(context).size.width / 3;
     final cardHeight = MediaQuery.of(context).size.height / 10;
-
-    final boxDecoration = BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(25), topRight: Radius.circular(25)));
 
     final bgImage = BoxDecoration(
         image: DecorationImage(
@@ -48,12 +44,22 @@ class HomePage extends StatelessWidget {
               Align(
                 alignment: FractionalOffset.bottomCenter,
                 child: Container(
-                  decoration: boxDecoration,
+                  decoration: BoxDecoration(
+                      color: Get.isDarkMode
+                          ? Color(0xFF212121)
+                          : Get.theme!.scaffoldBackgroundColor,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(25),
+                          topRight: Radius.circular(25))),
                   height: Get.height * 0.62,
                   width: Get.width,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
+                  child: Material(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(25),
+                        topRight: Radius.circular(25)),
+                    child: ListView(
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
                       children: [
                         InformationCard(),
                         GridView.count(

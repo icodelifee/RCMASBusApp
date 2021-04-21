@@ -13,11 +13,11 @@ class YourPaymentsTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 80.0,
-      decoration: cardShadow,
+      decoration: Get.theme!.brightness == Brightness.dark ? null : cardShadow,
       margin: EdgeInsets.all(3.0),
       child: Card(
         elevation: 0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        shape: roundedRectangleBorder,
         child: InkWell(
           borderRadius: circularBorder,
           onTap: () => Get.to(() => YourPaymentsPage()),
@@ -27,7 +27,6 @@ class YourPaymentsTile extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              // mainAxisSize: MainAxisSize.min,
               children: [
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,

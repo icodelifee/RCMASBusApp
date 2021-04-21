@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rcmasbusapp/data/provider/student_provider.dart';
+import 'package:rcmasbusapp/ui/components/app_bar.dart';
 import 'package:rcmasbusapp/ui/components/snackbar.dart';
 import 'package:rcmasbusapp/ui/registration/Widgets/disabled_text_field.dart';
 import 'package:rcmasbusapp/ui/registration/Widgets/progress_indicator.dart';
@@ -13,13 +15,8 @@ class YourProfilePage extends HookWidget {
   Widget build(BuildContext context) {
     final studentprovider = useProvider(studentProvider);
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Profile Details',
-            style: TextStyle(fontWeight: FontWeight.w900),
-          ),
-          elevation: 0,
-          backgroundColor: Colors.transparent,
+        appBar: UAppBar(
+          title: 'Profile Details',
         ),
         body: studentprovider.when(
             data: (student) => Container(

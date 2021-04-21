@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rcmasbusapp/ui/bus_details/bus_details_viewmodel.dart';
+import 'package:rcmasbusapp/ui/components/app_bar.dart';
 import 'package:rcmasbusapp/ui/home/home_page_viewmodel.dart';
 
 class BusDetailsPage extends HookWidget {
@@ -13,10 +14,8 @@ class BusDetailsPage extends HookWidget {
     final state = useProvider(busDetailsViewProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: Text('Bus Details'),
+      appBar: UAppBar(
+        title: 'Bus Details',
       ),
       body: Stack(
         children: [

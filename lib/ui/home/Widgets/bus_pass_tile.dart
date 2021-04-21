@@ -13,52 +13,46 @@ class BusPassTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 80.0,
-      decoration: cardShadow,
+      decoration: Get.theme!.brightness == Brightness.dark ? null : cardShadow,
       margin: EdgeInsets.all(3.0),
-      child: Material(
-        color: Colors.transparent,
-        child: Card(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          elevation: 0,
-          child: InkWell(
-            borderRadius: BorderRadius.circular(10),
-            onTap: () => Get.to(() => BusPassPage()),
-            child: SizedBox(
-              height: 80.0,
-              width: 150.0,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                // mainAxisSize: MainAxisSize.min,
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Bus',
+      child: Card(
+        shape: roundedRectangleBorder,
+        elevation: 0,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(10),
+          onTap: () => Get.to(() => BusPassPage()),
+          child: SizedBox(
+            height: 80.0,
+            width: 150.0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Bus',
+                      style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF44B679)),
+                    ),
+                    Text('Pass',
                         style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF44B679)),
-                      ),
-                      Gap(4),
-                      Text('Pass',
-                          style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
-                          )),
-                    ],
-                  ),
-                  Gap(35),
-                  Image.asset(
-                    'assets/bus-pass.png',
-                    height: 50,
-                    width: 50,
-                  )
-                ],
-              ),
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                        )),
+                  ],
+                ),
+                Gap(35),
+                Image.asset(
+                  'assets/bus-pass.png',
+                  height: 50,
+                  width: 50,
+                )
+              ],
             ),
           ),
         ),

@@ -28,7 +28,9 @@ class LoginPage extends HookWidget {
           Align(
               alignment: FractionalOffset.bottomCenter,
               child: Container(
-                  decoration: cardShadow,
+                  decoration: Get.theme!.brightness == Brightness.dark
+                      ? null
+                      : cardShadow,
                   child: Card(
                     key: ValueKey<int>(0),
                     shadowColor: Colors.black38,

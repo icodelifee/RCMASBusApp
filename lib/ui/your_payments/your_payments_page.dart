@@ -4,7 +4,9 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:rcmasbusapp/data/model/payment.dart';
 import 'package:rcmasbusapp/data/provider/bus_payments_provider.dart';
+import 'package:rcmasbusapp/ui/components/app_bar.dart';
 import 'package:rcmasbusapp/ui/components/snackbar.dart';
 import 'package:rcmasbusapp/ui/registration/Widgets/progress_indicator.dart';
 
@@ -13,13 +15,8 @@ class YourPaymentsPage extends HookWidget {
   Widget build(BuildContext context) {
     final provider = useProvider(paymentsProvider);
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Bus Pass Payments',
-            style: TextStyle(fontWeight: FontWeight.w900),
-          ),
-          elevation: 0,
-          backgroundColor: Colors.transparent,
+        appBar: UAppBar(
+          title: 'Bus Pass Payments',
         ),
         body: provider.when(
             data: (data) {
@@ -30,7 +27,7 @@ class YourPaymentsPage extends HookWidget {
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
                       margin: EdgeInsets.symmetric(vertical: 2, horizontal: 10),
-                      // decoration: cardShadow,
+                      // decoration: Get.theme!.brightness == Brightness.dark ? null : cardShadow,
                       child: Card(
                         elevation: 0.2,
                         shape: RoundedRectangleBorder(
@@ -46,21 +43,15 @@ class YourPaymentsPage extends HookWidget {
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 15),
                               ),
-                              Text(
-                                data[index].paymentId!,
-                                style: TextStyle(
-                                    color: Color(0xFF787878), fontSize: 16),
-                              ),
+                              dataText(data[index].paymentId!),
                               Gap(10),
                               Text(
                                 'Bus Pass Id',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 15),
                               ),
-                              Text(
+                              dataText(
                                 data[index].passId!,
-                                style: TextStyle(
-                                    color: Color(0xFF787878), fontSize: 16),
                               ),
                               Gap(10),
                               Text(
@@ -68,10 +59,8 @@ class YourPaymentsPage extends HookWidget {
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 15),
                               ),
-                              Text(
+                              dataText(
                                 data[index].paymentCode!,
-                                style: TextStyle(
-                                    color: Color(0xFF787878), fontSize: 16),
                               ),
                               Gap(10),
                               Text(
@@ -79,12 +68,10 @@ class YourPaymentsPage extends HookWidget {
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 15),
                               ),
-                              Text(
+                              dataText(
                                 DateFormat.yMd()
                                     .add_jm()
                                     .format(data[index].paymentDate!.toDate()),
-                                style: TextStyle(
-                                    color: Color(0xFF787878), fontSize: 16),
                               )
                             ],
                           ),
@@ -100,5 +87,16 @@ class YourPaymentsPage extends HookWidget {
               showSnackbar(err.toString(), stack.toString());
               return SizedBox();
             }));
+  }
+
+  Text dataText(String data) {
+    return Text(
+      data,
+      style: TextStyle(
+          color: Get.theme!.brightness == Brightness.dark
+              ? Colors.white60
+              : Color(0xFF787878),
+          fontSize: 16),
+    );
   }
 }

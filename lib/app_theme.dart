@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 final circularBorder = BorderRadius.circular(10);
 
@@ -28,7 +29,7 @@ InputDecoration inputDecoration(String hint) => InputDecoration(
 final cardShadow = BoxDecoration(
   boxShadow: [
     BoxShadow(
-      color: Colors.grey.withOpacity(.3),
+      color: Get.isDarkMode ? Colors.transparent : Colors.grey.withOpacity(.3),
       blurRadius: 25.0, // soften the shadow
       spreadRadius: 0.0, //extend the shadow
       offset: Offset(

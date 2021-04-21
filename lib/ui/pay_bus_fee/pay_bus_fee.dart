@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:rcmasbusapp/app_theme.dart';
+import 'package:rcmasbusapp/ui/components/app_bar.dart';
 import 'package:rcmasbusapp/ui/home/home_page_viewmodel.dart';
 import 'package:rcmasbusapp/ui/pay_bus_fee/Widgets/paycode_textfield.dart';
 import 'package:rcmasbusapp/ui/pay_bus_fee/Widgets/payment_btn.dart';
@@ -21,13 +22,8 @@ class PayBusFeePage extends HookWidget {
         initialData: null);
     provider.payCode = useTextEditingController();
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Pay Bus Fee',
-          style: TextStyle(fontWeight: FontWeight.w900),
-        ),
-        elevation: 0,
-        backgroundColor: Colors.transparent,
+      appBar: UAppBar(
+        title: 'Pay Bus Fee',
       ),
       body: renewal.hasData
           ? renewal.data?.docId != null

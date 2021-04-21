@@ -19,9 +19,8 @@ class InformationCard extends HookWidget {
               visible: info['enabled'],
               child: Container(
                 margin: EdgeInsets.only(top: 40, left: 15, right: 15),
-                decoration: cardShadow,
+                decoration: Get.isDarkMode ? null : cardShadow,
                 child: Card(
-                  color: Colors.white,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
                   elevation: 0,
@@ -40,9 +39,7 @@ class InformationCard extends HookWidget {
                         Text(
                           info['data'],
                           style: TextStyle(
-                              color: Color(0xFF757575),
-                              fontWeight: FontWeight.normal,
-                              fontSize: 14),
+                              fontWeight: FontWeight.normal, fontSize: 14),
                         ),
                       ],
                     ),

@@ -23,8 +23,10 @@ class YourBusCard extends HookWidget {
       child: Container(
           width: Get.size.width,
           padding: EdgeInsets.only(left: 14, right: 14),
-          decoration: cardShadow,
+          decoration:
+              Get.theme!.brightness == Brightness.dark ? null : cardShadow,
           child: Card(
+              // color: Get.isDarkMode ? Color(0xFF303030) : Colors.white,
               shape: roundedRectangleBorder,
               elevation: 0,
               child: bpProvider.when(
@@ -39,6 +41,9 @@ class YourBusCard extends HookWidget {
                       final stop = val.route!.stops!.firstWhere(
                           (element) => element.stopId == val.busPass!.stopId);
                       return Container(
+                        decoration: BoxDecoration(
+                          borderRadius: circularBorder,
+                        ),
                         padding: EdgeInsets.all(25),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,

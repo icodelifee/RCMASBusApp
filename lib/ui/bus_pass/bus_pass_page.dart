@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rcmasbusapp/ui/bus_pass/Widgets/pass_status.dart';
 import 'package:rcmasbusapp/ui/bus_pass/Widgets/primary_details.dart';
 import 'package:rcmasbusapp/ui/bus_pass/Widgets/route_stop_details.dart';
+import 'package:rcmasbusapp/ui/components/app_bar.dart';
 import 'package:rcmasbusapp/ui/components/snackbar.dart';
 import 'package:rcmasbusapp/ui/home/home_page_viewmodel.dart';
 import 'package:rcmasbusapp/ui/registration/Widgets/progress_indicator.dart';
@@ -13,13 +14,8 @@ class BusPassPage extends HookWidget {
   Widget build(BuildContext context) {
     final busPass = useProvider(yourBusProvider);
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Bus Pass',
-            style: TextStyle(fontWeight: FontWeight.w900),
-          ),
-          elevation: 0,
-          backgroundColor: Colors.transparent,
+        appBar: UAppBar(
+          title: 'Bus Pass',
         ),
         body: busPass.when(
             data: (data) {

@@ -14,48 +14,44 @@ class PayBusFeeTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 80.0,
-      decoration: cardShadow,
+      decoration: Get.theme!.brightness == Brightness.dark ? null : cardShadow,
       margin: EdgeInsets.all(3.0),
       child: Card(
         elevation: 0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        shape: roundedRectangleBorder,
         child: InkWell(
           borderRadius: BorderRadius.circular(10),
           onTap: () => Get.to(() => PayBusFeePage()),
-          child: SizedBox(
-            height: 80.0,
-            width: 150.0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              // mainAxisSize: MainAxisSize.min,
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Pay',
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            // mainAxisSize: MainAxisSize.min,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Pay',
+                    style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF44B679)),
+                  ),
+                  Text('Bus Fee',
                       style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF44B679)),
-                    ),
-                    Text('Bus Fee',
-                        style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold,
-                        )),
-                  ],
-                ),
-                Gap(16),
-                Image.asset(
-                  'assets/pay-bus-fee.png',
-                  height: 50,
-                  width: 50,
-                )
-              ],
-            ),
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                      )),
+                ],
+              ),
+              Gap(16),
+              Image.asset(
+                'assets/pay-bus-fee.png',
+                height: 50,
+                width: 50,
+              )
+            ],
           ),
         ),
       ),

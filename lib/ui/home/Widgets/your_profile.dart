@@ -13,48 +13,44 @@ class YourProfileTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 80.0,
-      decoration: cardShadow,
+      decoration: Get.theme!.brightness == Brightness.dark ? null : cardShadow,
       margin: EdgeInsets.all(3.0),
       child: Card(
         elevation: 0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        child: Material(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(10),
-            onTap: () => Get.to(() => YourProfilePage()),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              // mainAxisSize: MainAxisSize.min,
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Your',
+        child: InkWell(
+          borderRadius: BorderRadius.circular(10),
+          onTap: () => Get.to(() => YourProfilePage()),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            // mainAxisSize: MainAxisSize.min,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Your',
+                    style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF44B679)),
+                  ),
+                  Text('Profile',
                       style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF44B679)),
-                    ),
-                    Text('Profile',
-                        style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold,
-                        )),
-                  ],
-                ),
-                Gap(16),
-                Image.asset(
-                  'assets/your-profile.png',
-                  height: 50,
-                  width: 50,
-                )
-              ],
-            ),
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                      )),
+                ],
+              ),
+              Gap(16),
+              Image.asset(
+                'assets/your-profile.png',
+                height: 50,
+                width: 50,
+              )
+            ],
           ),
         ),
       ),
