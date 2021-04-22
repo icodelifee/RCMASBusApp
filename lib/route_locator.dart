@@ -33,8 +33,6 @@ class RouteLocator extends HookWidget {
                     if (loginUser.hasData) {
                       if (loginUser.data!.userType == 'A') {
                         return AdminHomePage();
-                      } else if (loginUser.data!.userType == 'D') {
-                        return AdminHomePage();
                       } else {
                         if (loginUser.data!.regComplete ?? false) {
                           if (loginUser.data!.payComplete ?? false) {
