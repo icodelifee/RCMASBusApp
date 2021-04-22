@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fuzzywuzzy/fuzzywuzzy.dart';
+import 'package:logger/logger.dart';
 import 'package:rcmasbusapp/data/containers/user_container.dart';
 import 'package:rcmasbusapp/data/model/bus.dart';
 import 'package:rcmasbusapp/data/model/bus_pass.dart';
@@ -21,7 +22,7 @@ class FireStoreImpl implements FireStore {
   FireStoreImpl({required auth}) : _auth = auth;
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth;
-  // final Logger _logger = Logger();
+  final Logger _logger = Logger();
   @override
   Future<bool> checkUserEntry(String phone) async {
     final qs = await firestore
@@ -39,7 +40,11 @@ class FireStoreImpl implements FireStore {
             isEqualTo: _auth.currentUser!.phoneNumber!.replaceAll('+', ''))
         .get();
     final user = LoginUser.fromJson(qs.docs.first.data()!, qs.docs.first.id);
-    userContainer.registerInstance<LoginUser>(user);
+    try {
+      userContainer.registerInstance<LoginUser>(user);
+    } catch (e) {
+      _logger.d(e);
+    }
     return user;
   }
 
