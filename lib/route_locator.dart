@@ -52,7 +52,6 @@ class RouteLocator extends HookWidget {
                 loading: () => LoadingPage(),
                 error: (_, __) => LoadingPage());
           } else {
-            // TODO will add lottie animations
             return InternetErrorPage();
           }
         },
