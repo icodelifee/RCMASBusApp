@@ -58,5 +58,7 @@ abstract class FireStoreRepository {
   Future<Payment> getStudentPayment(String pay_id);
   Future<void> updateInformation(String data);
   Future<void> toggleInformation(bool val);
+  Future<List<Route>> getAllRoutes();
   Stream<DocumentSnapshot> getInformationStream();
+  Future<void> changeRoute(Route route, Stop stop);
 }

@@ -41,10 +41,11 @@ abstract class FireStore {
   // route
   Future<Route> getRoutes(String id);
   Future getBusRoutes();
+  Future<List<Route>> getAllRoutes();
   Future<void> addRoute(Map<String, dynamic> route);
   Future<void> editRoute(Map<String, dynamic> route, String docId);
-  Future<List<BusPass>> getAllBusPass();
   Future<void> deleteRoute(String routeId);
+  Future<void> changeRoute(Route route, Stop stop);
 
   // stop
   Future<List<Stop>> getAllStops();
@@ -68,6 +69,7 @@ abstract class FireStore {
   Future<void> addBus(Map<String, dynamic> bus);
   Future<void> editBus(Map<String, dynamic> bus, String docId);
   Future<List<Student>> getAllBusStudents(String busId);
+  Future<List<BusPass>> getAllBusPass();
 
   // drivers
   Future<List<Driver>> getAllDrivers();

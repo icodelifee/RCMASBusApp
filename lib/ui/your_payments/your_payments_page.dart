@@ -27,7 +27,6 @@ class YourPaymentsPage extends HookWidget {
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
                       margin: EdgeInsets.symmetric(vertical: 2, horizontal: 10),
-                      // decoration: Get.theme!.brightness == Brightness.dark ? null : cardShadow,
                       child: Card(
                         elevation: 0.2,
                         shape: RoundedRectangleBorder(

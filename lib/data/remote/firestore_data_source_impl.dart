@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fuzzywuzzy/fuzzywuzzy.dart';
 import 'package:rcmasbusapp/data/containers/user_container.dart';
@@ -579,5 +578,32 @@ class FireStoreImpl implements FireStore {
   @override
   Stream<DocumentSnapshot> getInformationStream() {
     return firestore.collection('homepage').doc('information').snapshots();
+  }
+
+  @override
+  Future<List<Route>> getAllRoutes() async {
+    final snap = await firestore.collection('routes').get();
+    final routes = <Route>[];
+    for (DocumentSnapshot doc in snap.docs) {
+      final stops = await firestore
+          .collection('routes')
+          .doc(doc.id)
+          .collection('stops')
+          .get();
+      routes.add(Route.fromJson(doc.data()!, stops.docs, doc.id));
+    }
+    return routes;
+  }
+
+  @override
+  Future<void> changeRoute(Route route, Stop stop) async {
+    final user = userContainer.resolve<LoginUser>();
+    final pass = getBusPass();
+    final data = {
+      'route_id': route.routeId,
+      'stop_id': stop.stopId,
+      'roll_number': user.rollNumber,
+      'is_approved': false
+    };
   }
 }

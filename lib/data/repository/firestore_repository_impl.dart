@@ -250,4 +250,14 @@ class FireStoreRepositoryImpl implements FireStoreRepository {
   Stream<DocumentSnapshot> getInformationStream() {
     return _fireStoreDataSource.getInformationStream();
   }
+
+  @override
+  Future<List<Route>> getAllRoutes() {
+    return _fireStoreDataSource.getAllRoutes();
+  }
+
+  @override
+  Future<void> changeRoute(Route route, Stop stop) {
+    return _fireStoreDataSource.changeRoute(route, stop);
+  }
 }

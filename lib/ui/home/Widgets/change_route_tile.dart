@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:rcmasbusapp/app_theme.dart';
+import 'package:rcmasbusapp/ui/change_route/change_route_page.dart';
 import 'package:rcmasbusapp/ui/pay_bus_fee/pay_bus_fee.dart';
 
 class ChangeRouteTile extends StatelessWidget {
@@ -20,7 +21,7 @@ class ChangeRouteTile extends StatelessWidget {
         shape: roundedRectangleBorder,
         child: InkWell(
           borderRadius: BorderRadius.circular(10),
-          onTap: () => Get.to(() => PayBusFeePage()),
+          onTap: () => Get.to(() => ChangeRoutePage()),
           child: SizedBox(
             height: 80.0,
             width: 150.0,
