@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rcmasbusapp/data/model/bus.dart';
 import 'package:rcmasbusapp/data/model/bus_pass.dart';
+import 'package:rcmasbusapp/data/model/change_route.dart';
 import 'package:rcmasbusapp/data/model/driver.dart';
 import 'package:rcmasbusapp/data/model/login_user.dart';
 import 'package:rcmasbusapp/data/model/payment.dart';
@@ -259,5 +260,20 @@ class FireStoreRepositoryImpl implements FireStoreRepository {
   @override
   Future<void> changeRoute(Route route, Stop stop) {
     return _fireStoreDataSource.changeRoute(route, stop);
+  }
+
+  @override
+  Future<List<ChangeRoute>> getAllChangeRoutes() {
+    return _fireStoreDataSource.getAllChangeRoutes();
+  }
+
+  @override
+  Future<ChangeRoute> getStudentChangeRoute() {
+    return _fireStoreDataSource.getStudentChangeRoute();
+  }
+
+  @override
+  Future<void> submitRouteChangePaycode(String payCode, String docId) {
+    return _fireStoreDataSource.submitRouteChangePaycode(payCode, docId);
   }
 }

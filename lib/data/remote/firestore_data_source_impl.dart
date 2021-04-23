@@ -7,6 +7,7 @@ import 'package:logger/logger.dart';
 import 'package:rcmasbusapp/data/containers/user_container.dart';
 import 'package:rcmasbusapp/data/model/bus.dart';
 import 'package:rcmasbusapp/data/model/bus_pass.dart';
+import 'package:rcmasbusapp/data/model/change_route.dart';
 import 'package:rcmasbusapp/data/model/driver.dart';
 import 'package:rcmasbusapp/data/model/login_user.dart';
 import 'package:rcmasbusapp/data/model/payment.dart';
@@ -603,12 +604,63 @@ class FireStoreImpl implements FireStore {
   @override
   Future<void> changeRoute(Route route, Stop stop) async {
     final user = userContainer.resolve<LoginUser>();
-    final pass = getBusPass();
     final data = {
+      'change_route_id': Uuid().v4(),
       'route_id': route.routeId,
+      'route': route.toJson(),
       'stop_id': stop.stopId,
       'roll_number': user.rollNumber,
-      'is_approved': false
+      'is_approved': false,
+      'payment_completed': false, // for balance payment when admin approves
+      'timestamp': DateTime.now(),
+      'status': 'PENDING', // APPROVED|CANCELLED
+      'extra_payment_fee': 0
     };
+    await firestore.collection('route_changes').add(data);
+    return;
+  }
+
+  @override
+  Future<List<ChangeRoute>> getAllChangeRoutes() {
+    // TODO: implement getAllChangeRoutes
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ChangeRoute> getStudentChangeRoute() async {
+    final user = userContainer.resolve<LoginUser>();
+    final snapshot = await firestore
+        .collection('route_changes')
+        .where('roll_no', isEqualTo: user.rollNumber)
+        .get();
+    if (snapshot.docs.isNotEmpty) {
+      return ChangeRoute.fromJson(
+          snapshot.docs.first.data()!, snapshot.docs.first.id);
+    } else {
+      return ChangeRoute();
+    }
+  }
+
+  @override
+  Future<void> submitRouteChangePaycode(String payCode, String docId) async {
+    final user = userContainer.resolve<LoginUser>();
+    final pass = await getBusPass();
+    final paymentId = Uuid().v4();
+    await firestore
+        .collection('route_changes')
+        .doc(docId)
+        .update({'status': 'APPROVED'});
+    await firestore.collection('payments').add({
+      'payment_code': payCode,
+      'payment_date': DateTime.now().toLocal(),
+      'payment_id': paymentId,
+      'pass_id': pass.passId,
+      'roll_no': user.rollNumber,
+    });
+    await firestore
+        .collection('buspass')
+        .doc(pass.docId)
+        .update({'payment_id': paymentId});
+    return;
   }
 }

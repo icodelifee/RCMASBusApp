@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rcmasbusapp/data/model/bus.dart';
 import 'package:rcmasbusapp/data/model/bus_pass.dart';
+import 'package:rcmasbusapp/data/model/change_route.dart';
 import 'package:rcmasbusapp/data/model/driver.dart';
 import 'package:rcmasbusapp/data/model/login_user.dart';
 import 'package:rcmasbusapp/data/model/payment.dart';
@@ -61,4 +62,7 @@ abstract class FireStoreRepository {
   Future<List<Route>> getAllRoutes();
   Stream<DocumentSnapshot> getInformationStream();
   Future<void> changeRoute(Route route, Stop stop);
+  Future<ChangeRoute> getStudentChangeRoute();
+  Future<List<ChangeRoute>> getAllChangeRoutes();
+  Future<void> submitRouteChangePaycode(String payCode, String docId);
 }
