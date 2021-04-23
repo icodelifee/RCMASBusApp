@@ -32,5 +32,6 @@ class Route {
         'route_id': routeId,
         'route_location': routeLocation,
         'route_name': routeName,
+        'route_fee': routeFee
       };
 }
