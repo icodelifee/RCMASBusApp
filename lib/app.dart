@@ -60,6 +60,7 @@ class App extends HookWidget {
               }
             },
             error: (_, __) => InternetErrorPage(),
-            loading: () => LoadingPage()));
+            loading: 
+            () => LoadingPage()));
   }
 }

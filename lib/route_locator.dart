@@ -19,7 +19,7 @@ class RouteLocator extends HookWidget {
   Widget build(BuildContext context) {
     final authChangeProvider = useProvider(authChangesProvider);
     final userProvider = useProvider(userFetchProvider);
-    return authChangeProvider.data!.when(
+    return authChangeProvider.when(
         data: (User? user) {
           if (user == null) {
             return LoginPage();
