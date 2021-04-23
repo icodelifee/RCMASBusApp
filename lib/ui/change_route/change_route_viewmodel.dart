@@ -11,6 +11,9 @@ final newRoutesProvider = FutureProvider.autoDispose(
 final changeRouteProvider = ChangeNotifierProvider.autoDispose((ref) =>
     ChangeRouteViewModel(repo: ref.watch(fireStoreRepositoryProvider)));
 
+final studentRouteChangeProvider = FutureProvider.autoDispose((ref) async =>
+    await ref.watch(fireStoreRepositoryProvider).getStudentChangeRoute());
+
 class ChangeRouteViewModel extends ChangeNotifier {
   ChangeRouteViewModel({required this.repo});
   final FireStoreRepository repo;
@@ -32,5 +35,11 @@ class ChangeRouteViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> changeRoute() async {}
+  Future<void> changeRoute() async {
+    return repo.changeRoute(newRoute!, newStop!);
+  }
+
+  Future<void> submitPaycode(String payCode, String docId) async {
+    return repo.submitRouteChangePaycode(payCode, docId);
+  }
 }
