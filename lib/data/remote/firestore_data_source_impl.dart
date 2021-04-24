@@ -616,7 +616,7 @@ class FireStoreImpl implements FireStore {
       'route_id': route.routeId,
       'route': route.toJson(),
       'stop_id': stop.stopId,
-      'roll_number': user.rollNumber,
+      'roll_no': user.rollNumber,
       'is_approved': false,
       'pre_route': route.toJson(),
       'payment_completed': false, // for balance payment when admin approves
