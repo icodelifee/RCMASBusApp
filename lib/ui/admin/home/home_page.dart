@@ -7,6 +7,7 @@ import 'package:rcmasbusapp/ui/admin/home/Widgets/homepage_information.dart';
 import 'package:rcmasbusapp/ui/admin/home/Widgets/homepage_listtile.dart';
 import 'package:rcmasbusapp/ui/admin/renewals/renewals_menu_page.dart';
 import 'package:rcmasbusapp/ui/admin/route/route_page.dart';
+import 'package:rcmasbusapp/ui/admin/route_changes/route_changes.dart';
 import 'package:rcmasbusapp/ui/admin/students_list/students_list_page.dart';
 import 'package:rcmasbusapp/ui/home/Widgets/drawer.dart';
 
@@ -54,6 +55,11 @@ class AdminHomePage extends StatelessWidget {
                 title: 'Renewals',
                 route: RenewalsMenuPage(),
                 image: 'assets/renewal.png',
+              ),
+              HomePageListTile(
+                title: 'Route Changes',
+                route: RouteChangesPage(),
+                image: 'assets/change.png',
               )
             ],
           )),
