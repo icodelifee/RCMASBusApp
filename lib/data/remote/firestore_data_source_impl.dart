@@ -209,11 +209,16 @@ class FireStoreImpl implements FireStore {
   Future<Route> getRoutes(String id) async {
     final routesRef = firestore.collection('routes');
     final snapshot = await routesRef.where('route_id', isEqualTo: id).get();
-    final routeId = snapshot.docs.first.id;
-    final stopSnapshot = await routesRef.doc(routeId).collection('stops').get();
-    final route =
-        Route.fromJson(snapshot.docs.first.data()!, stopSnapshot.docs, routeId);
-    return route;
+    if (snapshot.docs.isNotEmpty) {
+      final routeId = snapshot.docs.first.id;
+      final stopSnapshot =
+          await routesRef.doc(routeId).collection('stops').get();
+      final route = Route.fromJson(
+          snapshot.docs.first.data()!, stopSnapshot.docs, routeId);
+      return route;
+    } else {
+      return Route();
+    }
   }
 
   @override
@@ -604,6 +609,8 @@ class FireStoreImpl implements FireStore {
   @override
   Future<void> changeRoute(Route route, Stop stop) async {
     final user = userContainer.resolve<LoginUser>();
+    final pass = await getBusPass();
+    final route = await getRoutes(pass.routeId!);
     final data = {
       'change_route_id': Uuid().v4(),
       'route_id': route.routeId,
@@ -611,6 +618,7 @@ class FireStoreImpl implements FireStore {
       'stop_id': stop.stopId,
       'roll_number': user.rollNumber,
       'is_approved': false,
+      'pre_route': route.toJson(),
       'payment_completed': false, // for balance payment when admin approves
       'timestamp': DateTime.now(),
       'status': 'PENDING', // APPROVED|CANCELLED
@@ -621,9 +629,11 @@ class FireStoreImpl implements FireStore {
   }
 
   @override
-  Future<List<ChangeRoute>> getAllChangeRoutes() {
-    // TODO: implement getAllChangeRoutes
-    throw UnimplementedError();
+  Future<List<ChangeRoute>> getAllChangeRoutes() async {
+    final snapshot = await firestore.collection('route_changes').get();
+    return snapshot.docs
+        .map((e) => ChangeRoute.fromJson(e.data()!, e.id))
+        .toList();
   }
 
   @override
@@ -649,7 +659,7 @@ class FireStoreImpl implements FireStore {
     await firestore
         .collection('route_changes')
         .doc(docId)
-        .update({'status': 'APPROVED'});
+        .update({'status': 'APPROVED', 'payment_completed': true});
     await firestore.collection('payments').add({
       'payment_code': payCode,
       'payment_date': DateTime.now().toLocal(),
