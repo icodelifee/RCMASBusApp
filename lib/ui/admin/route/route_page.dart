@@ -24,7 +24,7 @@ class RouteListPage extends HookWidget {
           ),
         ),
         body: Container(
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.only(top: 10),
             child: routes.when(
                 data: (data) => RoutesListView(
                       data: data,

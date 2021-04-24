@@ -14,37 +14,43 @@ class RoutesListView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: data.length,
-      itemBuilder: (BuildContext context, int index) {
-        return Card(
-          child: ListTile(
-            onTap: () =>
-                Get.to(() => StopsPage(routeDocId: data[index]['doc'])),
-            contentPadding: EdgeInsets.all(20),
-            minLeadingWidth: 5,
-            leading: Image.asset(
-              'assets/route.png',
-              height: 40,
+    return Scrollbar(
+      showTrackOnHover: true,
+      thickness: 5,
+      child: ListView.builder(
+        shrinkWrap: true,
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        itemCount: data.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Card(
+            child: ListTile(
+              onTap: () =>
+                  Get.to(() => StopsPage(routeDocId: data[index]['doc'])),
+              contentPadding: EdgeInsets.all(20),
+              minLeadingWidth: 5,
+              leading: Image.asset(
+                'assets/route.png',
+                height: 40,
+              ),
+              title: Text(data[index]['route_name']),
+              subtitle: Text(data[index]['route_location']),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: () => deleteRoute(data[index])),
+                  IconButton(
+                    onPressed: () =>
+                        Get.to(() => EditRoute(route: data[index])),
+                    icon: Icon(Icons.edit),
+                  ),
+                ],
+              ),
             ),
-            title: Text(data[index]['route_name']),
-            subtitle: Text(data[index]['route_location']),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(
-                    icon: Icon(Icons.delete),
-                    onPressed: () => deleteRoute(data[index])),
-                IconButton(
-                  onPressed: () => Get.to(() => EditRoute(route: data[index])),
-                  icon: Icon(Icons.edit),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 
