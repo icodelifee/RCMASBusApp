@@ -24,7 +24,7 @@ class LoginViewModel extends ChangeNotifier {
   TextEditingController? phone;
   TextEditingController? pinPutController;
 
-  void updateVerificationId(String verId) {
+  void updateVerificationId(String? verId) {
     verificationId = verId;
     notifyListeners();
   }

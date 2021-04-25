@@ -25,7 +25,7 @@ class StopsViewModel extends ChangeNotifier {
   // mutables
   DateTime? time;
 
-  Future<List<Stop>> getStops(String route) async {
+  Future<List<Stop>> getStops(String route) {
     return repo.getBusStops(route);
   }
 
