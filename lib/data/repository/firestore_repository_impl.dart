@@ -276,4 +276,14 @@ class FireStoreRepositoryImpl implements FireStoreRepository {
   Future<void> submitRouteChangePaycode(String payCode, String docId) {
     return _fireStoreDataSource.submitRouteChangePaycode(payCode, docId);
   }
+
+  @override
+  Future<void> approveBusRouteChange(Map<String, dynamic> data) {
+    return _fireStoreDataSource.approveBusRouteChange(data);
+  }
+
+  @override
+  Future<void> cancelBusRouteChange(String docId) {
+    return _fireStoreDataSource.cancelBusRouteChange(docId);
+  }
 }

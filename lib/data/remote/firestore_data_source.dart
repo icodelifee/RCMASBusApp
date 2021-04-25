@@ -50,6 +50,8 @@ abstract class FireStore {
   Future<ChangeRoute> getStudentChangeRoute();
   Future<List<ChangeRoute>> getAllChangeRoutes();
   Future<void> submitRouteChangePaycode(String payCode, String docId);
+  Future<void> approveBusRouteChange(Map<String, dynamic> data);
+  Future<void> cancelBusRouteChange(String docId);
 
   // stop
   Future<List<Stop>> getAllStops();

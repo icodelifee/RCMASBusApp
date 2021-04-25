@@ -673,4 +673,55 @@ class FireStoreImpl implements FireStore {
         .update({'payment_id': paymentId});
     return;
   }
+
+  @override
+  Future<void> approveBusRouteChange(Map<String, dynamic> data) async {
+    final passId = Uuid().v4();
+    final student = await getStudent(data['roll_no']);
+    final pass = await getStudentBusPass(student.busPass!);
+    final bus = await getBus(pass.busId!);
+    final batch = firestore.batch();
+
+    await firestore.collection('buspass').add({
+      'pass_id': passId,
+      'is_approved': true,
+      'payment_completed': true,
+      'payment_id': pass.paymentId,
+      'renewal_date': data['renewal_date'],
+      'roll_no': data['roll_no'],
+      'route_id': data['route_id'],
+      'stop_id': data['stop_id'],
+      'bus_id': data['bus_id'],
+      'timestamp': FieldValue.serverTimestamp()
+    });
+
+    batch.update(firestore.collection('route_changes').doc(data['docId']), {
+      'extra_payment_fee': data['extra_payment_fee'],
+      'payment_completed': data['extra_payment_fee'] > 0 ? false : true,
+      'is_approved': true,
+      'status': data['extra_payment_fee'] > 0 ? 'PENDING' : 'APPROVED'
+    });
+
+    batch.update(firestore.collection('students').doc(student.docId),
+        {'bus_pass': passId});
+
+    batch.update(firestore.collection('buses').doc(bus.docId),
+        {'allotted_seats': FieldValue.increment(-1)});
+
+    batch.update(firestore.collection('buses').doc(data['bus_docId']),
+        {'allotted_seats': FieldValue.increment(1)});
+
+    await batch.commit();
+
+    return;
+  }
+
+  @override
+  Future<void> cancelBusRouteChange(String docId) async {
+    await firestore
+        .collection('route_changes')
+        .doc(docId)
+        .update({'status': 'CANCELLED'});
+    return;
+  }
 }
