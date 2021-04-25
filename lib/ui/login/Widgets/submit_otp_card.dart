@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 import 'package:rcmasbusapp/ui/components/vertical_spacer.dart';
@@ -45,6 +47,22 @@ class SubmitOTPCard extends HookWidget {
           ),
         ),
         SubmitOTPBtn(),
+        Gap(10),
+        TextButton(
+            onPressed: () {
+              context.refresh(loginViewModelProvider);
+            },
+            child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.arrow_back, color: Colors.black),
+                  Gap(14),
+                  Text(
+                    'Go Back',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ]))
       ],
     );
   }
