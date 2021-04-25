@@ -35,7 +35,7 @@ class AuthDataSourceImpl implements AuthDataSource {
   void _verificationComplete(
       PhoneAuthCredential creds, BuildContext context) async {
     await FirebaseAuth.instance.signInWithCredential(creds);
-    context.read(loginViewModelProvider).verificationId = null;
+    context.read(loginViewModelProvider).updateVerificationId(null);
     _logger.d('Logged In');
   }
 
