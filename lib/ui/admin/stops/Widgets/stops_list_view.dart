@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rcmasbusapp/data/model/stop.dart';
 import 'package:rcmasbusapp/ui/admin/stops/edit_stop.dart';
 import 'package:rcmasbusapp/ui/admin/stops/stops_viewmodel.dart';
 
@@ -28,19 +29,19 @@ class StopsListView extends HookWidget {
                   height: 35,
                 ),
                 minLeadingWidth: 30,
-                title: Text(stops.data![index]['stop_name']),
-                subtitle: Text(stops.data![index]['stop_location']),
+                title: Text(stops.data![index].stopName!),
+                subtitle: Text(stops.data![index].stopLocation!),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     IconButton(
                       onPressed: () =>
-                          deleteStop(stops.data![index], stopProvider),
+                          deleteStop(stops.data![index].toJson(), stopProvider),
                       icon: Icon(Icons.delete),
                     ),
                     IconButton(
                       onPressed: () => Get.to(() => EditStop(
-                            stop: stops.data![index],
+                            stop: stops.data![index].toJson(),
                             routeId: routeId,
                           )),
                       icon: Icon(Icons.edit),
@@ -61,20 +62,22 @@ class StopsListView extends HookWidget {
 
   void deleteStop(
       Map<String, dynamic> stop, StopsViewModel stopProvider) async {
-    await Get.defaultDialog(
-        confirm: TextButton(
+    await Get.dialog(AlertDialog(
+      title: Text('Are you sure you want to delete'),
+      actions: [
+        TextButton(
             onPressed: () async {
               await stopProvider.deleteStop(stop['doc'], routeId);
               Get.context!.refresh(stopsProvider);
               Get.back();
             },
             child: Text('Yes')),
-        cancel: TextButton(
+        TextButton(
             onPressed: () {
               Get.back();
             },
             child: Text('No')),
-        title: 'Are you sure you want to delete',
-        middleText: '');
+      ],
+    ));
   }
 }

@@ -55,20 +55,22 @@ class RoutesListView extends HookWidget {
   }
 
   void deleteRoute(Map<String, dynamic> route) async {
-    await Get.defaultDialog(
-        confirm: TextButton(
+    await Get.dialog(AlertDialog(
+      title: Text('Are you sure you want to delete'),
+      actions: [
+        TextButton(
             onPressed: () async {
               await Get.context!.read(routeProvider).deleteRoute(route['doc']);
               Get.back();
               await Get.context!.refresh(routesProvider);
             },
             child: Text('Yes')),
-        cancel: TextButton(
+        TextButton(
             onPressed: () {
               Get.back();
             },
             child: Text('No')),
-        title: 'Are you sure you want to delete',
-        middleText: '');
+      ],
+    ));
   }
 }
