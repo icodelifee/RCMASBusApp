@@ -32,10 +32,9 @@ class AuthDataSourceImpl implements AuthDataSource {
     ctx.read(loginViewModelProvider).updateStatus(status);
   }
 
-  void _verificationComplete(
-      PhoneAuthCredential creds, BuildContext context) async {
+  void _verificationComplete(PhoneAuthCredential creds) async {
     await FirebaseAuth.instance.signInWithCredential(creds);
-    context.read(loginViewModelProvider).updateVerificationId(null);
+
     _logger.d('Logged In');
   }
 
@@ -44,7 +43,7 @@ class AuthDataSourceImpl implements AuthDataSource {
     ctx = context;
     return FirebaseAuth.instance.verifyPhoneNumber(
         phoneNumber: '+91' + phone,
-        verificationCompleted: (cred) => _verificationComplete(cred, context),
+        verificationCompleted: _verificationComplete,
         verificationFailed: _verificationFailed,
         codeSent: (String verificationId, [int? forceResendingToken]) async {
           _logger.d('Code Sent');
