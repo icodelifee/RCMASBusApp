@@ -610,7 +610,7 @@ class FireStoreImpl implements FireStore {
   Future<void> changeRoute(Route route, Stop stop) async {
     final user = userContainer.resolve<LoginUser>();
     final pass = await getBusPass();
-    final route = await getRoutes(pass.routeId!);
+    final oldRoute = await getRoutes(pass.routeId!);
     final data = {
       'change_route_id': Uuid().v4(),
       'route_id': route.routeId,
@@ -618,7 +618,7 @@ class FireStoreImpl implements FireStore {
       'stop_id': stop.stopId,
       'roll_no': user.rollNumber,
       'is_approved': false,
-      'pre_route': route.toJson(),
+      'pre_route': oldRoute.toJson(),
       'payment_completed': false, // for balance payment when admin approves
       'timestamp': DateTime.now(),
       'status': 'PENDING', // APPROVED|CANCELLED
@@ -643,9 +643,14 @@ class FireStoreImpl implements FireStore {
         .collection('route_changes')
         .where('roll_no', isEqualTo: user.rollNumber)
         .get();
+
     if (snapshot.docs.isNotEmpty) {
-      return ChangeRoute.fromJson(
-          snapshot.docs.first.data()!, snapshot.docs.first.id);
+      final crList = snapshot.docs
+          .map((e) => ChangeRoute.fromJson(e.data()!, e.id))
+          .toList();
+      crList.sort((a, b) => a.timestamp!.compareTo(b.timestamp!));
+
+      return crList.last;
     } else {
       return ChangeRoute();
     }
@@ -682,10 +687,10 @@ class FireStoreImpl implements FireStore {
     final bus = await getBus(pass.busId!);
     final batch = firestore.batch();
 
-    await firestore.collection('buspass').add({
+    final mapData = {
       'pass_id': passId,
       'is_approved': true,
-      'payment_completed': true,
+      'payment_complete': true,
       'payment_id': pass.paymentId,
       'renewal_date': data['renewal_date'],
       'roll_no': data['roll_no'],
@@ -693,7 +698,9 @@ class FireStoreImpl implements FireStore {
       'stop_id': data['stop_id'],
       'bus_id': data['bus_id'],
       'timestamp': FieldValue.serverTimestamp()
-    });
+    };
+
+    await firestore.collection('buspass').add(mapData);
 
     batch.update(firestore.collection('route_changes').doc(data['docId']), {
       'extra_payment_fee': data['extra_payment_fee'],
