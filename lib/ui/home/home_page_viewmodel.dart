@@ -5,16 +5,14 @@ import 'package:rcmasbusapp/data/model/your_bus.dart';
 import 'package:rcmasbusapp/data/provider/firestore_repository_provider.dart';
 import 'package:rcmasbusapp/data/repository/firestore_repository.dart';
 
-final homePageProvider = ChangeNotifierProvider(
+final homePageProvider = ChangeNotifierProvider.autoDispose(
     (ref) => HomePageViewModel(repo: ref.watch(fireStoreRepositoryProvider)));
 
-final busPassProvider = FutureProvider<BusPass>(
+final busPassProvider = FutureProvider.autoDispose<BusPass>(
     (ref) async => await ref.watch(fireStoreRepositoryProvider).getBusPass());
 
-final yourBusProvider = FutureProvider<YourBus>(
+final yourBusProvider = FutureProvider.autoDispose<YourBus>(
     (ref) async => await ref.watch(fireStoreRepositoryProvider).yourBusData());
-
-
 
 class HomePageViewModel extends ChangeNotifier {
   HomePageViewModel({required this.repo});
