@@ -40,13 +40,16 @@ class RouteChangesListView extends StatelessWidget {
                         style: TextStyle(fontSize: 20)),
                     Gap(18),
                     changeRoutes[index].status == 'PENDING'
-                        ? Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              approveButton(index),
-                              cancelButton(context, index)
-                            ],
-                          )
+                        ? changeRoutes[index].extraPaymentFee! == 0
+                            ? Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  approveButton(index),
+                                  cancelButton(context, index)
+                                ],
+                              )
+                            : SizedBox()
                         : SizedBox()
                   ],
                 ),
