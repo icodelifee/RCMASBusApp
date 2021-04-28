@@ -149,7 +149,7 @@ class RouteChangeApproveSheet extends HookWidget {
       'stop_id': changeRoute.stopId,
       'bus_id': bus.busId,
       'bus_docId': bus.docId,
-      'extra_payment_fee': int.parse(fee)
+      'extra_payment_fee': int.parse(fee == '' ? '0' : fee)
     };
     await context.read(fireStoreRepositoryProvider).approveBusRouteChange(data);
     await context.refresh(routeChangeListProvider);
