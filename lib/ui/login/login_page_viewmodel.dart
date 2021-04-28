@@ -5,8 +5,8 @@ import 'package:rcmasbusapp/data/provider/firestore_repository_provider.dart';
 import 'package:rcmasbusapp/data/repository/auth_repository.dart';
 import 'package:rcmasbusapp/data/repository/firestore_repository.dart';
 
-final loginViewModelProvider = ChangeNotifierProvider<LoginViewModel>((ref) =>
-    LoginViewModel(
+final loginViewModelProvider =
+    ChangeNotifierProvider.autoDispose<LoginViewModel>((ref) => LoginViewModel(
         repository: ref.read(authRepositoryProvider),
         fireStoreRepo: ref.read(fireStoreRepositoryProvider)));
 
